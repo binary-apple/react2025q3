@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import Loader from '../Loader/Loader';
 
 type SearchResultsState = {
   isLoading: boolean;
@@ -36,7 +37,12 @@ class SearchResults extends Component<object, SearchResultsState> {
   }
 
   render() {
-    return <div>Search results</div>;
+    return (
+      <>
+        {this.state.isLoading && <Loader />}
+        {!this.state.isLoading && <div>Search results</div>}
+      </>
+    );
   }
 }
 
