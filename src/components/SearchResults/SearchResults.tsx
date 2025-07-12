@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import Loader from '../Loader/Loader';
+import SearchItem, { type SearchItemProps } from '../SearchItem/SearchItem';
 
 type SearchResultsState = {
   isLoading: boolean;
@@ -40,7 +41,23 @@ class SearchResults extends Component<object, SearchResultsState> {
     return (
       <>
         {this.state.isLoading && <Loader />}
-        {!this.state.isLoading && <div>Search results</div>}
+        {!this.state.isLoading &&
+          this.state.searchResults.map((searchItem: unknown, id: number) => {
+            const searchItemProps = searchItem as SearchItemProps;
+            return (
+              <SearchItem
+                key={id}
+                fullName={searchItemProps.fullName}
+                nickname={searchItemProps.nickname}
+                hogwartsHouse={searchItemProps.hogwartsHouse}
+                interpretedBy={searchItemProps.interpretedBy}
+                // children={searchItemProps.children}
+                image={searchItemProps.image}
+                birthdate={searchItemProps.birthdate}
+                index={searchItemProps.index}
+              />
+            );
+          })}
       </>
     );
   }
