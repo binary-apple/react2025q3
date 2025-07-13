@@ -52,7 +52,7 @@ class SearchResults extends Component<object, SearchResultsState> {
                 nickname={searchItemProps.nickname}
                 hogwartsHouse={searchItemProps.hogwartsHouse}
                 interpretedBy={searchItemProps.interpretedBy}
-                // children={searchItemProps.children}
+                // TODO: pass character's children
                 image={searchItemProps.image}
                 birthdate={searchItemProps.birthdate}
                 index={searchItemProps.index}

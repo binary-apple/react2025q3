@@ -23,19 +23,15 @@ class SearchItem extends Component<SearchItemProps, object> {
         ></img>
         <div className={classes.details}>
           <div className={classes.name}>{this.props.fullName}</div>
-
           <div>
             <b>Birthday:</b> {this.props.birthdate}
           </div>
           <div>
             <b>Hogwarts house:</b> {this.props.hogwartsHouse}
           </div>
-          {/* <div>
-            <b>Children:</b>{' '}
-            {this.props.children?.length === 0
-              ? '-'
-              : this.props.children?.join(', ')}
-          </div> */}
+          {
+            // TODO: display character's children
+          }
         </div>
       </div>
     );
