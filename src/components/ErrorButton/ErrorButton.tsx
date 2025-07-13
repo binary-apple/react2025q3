@@ -2,7 +2,15 @@ import { Component } from 'react';
 
 class ErrorButton extends Component {
   render() {
-    return <button>Error</button>;
+    return (
+      <button
+        onClick={() => {
+          throw new Error('Error!');
+        }}
+      >
+        Error
+      </button>
+    );
   }
 }
 
