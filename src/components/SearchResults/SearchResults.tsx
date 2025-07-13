@@ -3,47 +3,19 @@ import Loader from '../Loader/Loader';
 import SearchItem, { type SearchItemProps } from '../SearchItem/SearchItem';
 import classes from './SearchResults.module.css';
 
-type SearchResultsState = {
+type SearchResultsProps = {
   isLoading: boolean;
   isError: boolean;
   searchResults: unknown[];
 };
 
-class SearchResults extends Component<object, SearchResultsState> {
-  constructor(props: object) {
-    super(props);
-    this.state = {
-      isLoading: false,
-      isError: false,
-      searchResults: [],
-    };
-  }
-  async componentDidMount(): Promise<void> {
-    this.setState({ isLoading: true });
-    const response = await fetch(
-      'https://potterapi-fedeperin.vercel.app/en/characters',
-      {
-        method: 'GET',
-        headers: {
-          'content-type': 'application/json',
-        },
-      }
-    );
-    const results = await response.json();
-
-    if (response.ok) {
-      this.setState({ searchResults: results, isLoading: false });
-    } else {
-      this.setState({ isLoading: false, isError: true });
-    }
-  }
-
+class SearchResults extends Component<SearchResultsProps, object> {
   render() {
     return (
       <div className={classes.wrapper}>
-        {this.state.isLoading && <Loader />}
-        {!this.state.isLoading &&
-          this.state.searchResults.map((searchItem: unknown, id: number) => {
+        {this.props.isLoading && <Loader />}
+        {!this.props.isLoading &&
+          this.props.searchResults.map((searchItem: unknown, id: number) => {
             const searchItemProps = searchItem as SearchItemProps;
             return (
               <SearchItem
