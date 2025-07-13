@@ -14,6 +14,9 @@ class SearchResults extends Component<SearchResultsProps, object> {
     return (
       <div className={classes.wrapper}>
         {this.props.isLoading && <Loader />}
+        {!this.props.isLoading && this.props.searchResults.length === 0 && (
+          <div>Nothing was found</div>
+        )}
         {!this.props.isLoading &&
           this.props.searchResults.map((searchItem: unknown, id: number) => {
             const searchItemProps = searchItem as SearchItemProps;
