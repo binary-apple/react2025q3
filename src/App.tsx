@@ -19,7 +19,7 @@ class App extends Component<object, AppState> {
     this.state = {
       isLoading: false,
       isError: false,
-      searchString: '',
+      searchString: localStorage.getItem('searchString') ?? '',
       searchResults: [],
     };
   }
@@ -30,6 +30,7 @@ class App extends Component<object, AppState> {
 
   async onSearch(searchString: string) {
     this.setState({ isLoading: true });
+    localStorage.setItem('searchString', searchString);
     const response = await getResponse(searchString);
     const results = await response.json();
 
