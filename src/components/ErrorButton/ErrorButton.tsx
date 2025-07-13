@@ -1,16 +1,24 @@
 import { Component } from 'react';
 
-class ErrorButton extends Component {
+type ErrorState = {
+  isError: boolean;
+};
+
+class ErrorButton extends Component<object, ErrorState> {
+  constructor(props: object) {
+    super(props);
+    this.state = { isError: false };
+  }
+
+  onClick() {
+    this.setState({ isError: true });
+  }
+
   render() {
-    return (
-      <button
-        onClick={() => {
-          throw new Error('Error!');
-        }}
-      >
-        Error
-      </button>
-    );
+    if (this.state.isError) {
+      throw new Error('Something went wrong');
+    }
+    return <button onClick={() => this.onClick()}>Error</button>;
   }
 }
 
