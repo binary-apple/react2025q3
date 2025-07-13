@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import Loader from '../Loader/Loader';
 import SearchItem, { type SearchItemProps } from '../SearchItem/SearchItem';
+import classes from './SearchResults.module.css';
 
 type SearchResultsState = {
   isLoading: boolean;
@@ -39,7 +40,7 @@ class SearchResults extends Component<object, SearchResultsState> {
 
   render() {
     return (
-      <>
+      <div className={classes.wrapper}>
         {this.state.isLoading && <Loader />}
         {!this.state.isLoading &&
           this.state.searchResults.map((searchItem: unknown, id: number) => {
@@ -58,7 +59,7 @@ class SearchResults extends Component<object, SearchResultsState> {
               />
             );
           })}
-      </>
+      </div>
     );
   }
 }

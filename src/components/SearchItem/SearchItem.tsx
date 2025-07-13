@@ -16,9 +16,14 @@ class SearchItem extends Component<SearchItemProps, object> {
   render() {
     return (
       <div className={classes['search-item-wrapper']}>
-        <div>{this.props.fullName}</div>
-        <div>
-          <img src={this.props.image} alt={this.props.fullName}></img>
+        <img
+          src={this.props.image}
+          alt={this.props.fullName}
+          className={classes.img}
+        ></img>
+        <div className={classes.details}>
+          <div className={classes.name}>{this.props.fullName}</div>
+
           <div>
             <b>Birthday:</b> {this.props.birthdate}
           </div>

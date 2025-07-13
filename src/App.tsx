@@ -9,9 +9,11 @@ class App extends Component {
   render() {
     return (
       <ErrorBoundary>
-        <Search />
-        <SearchResults />
-        <ErrorButton />
+        <div className="wrapper">
+          <Search />
+          <ErrorButton />
+          <SearchResults />
+        </div>
       </ErrorBoundary>
     );
   }
