@@ -113,3 +113,24 @@ describe('Search results: renders all items ', () => {
     expect(screen.getByTestId('search-results').children.length).toBe(4);
   });
 });
+
+describe('Search results: Error ', () => {
+  const mockSearchResultsProps = {
+    isLoading: false,
+    isError: true,
+    searchResults: [],
+  };
+
+  test('Displays "error" message if isError === true', () => {
+    render(
+      <SearchResults
+        isLoading={mockSearchResultsProps.isLoading}
+        isError={mockSearchResultsProps.isError}
+        searchResults={mockSearchResultsProps.searchResults}
+      />
+    );
+    expect(
+      screen.getByText(/There was an error. Try again/i)
+    ).toBeInTheDocument();
+  });
+});
