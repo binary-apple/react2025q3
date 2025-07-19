@@ -34,3 +34,22 @@ describe('Search results: Loader ', () => {
     expect(screen.queryByTestId('loader')).toBeInTheDocument();
   });
 });
+
+describe('Search results: no data found ', () => {
+  const mockSearchResultsProps = {
+    isLoading: false,
+    isError: false,
+    searchResults: [],
+  };
+
+  test('Displays "no results" message when data array is empty', () => {
+    render(
+      <SearchResults
+        isLoading={mockSearchResultsProps.isLoading}
+        isError={mockSearchResultsProps.isError}
+        searchResults={mockSearchResultsProps.searchResults}
+      />
+    );
+    expect(screen.getByText(/nothing was found/i)).toBeInTheDocument();
+  });
+});
