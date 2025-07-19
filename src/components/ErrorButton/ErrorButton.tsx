@@ -18,7 +18,11 @@ class ErrorButton extends Component<object, ErrorState> {
     if (this.state.isError) {
       throw new Error('Something went wrong');
     }
-    return <button onClick={() => this.onClick()}>Error</button>;
+    return (
+      <button onClick={() => this.onClick()} data-testid="error-button">
+        Error
+      </button>
+    );
   }
 }
 
