@@ -53,3 +53,63 @@ describe('Search results: no data found ', () => {
     expect(screen.getByText(/nothing was found/i)).toBeInTheDocument();
   });
 });
+
+describe('Search results: renders all items ', () => {
+  const mockSearchResultsProps = {
+    isLoading: false,
+    isError: false,
+    searchResults: [
+      {
+        fullName: 'Sir Nicholas de Mimsy-Porpington',
+        nickname: 'Nearly Headless Nick',
+        hogwartsHouse: 'Gryffindor',
+        interpretedBy: 'John Marwood Cleese',
+        children: [],
+        image: 'test-image.jpg',
+        birthdate: 'Between Jan 1, 1401 and Oct 31, 1475',
+        index: 0,
+      },
+      {
+        fullName: 'The Fat Friar',
+        nickname: 'The Fat Friar',
+        hogwartsHouse: 'Hufflepuff',
+        interpretedBy: 'Simon Fisher-Becker',
+        children: [],
+        image: 'test-image.jpg',
+        birthdate: '10th century',
+        index: 1,
+      },
+      {
+        fullName: 'Helena Ravenclaw',
+        nickname: 'The Grey Lady',
+        hogwartsHouse: 'Ravenclaw',
+        interpretedBy: 'Nina Young',
+        children: [],
+        image: 'test-image.jpg',
+        birthdate: 'Post-982',
+        index: 2,
+      },
+      {
+        fullName: 'The Bloody Baron',
+        nickname: 'The Bloody Baron',
+        hogwartsHouse: 'Slytherin',
+        interpretedBy: 'Terence Bayler',
+        children: [],
+        image: 'test-image.jpg',
+        birthdate: 'Post 982',
+        index: 3,
+      },
+    ],
+  };
+
+  test('Renders correct number of items when data is provided', () => {
+    render(
+      <SearchResults
+        isLoading={mockSearchResultsProps.isLoading}
+        isError={mockSearchResultsProps.isError}
+        searchResults={mockSearchResultsProps.searchResults}
+      />
+    );
+    expect(screen.getByTestId('search-results').children.length).toBe(4);
+  });
+});
