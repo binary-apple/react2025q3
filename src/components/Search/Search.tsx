@@ -33,8 +33,11 @@ class Search extends Component<SearchProps, SearchState> {
           value={this.state.searchString}
           onChange={(e) => this.onInputChange(e)}
           placeholder="Search..."
+          data-testid="search-input"
         ></input>
-        <button onClick={() => this.onClick()}>Search</button>
+        <button onClick={() => this.onClick()} data-testid="search-button">
+          Search
+        </button>
       </div>
     );
   }

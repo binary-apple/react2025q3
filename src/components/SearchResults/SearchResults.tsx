@@ -12,7 +12,7 @@ type SearchResultsProps = {
 class SearchResults extends Component<SearchResultsProps, object> {
   render() {
     return (
-      <div className={classes.wrapper}>
+      <div className={classes.wrapper} data-testid="search-results">
         {this.props.isError && <div>There was an error. Try again</div>}
         {!this.props.isError && this.props.isLoading && <Loader />}
         {!this.props.isError &&

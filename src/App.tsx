@@ -29,14 +29,18 @@ class App extends Component<object, AppState> {
   }
 
   async onSearch(searchString: string) {
-    this.setState({ isLoading: true });
-    localStorage.setItem('searchString', searchString);
-    const response = await getResponse(searchString);
-    const results = await response.json();
+    try {
+      this.setState({ isLoading: true });
+      localStorage.setItem('searchString', searchString);
+      const response = await getResponse(searchString);
+      const results = await response.json();
 
-    if (response.ok) {
-      this.setState({ searchResults: results, isLoading: false });
-    } else {
+      if (response.ok) {
+        this.setState({ searchResults: results, isLoading: false });
+      } else {
+        this.setState({ isLoading: false, isError: true });
+      }
+    } catch {
       this.setState({ isLoading: false, isError: true });
     }
   }
