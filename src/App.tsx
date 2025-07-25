@@ -1,7 +1,6 @@
 import './App.css';
 import { Component } from 'react';
 import Search from './components/Search/Search';
-import ErrorButton from './components/ErrorButton/ErrorButton';
 import SearchResults from './components/SearchResults/SearchResults';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 import { getResponse } from './api/api';
@@ -50,7 +49,6 @@ class App extends Component<object, AppState> {
       <ErrorBoundary>
         <div className="wrapper">
           <Search onSearch={(searchString) => this.onSearch(searchString)} />
-          <ErrorButton />
           <SearchResults
             isError={this.state.isError}
             isLoading={this.state.isLoading}
