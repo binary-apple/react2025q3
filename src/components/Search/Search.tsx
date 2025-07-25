@@ -1,14 +1,13 @@
-import { useState, type ChangeEvent } from 'react';
+import type { ChangeEvent } from 'react';
 import classes from './Search.module.css';
+import useLocalStorage from '../../hooks/useLocalStorage';
 
 type SearchProps = {
   onSearch: (searchString: string) => void;
 };
 
 function Search(props: SearchProps) {
-  const [searchString, setSearchString] = useState(
-    localStorage.getItem('searchString') ?? ''
-  );
+  const [searchString, setSearchString] = useLocalStorage('searchString');
 
   function onInputChange(e: ChangeEvent) {
     if (e.target instanceof HTMLInputElement) {

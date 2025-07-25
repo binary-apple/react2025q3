@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Search from '../../components/Search/Search';
 import SearchResults from '../../components/SearchResults/SearchResults';
 import { getResponse } from '../../api/api';
+import useLocalStorage from '../../hooks/useLocalStorage';
 
 type AppState = {
   isLoading: boolean;
@@ -11,17 +12,18 @@ type AppState = {
 };
 
 function MainPage() {
+  const [searchString, setSearchString] = useLocalStorage('searchString');
   const [appState, setAppState] = useState<AppState>({
     isLoading: false,
     isError: false,
-    searchString: localStorage.getItem('searchString') ?? '',
+    searchString: searchString,
     searchResults: [],
   });
 
   async function onSearch(searchString: string) {
     try {
       setAppState({ ...appState, isLoading: true });
-      localStorage.setItem('searchString', searchString);
+      setSearchString(searchString);
       const response = await getResponse(searchString);
       const results = await response.json();
 
