@@ -1,5 +1,5 @@
 import './App.css';
-import { Component } from 'react';
+import { useEffect, useState } from 'react';
 import Search from './components/Search/Search';
 import SearchResults from './components/SearchResults/SearchResults';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
@@ -12,52 +12,47 @@ type AppState = {
   searchResults: unknown[];
 };
 
-class App extends Component<object, AppState> {
-  constructor(props: object) {
-    super(props);
-    this.state = {
-      isLoading: false,
-      isError: false,
-      searchString: localStorage.getItem('searchString') ?? '',
-      searchResults: [],
-    };
-  }
+function App() {
+  const [appState, setAppState] = useState<AppState>({
+    isLoading: false,
+    isError: false,
+    searchString: localStorage.getItem('searchString') ?? '',
+    searchResults: [],
+  });
 
-  componentDidMount(): void {
-    this.onSearch(this.state.searchString);
-  }
-
-  async onSearch(searchString: string) {
+  async function onSearch(searchString: string) {
     try {
-      this.setState({ isLoading: true });
+      setAppState({ ...appState, isLoading: true });
       localStorage.setItem('searchString', searchString);
       const response = await getResponse(searchString);
       const results = await response.json();
 
       if (response.ok) {
-        this.setState({ searchResults: results, isLoading: false });
+        setAppState({ ...appState, searchResults: results, isLoading: false });
       } else {
-        this.setState({ isLoading: false, isError: true });
+        setAppState({ ...appState, isLoading: false, isError: true });
       }
     } catch {
-      this.setState({ isLoading: false, isError: true });
+      setAppState({ ...appState, isLoading: false, isError: true });
     }
   }
 
-  render() {
-    return (
-      <ErrorBoundary>
-        <div className="wrapper">
-          <Search onSearch={(searchString) => this.onSearch(searchString)} />
-          <SearchResults
-            isError={this.state.isError}
-            isLoading={this.state.isLoading}
-            searchResults={this.state.searchResults}
-          />
-        </div>
-      </ErrorBoundary>
-    );
-  }
+  useEffect(() => {
+    onSearch(appState.searchString);
+  }, [appState.searchString]);
+
+  return (
+    <ErrorBoundary>
+      <div className="wrapper">
+        <Search onSearch={(searchString) => onSearch(searchString)} />
+        <SearchResults
+          isError={appState.isError}
+          isLoading={appState.isLoading}
+          searchResults={appState.searchResults}
+        />
+      </div>
+    </ErrorBoundary>
+  );
 }
 
 export default App;
