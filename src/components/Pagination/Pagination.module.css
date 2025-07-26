@@ -1,0 +1,8 @@
+.wrapper {
+  display: flex;
+  gap: 10px;
+}
+
+.current-page {
+  min-width: 50px;
+}

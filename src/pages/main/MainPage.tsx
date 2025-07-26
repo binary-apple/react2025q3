@@ -3,12 +3,14 @@ import Search from '../../components/Search/Search';
 import SearchResults from '../../components/SearchResults/SearchResults';
 import { getResponse } from '../../api/api';
 import useLocalStorage from '../../hooks/useLocalStorage';
+import Pagination from '../../components/Pagination/Pagination';
 
 type AppState = {
   isLoading: boolean;
   isError: boolean;
   searchString: string;
   searchResults: unknown[];
+  currentPage: number;
 };
 
 function MainPage() {
@@ -18,13 +20,21 @@ function MainPage() {
     isError: false,
     searchString: searchString,
     searchResults: [],
+    currentPage: 1,
   });
 
-  async function onSearch(searchString: string) {
+  const setSearchStringToState = (searchString: string): void => {
+    setAppState({ ...appState, searchString });
+  };
+
+  async function onSearch() {
     try {
       setAppState({ ...appState, isLoading: true });
-      setSearchString(searchString);
-      const response = await getResponse(searchString);
+      setSearchString(appState.searchString);
+      const response = await getResponse(
+        appState.searchString,
+        appState.currentPage
+      );
       const results = await response.json();
 
       if (response.ok) {
@@ -38,12 +48,17 @@ function MainPage() {
   }
 
   useEffect(() => {
-    onSearch(appState.searchString);
-  }, [appState.searchString]);
+    onSearch();
+  }, []);
 
   return (
     <div className="wrapper">
-      <Search onSearch={(searchString) => onSearch(searchString)} />
+      <Search
+        onSearch={() => onSearch()}
+        searchString={appState.searchString}
+        setSearchString={setSearchStringToState}
+      />
+      <Pagination currentPage={appState.currentPage} />
       <SearchResults
         isError={appState.isError}
         isLoading={appState.isLoading}

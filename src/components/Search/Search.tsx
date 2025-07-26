@@ -1,28 +1,27 @@
-import type { ChangeEvent } from 'react';
+import { type ChangeEvent } from 'react';
 import classes from './Search.module.css';
-import useLocalStorage from '../../hooks/useLocalStorage';
 
 type SearchProps = {
-  onSearch: (searchString: string) => void;
+  onSearch: () => void;
+  searchString: string;
+  setSearchString: (searchString: string) => void;
 };
 
 function Search(props: SearchProps) {
-  const [searchString, setSearchString] = useLocalStorage('searchString');
-
   function onInputChange(e: ChangeEvent) {
     if (e.target instanceof HTMLInputElement) {
-      setSearchString(e.target.value);
+      props.setSearchString(e.target.value);
     }
   }
 
   function onClick() {
-    props.onSearch(searchString);
+    props.onSearch();
   }
 
   return (
     <div className={classes.wrapper}>
       <input
-        value={searchString}
+        value={props.searchString}
         onChange={(e) => onInputChange(e)}
         placeholder="Search..."
         data-testid="search-input"
