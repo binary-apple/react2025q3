@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 import MainPage from './pages/main/MainPage';
 import Layout from './layouts/Layout';
+import NotFoundPage from './pages/NotFound/NotFoundPage';
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
           <Route element={<Layout />}>
             <Route path="/" element={<MainPage />} />
             <Route path="/about" element={<div>About</div>} />
-            <Route path="*" element={<div>Not found</div>} />
+            <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>
       </ErrorBoundary>

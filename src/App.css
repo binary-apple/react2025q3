@@ -11,6 +11,7 @@
   margin: 10px auto;
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
   align-items: center;
   gap: 10px;
   min-height: 100vh;
