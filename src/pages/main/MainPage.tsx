@@ -61,7 +61,11 @@ function MainPage() {
         hasMorePages: response.status !== 404,
       }));
     } catch {
-      setAppState((a) => ({ ...a, isLoading: false, isError: true }));
+      try {
+        setAppState((a) => ({ ...a, isLoading: false, isError: true }));
+      } catch {
+        //
+      }
     }
   }
 

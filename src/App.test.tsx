@@ -32,14 +32,14 @@ describe('Integration Tests:', () => {
 
   test('Makes initial API call on component mount', () => {
     render(<App />);
-    expect(vi.mocked(getResponse)).toBeCalledWith('');
+    expect(vi.mocked(getResponse)).toBeCalledWith('', 1);
   });
 
   test('Handles search term from localStorage on initial load', () => {
     const mockSavedValue = 'alohomora';
     localStorage.setItem('searchString', mockSavedValue);
     render(<App />);
-    expect(vi.mocked(getResponse)).toBeCalledWith(mockSavedValue);
+    expect(vi.mocked(getResponse)).toBeCalledWith(mockSavedValue, 1);
   });
 
   test('Manages loading states during API calls', async () => {
