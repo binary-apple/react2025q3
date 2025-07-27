@@ -20,6 +20,10 @@ function SearchResults(props: SearchResultsProps) {
     setSelectedId(id);
   };
   useEffect(() => {
+    const detailParam = searchParams.get('details');
+    setSelectedId(detailParam ? +detailParam : null);
+  }, [searchParams]);
+  useEffect(() => {
     const newParams = new URLSearchParams(searchParams);
     if (selectedId === null) {
       newParams.delete('details');
