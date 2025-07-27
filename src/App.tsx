@@ -5,6 +5,7 @@ import MainPage from './pages/main/MainPage';
 import Layout from './layouts/Layout';
 import NotFoundPage from './pages/NotFound/NotFoundPage';
 import AboutPage from './pages/About/AboutPage';
+import DetailsView from './components/DetailsView/DetailsView';
 
 function App() {
   return (
@@ -12,7 +13,9 @@ function App() {
       <ErrorBoundary>
         <Routes>
           <Route element={<Layout />}>
-            <Route path="/" element={<MainPage />} />
+            <Route path="/" element={<MainPage />}>
+              <Route index element={<DetailsView />} />
+            </Route>
             <Route path="/about" element={<AboutPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Route>

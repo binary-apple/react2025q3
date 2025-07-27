@@ -9,11 +9,12 @@ export type SearchItemProps = {
   image: string;
   birthdate: string;
   index: number;
+  onClick: () => void;
 };
 
 function SearchItem(props: SearchItemProps) {
   return (
-    <div className={classes['search-item-wrapper']}>
+    <div className={classes['search-item-wrapper']} onClick={props.onClick}>
       <img src={props.image} alt={props.fullName} className={classes.img}></img>
       <div className={classes.details}>
         <div className={classes.name}>{props.fullName}</div>
