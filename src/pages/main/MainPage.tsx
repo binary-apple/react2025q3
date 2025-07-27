@@ -11,6 +11,7 @@ type AppState = {
   searchString: string;
   searchResults: unknown[];
   currentPage: number;
+  hasMorePages: boolean;
 };
 
 function MainPage() {
@@ -21,6 +22,7 @@ function MainPage() {
     searchString: searchString,
     searchResults: [],
     currentPage: 1,
+    hasMorePages: false,
   });
 
   const setSearchStringToState = (searchString: string): void => {
@@ -31,17 +33,28 @@ function MainPage() {
     try {
       setAppState({ ...appState, isLoading: true });
       setSearchString(appState.searchString);
-      const response = await getResponse(
+      let response = await getResponse(
         appState.searchString,
         appState.currentPage
       );
       const results = await response.json();
-
-      if (response.ok) {
-        setAppState({ ...appState, searchResults: results, isLoading: false });
-      } else {
-        setAppState({ ...appState, isLoading: false, isError: true });
+      if (!response.ok) {
+        throw new Error();
       }
+      response = await getResponse(
+        appState.searchString,
+        appState.currentPage + 1
+      );
+
+      if (!response.ok && response.status !== 404) {
+        throw new Error();
+      }
+      setAppState({
+        ...appState,
+        searchResults: results,
+        isLoading: false,
+        hasMorePages: response.status !== 404,
+      });
     } catch {
       setAppState({ ...appState, isLoading: false, isError: true });
     }
@@ -58,7 +71,10 @@ function MainPage() {
         searchString={appState.searchString}
         setSearchString={setSearchStringToState}
       />
-      <Pagination currentPage={appState.currentPage} />
+      <Pagination
+        currentPage={appState.currentPage}
+        hasMorePages={appState.hasMorePages}
+      />
       <SearchResults
         isError={appState.isError}
         isLoading={appState.isLoading}
