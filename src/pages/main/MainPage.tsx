@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Search from '../../components/Search/Search';
 import SearchResults from '../../components/SearchResults/SearchResults';
-import { getResponse } from '../../api/api';
+import { getSearchResultsByPage } from '../../api/api';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import Pagination from '../../components/Pagination/Pagination';
 import { useSearchParams } from 'react-router';
@@ -41,7 +41,7 @@ function MainPage() {
       }
       setAppState((a) => ({ ...a, isLoading: true }));
       setSearchString(appState.searchString);
-      let response = await getResponse(ss, cp);
+      let response = await getSearchResultsByPage(ss, cp);
       let results = await response.json();
       if (response.status === 404) {
         results = [];
@@ -49,7 +49,7 @@ function MainPage() {
       if (!response.ok && response.status !== 404) {
         throw new Error();
       }
-      response = await getResponse(ss, cp + 1);
+      response = await getSearchResultsByPage(ss, cp + 1);
 
       if (!response.ok && response.status !== 404) {
         throw new Error();
