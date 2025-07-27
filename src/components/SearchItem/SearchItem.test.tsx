@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom/vitest';
 import { render, screen } from '@testing-library/react';
-import { describe, expect, test } from 'vitest';
+import { describe, expect, test, vi } from 'vitest';
 import SearchItem from './SearchItem';
 
 const mockSearchItemProps = {
@@ -26,6 +26,7 @@ describe('Search item', () => {
         image={mockSearchItemProps.image}
         birthdate={mockSearchItemProps.birthdate}
         index={mockSearchItemProps.index}
+        onClick={vi.fn()}
       />
     );
 
