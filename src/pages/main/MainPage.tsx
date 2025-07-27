@@ -4,6 +4,7 @@ import SearchResults from '../../components/SearchResults/SearchResults';
 import { getResponse } from '../../api/api';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import Pagination from '../../components/Pagination/Pagination';
+import { useSearchParams } from 'react-router';
 
 type AppState = {
   isLoading: boolean;
@@ -16,12 +17,13 @@ type AppState = {
 
 function MainPage() {
   const [searchString, setSearchString] = useLocalStorage('searchString');
+  const [searchParams, setSearchParams] = useSearchParams();
   const [appState, setAppState] = useState<AppState>({
     isLoading: false,
     isError: false,
     searchString: searchString,
     searchResults: [],
-    currentPage: 1,
+    currentPage: Number(searchParams.get('page')) || 1,
     hasMorePages: false,
   });
 
@@ -29,51 +31,61 @@ function MainPage() {
     setAppState({ ...appState, searchString });
   };
 
-  async function onSearch() {
+  async function onSearch(ss: string, cp: number) {
     try {
-      setAppState({ ...appState, isLoading: true });
+      if (ss !== searchString) {
+        setSearchParams({});
+        setAppState((a) => ({ ...a, currentPage: 1 }));
+        cp = 1;
+      }
+      setAppState((a) => ({ ...a, isLoading: true }));
       setSearchString(appState.searchString);
-      let response = await getResponse(
-        appState.searchString,
-        appState.currentPage
-      );
+      let response = await getResponse(ss, cp);
       const results = await response.json();
       if (!response.ok) {
         throw new Error();
       }
-      response = await getResponse(
-        appState.searchString,
-        appState.currentPage + 1
-      );
+      response = await getResponse(ss, cp + 1);
 
       if (!response.ok && response.status !== 404) {
         throw new Error();
       }
-      setAppState({
-        ...appState,
+      setAppState((a) => ({
+        ...a,
         searchResults: results,
         isLoading: false,
         hasMorePages: response.status !== 404,
-      });
+      }));
     } catch {
-      setAppState({ ...appState, isLoading: false, isError: true });
+      setAppState((a) => ({ ...a, isLoading: false, isError: true }));
     }
   }
 
+  async function onSearchString() {
+    onSearch(appState.searchString, appState.currentPage);
+  }
+
+  async function onNewPage(newPage: number) {
+    setAppState((a) => ({ ...a, currentPage: newPage }));
+    setSearchParams({ page: String(newPage) });
+    onSearch(appState.searchString, newPage);
+  }
+
   useEffect(() => {
-    onSearch();
+    onSearch(appState.searchString, appState.currentPage);
   }, []);
 
   return (
     <div className="wrapper">
       <Search
-        onSearch={() => onSearch()}
+        onSearch={() => onSearchString()}
         searchString={appState.searchString}
         setSearchString={setSearchStringToState}
       />
       <Pagination
         currentPage={appState.currentPage}
         hasMorePages={appState.hasMorePages}
+        onButtonClick={(newPage) => onNewPage(newPage)}
       />
       <SearchResults
         isError={appState.isError}
