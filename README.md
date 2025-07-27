@@ -1,4 +1,4 @@
-# 🪄 Harry Potter characters
+# 🪄 Harry Potter Characters Search Tool
 
 Welcome to my application!  
 This project is part of a [RS School React course](https://rs.school/courses/reactjs) and demonstrates key React concepts. The application allows users to search and browse a list of characters from the Harry Potter universe.
