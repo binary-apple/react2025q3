@@ -33,6 +33,7 @@ function MainPage() {
 
   async function onSearch(ss: string, cp: number) {
     try {
+      setAppState((a) => ({ ...a, isError: false }));
       if (ss !== searchString) {
         setSearchParams({});
         setAppState((a) => ({ ...a, currentPage: 1 }));
@@ -41,8 +42,11 @@ function MainPage() {
       setAppState((a) => ({ ...a, isLoading: true }));
       setSearchString(appState.searchString);
       let response = await getResponse(ss, cp);
-      const results = await response.json();
-      if (!response.ok) {
+      let results = await response.json();
+      if (response.status === 404) {
+        results = [];
+      }
+      if (!response.ok && response.status !== 404) {
         throw new Error();
       }
       response = await getResponse(ss, cp + 1);
