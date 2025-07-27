@@ -11,8 +11,11 @@ type SearchResultsProps = {
 };
 
 function SearchResults(props: SearchResultsProps) {
-  const [selectedId, setSelectedId] = useState<number | null>(null);
   const [searchParams, setSearchParams] = useSearchParams();
+  const detailsParam = searchParams.get('details');
+  const [selectedId, setSelectedId] = useState<number | null>(
+    detailsParam ? +detailsParam : null
+  );
   const onItemClick = (id: number) => {
     setSelectedId(id);
   };

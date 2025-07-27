@@ -31,11 +31,16 @@ function DetailsView() {
 
     getDetails();
   }, [selectedId]);
-  if (selectedId === null || details === null) {
+
+  if (selectedId === null) {
     return null;
   }
+
   if (isLoading) {
     return <Loader />;
+  }
+  if (details === null) {
+    return null;
   }
 
   return (
