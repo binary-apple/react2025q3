@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import Search from '../../components/Search/Search';
-import SearchResults from '../../components/SearchResults/SearchResults';
-import { getSearchResultsByPage } from '../../api/api';
-import useLocalStorage from '../../hooks/useLocalStorage';
-import Pagination from '../../components/Pagination/Pagination';
+import Search from '@components/Search';
+import SearchResults from '@components/SearchResults';
+import { getSearchResultsByPage } from '@api/api';
+import useLocalStorage from '@hooks/useLocalStorage';
+import Pagination from '@components/Pagination';
 import { useSearchParams } from 'react-router';
 
 type AppState = {

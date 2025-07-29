@@ -1,11 +1,11 @@
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router';
-import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
-import MainPage from './pages/main/MainPage';
+import ErrorBoundary from '@components/ErrorBoundary';
+import MainPage from '@pages/main';
 import Layout from './layouts/Layout';
-import NotFoundPage from './pages/NotFound/NotFoundPage';
-import AboutPage from './pages/About/AboutPage';
-import DetailsView from './components/DetailsView/DetailsView';
+import NotFoundPage from '@pages/NotFound';
+import AboutPage from '@pages/About';
+import DetailsView from '@components/DetailsView';
 
 function App() {
   return (

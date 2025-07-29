@@ -3,7 +3,7 @@ import { afterEach, describe, expect, test, vi } from 'vitest';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import DetailsView from './DetailsView';
 import { useOutletContext } from 'react-router';
-import { getCharacterById } from '../../api/api';
+import { getCharacterById } from '@api/api';
 
 vi.mock('react-router', () => ({
   useOutletContext: vi.fn(),

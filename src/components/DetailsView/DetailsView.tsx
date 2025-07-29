@@ -1,8 +1,8 @@
 import { useOutletContext } from 'react-router';
 import { getCharacterById } from '../../api/api';
 import { useEffect, useState } from 'react';
-import Loader from '../Loader/Loader';
-import type { SearchItemProps } from '../SearchItem/SearchItem';
+import Loader from '@components/Loader';
+import type { SearchItemProps } from '@components/SearchItem';
 import classes from './DetailsView.module.css';
 
 type ContextType = [

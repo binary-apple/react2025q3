@@ -1,6 +1,6 @@
 import { Outlet, useSearchParams } from 'react-router';
-import Loader from '../Loader/Loader';
-import SearchItem, { type SearchItemProps } from '../SearchItem/SearchItem';
+import Loader from '@components/Loader';
+import SearchItem, { type SearchItemProps } from '@components/SearchItem';
 import classes from './SearchResults.module.css';
 import { useEffect, useState } from 'react';
 
