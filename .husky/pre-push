@@ -1,1 +1,19 @@
+#!/bin/bash
+
+RED="\033[0;31m"
+GREEN="\033[0;32m"
+CYAN="\033[0;36m"
+BOLD="\033[1m"
+RESET="\033[0m"
+
+echo -e "${CYAN}${BOLD}🐶 Husky pre-push hook is running...${RESET}"
+
+echo -e "${CYAN}🚀 Running tests...${RESET}"
 npm run test
+
+if [[ $? -ne 0 ]]; then
+    echo -e "${RED}${BOLD}❌ Tests failed!${RESET}"
+    exit 1
+fi
+
+echo -e "${GREEN}${BOLD}✅ Husky pre-push hook completed successfully!${RESET}"

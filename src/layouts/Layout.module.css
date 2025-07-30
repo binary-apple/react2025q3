@@ -1,0 +1,31 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-grow: 1;
+  align-items: center;
+}
+.main {
+  display: flex;
+  gap: 10px;
+  flex-grow: 1;
+  align-items: center;
+}
+
+.header-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 320px;
+  padding: 10px 0;
+}
+
+a {
+  color: hsl(0, 0%, 100%);
+}
+
+.active {
+  cursor: default;
+  color: hsl(30, 68%, 41%);
+  font-weight: 700;
+}
