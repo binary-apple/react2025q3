@@ -1,5 +1,6 @@
 import { NavLink, Outlet } from 'react-router';
 import classes from './Layout.module.css';
+import Flayout from '@components/Flayout';
 
 function Layout() {
   return (
@@ -31,6 +32,9 @@ function Layout() {
       <main className={classes.main}>
         <Outlet />
       </main>
+      <section>
+        <Flayout />
+      </section>
     </div>
   );
 }
