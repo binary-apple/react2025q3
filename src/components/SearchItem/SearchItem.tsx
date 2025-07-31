@@ -1,3 +1,6 @@
+import { useSelector, useDispatch } from 'react-redux';
+import type { RootState } from '../../store/store';
+import { add, remove } from '../../store/slices/selectedCharactersSlice';
 import classes from './SearchItem.module.css';
 
 export type SearchItemProps = {
@@ -13,9 +16,21 @@ export type SearchItemProps = {
 };
 
 function SearchItem(props: SearchItemProps) {
+  const isSelected = useSelector((state: RootState) =>
+    state.selectedCharacters.value.includes(props.index)
+  );
+  const dispatch = useDispatch();
+
   return (
     <div className={classes['search-item-wrapper']}>
-      <input type="checkbox" className={classes.checkbox}></input>
+      <input
+        type="checkbox"
+        checked={isSelected}
+        className={classes.checkbox}
+        onChange={() => {
+          dispatch(isSelected ? remove(props.index) : add(props.index));
+        }}
+      ></input>
       <div className={classes['details-wrapper']} onClick={props.onClick}>
         <img
           src={props.image}
