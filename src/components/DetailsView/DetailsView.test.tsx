@@ -24,21 +24,21 @@ const mockCharacterDetails = {
   index: 0,
 };
 
-const setSelectedId = vi.fn();
+const setExpandedId = vi.fn();
 
 describe('Details view', () => {
   afterEach(() => {
     vi.clearAllMocks();
   });
 
-  test('returns null if selectedId is null', () => {
-    vi.mocked(useOutletContext).mockReturnValue([null, setSelectedId]);
+  test('returns null if expandedId is null', () => {
+    vi.mocked(useOutletContext).mockReturnValue([null, setExpandedId]);
     const { container } = render(<DetailsView />);
     expect(container.firstChild).toBeNull();
   });
 
-  test('renders character details if selectedId is not null', async () => {
-    vi.mocked(useOutletContext).mockReturnValue([1, setSelectedId]);
+  test('renders character details if expandedId is not null', async () => {
+    vi.mocked(useOutletContext).mockReturnValue([1, setExpandedId]);
     vi.mocked(getCharacterById).mockResolvedValue({
       json: () => Promise.resolve(mockCharacterDetails),
       ok: true,
@@ -72,7 +72,7 @@ describe('Details view', () => {
   });
 
   test('handles close-button click', async () => {
-    vi.mocked(useOutletContext).mockReturnValue([1, setSelectedId]);
+    vi.mocked(useOutletContext).mockReturnValue([1, setExpandedId]);
     vi.mocked(getCharacterById).mockResolvedValue({
       json: () => Promise.resolve(mockCharacterDetails),
       ok: true,
@@ -85,6 +85,6 @@ describe('Details view', () => {
     const closeButton = await screen.findByRole('button', { name: /close/i });
     expect(closeButton).toBeInTheDocument();
     fireEvent.click(closeButton);
-    expect(setSelectedId).toHaveBeenCalledWith(null);
+    expect(setExpandedId).toHaveBeenCalledWith(null);
   });
 });

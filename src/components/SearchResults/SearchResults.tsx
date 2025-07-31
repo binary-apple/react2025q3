@@ -13,25 +13,25 @@ type SearchResultsProps = {
 function SearchResults(props: SearchResultsProps) {
   const [searchParams, setSearchParams] = useSearchParams();
   const detailsParam = searchParams.get('details');
-  const [selectedId, setSelectedId] = useState<number | null>(
+  const [expandedId, setExpandedId] = useState<number | null>(
     detailsParam ? +detailsParam : null
   );
   const onItemClick = (id: number) => {
-    setSelectedId(id);
+    setExpandedId(id);
   };
   useEffect(() => {
     const detailParam = searchParams.get('details');
-    setSelectedId(detailParam ? +detailParam : null);
+    setExpandedId(detailParam ? +detailParam : null);
   }, [searchParams]);
   useEffect(() => {
     const newParams = new URLSearchParams(searchParams);
-    if (selectedId === null) {
+    if (expandedId === null) {
       newParams.delete('details');
     } else {
-      newParams.set('details', String(selectedId));
+      newParams.set('details', String(expandedId));
     }
     setSearchParams(newParams);
-  }, [selectedId]);
+  }, [expandedId]);
   if (props.isError) {
     return <div>There was an error. Try again</div>;
   }
@@ -62,7 +62,7 @@ function SearchResults(props: SearchResultsProps) {
           );
         })}
       </div>
-      <Outlet context={[selectedId, setSelectedId]} />
+      <Outlet context={[expandedId, setExpandedId]} />
     </div>
   );
 }

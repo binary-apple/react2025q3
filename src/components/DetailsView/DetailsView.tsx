@@ -6,20 +6,20 @@ import type { SearchItemProps } from '@components/SearchItem';
 import classes from './DetailsView.module.css';
 
 type ContextType = [
-  selectedId: number | null,
-  setSelectedId: (id: number | null) => void,
+  expandedId: number | null,
+  setExpandedId: (id: number | null) => void,
 ];
 
 function DetailsView() {
-  const [selectedId, setSelectedId] = useOutletContext<ContextType>();
+  const [expandedId, setExpandedId] = useOutletContext<ContextType>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [details, setDetails] = useState<SearchItemProps | null>(null);
   useEffect(() => {
     const getDetails = async () => {
       setIsLoading(true);
-      if (selectedId === null) return;
+      if (expandedId === null) return;
       try {
-        const response = await getCharacterById(selectedId);
+        const response = await getCharacterById(expandedId);
         const result = await response.json();
         setDetails(result);
       } catch {
@@ -30,9 +30,9 @@ function DetailsView() {
     };
 
     getDetails();
-  }, [selectedId]);
+  }, [expandedId]);
 
-  if (selectedId === null) {
+  if (expandedId === null) {
     return null;
   }
 
@@ -64,7 +64,7 @@ function DetailsView() {
       </div>
       <button
         onClick={() => {
-          setSelectedId(null);
+          setExpandedId(null);
           setDetails(null);
         }}
       >
