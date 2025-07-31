@@ -14,19 +14,26 @@ export type SearchItemProps = {
 
 function SearchItem(props: SearchItemProps) {
   return (
-    <div className={classes['search-item-wrapper']} onClick={props.onClick}>
-      <img src={props.image} alt={props.fullName} className={classes.img}></img>
-      <div className={classes.details}>
-        <div className={classes.name}>{props.fullName}</div>
-        <div>
-          <b>Birthday:</b> {props.birthdate}
+    <div className={classes['search-item-wrapper']}>
+      <input type="checkbox" className={classes.checkbox}></input>
+      <div className={classes['details-wrapper']} onClick={props.onClick}>
+        <img
+          src={props.image}
+          alt={props.fullName}
+          className={classes.img}
+        ></img>
+        <div className={classes.details}>
+          <div className={classes.name}>{props.fullName}</div>
+          <div>
+            <b>Birthday:</b> {props.birthdate}
+          </div>
+          <div>
+            <b>Hogwarts house:</b> {props.hogwartsHouse}
+          </div>
+          {
+            // TODO: display character's children
+          }
         </div>
-        <div>
-          <b>Hogwarts house:</b> {props.hogwartsHouse}
-        </div>
-        {
-          // TODO: display character's children
-        }
       </div>
     </div>
   );
