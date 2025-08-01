@@ -2,11 +2,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import type { RootState } from '../../store/store';
 import { removeAll } from '../../store/slices/selectedCharactersSlice';
 import classes from './Flayout.module.css';
+import { saveToCsv } from '../../utils/arrayToCsv';
 
 function Flayout() {
-  const selectedCount = useSelector(
-    (state: RootState) => state.selectedCharacters.value.length
+  const selectedItems = useSelector(
+    (state: RootState) => state.selectedCharacters.value
   );
+  const selectedCount = selectedItems.length;
   const dispatch = useDispatch();
   if (selectedCount === 0) {
     return null;
@@ -17,7 +19,13 @@ function Flayout() {
         {`${selectedCount} item${selectedCount > 1 ? 's are' : ' is'} selected`}
       </div>
       <button onClick={() => dispatch(removeAll())}>Unselect all</button>
-      <button>Download</button>
+      <button
+        onClick={() => {
+          saveToCsv(selectedItems);
+        }}
+      >
+        Download
+      </button>
     </div>
   );
 }
