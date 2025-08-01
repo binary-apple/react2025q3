@@ -6,9 +6,9 @@ import type { Character } from '@custom-types/character';
 
 export type SearchItemProps = Character & { onClick: VoidFunction };
 
-function SearchItem(props: SearchItemProps) {
+function SearchItem({ onClick, ...props }: SearchItemProps) {
   const isSelected = useSelector((state: RootState) =>
-    state.selectedCharacters.value.includes(props.index)
+    state.selectedCharacters.value.some((value) => value.index === props.index)
   );
   const dispatch = useDispatch();
 
@@ -19,10 +19,10 @@ function SearchItem(props: SearchItemProps) {
         checked={isSelected}
         className={classes.checkbox}
         onChange={() => {
-          dispatch(isSelected ? remove(props.index) : add(props.index));
+          dispatch(isSelected ? remove(props.index) : add(props));
         }}
       ></input>
-      <div className={classes['details-wrapper']} onClick={props.onClick}>
+      <div className={classes['details-wrapper']} onClick={onClick}>
         <img
           src={props.image}
           alt={props.fullName}

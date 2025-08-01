@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
+import type { Character } from '@custom-types/character';
 
 export type SelectedCharactersState = {
-  value: number[];
+  value: Character[];
 };
 
 const initialState: SelectedCharactersState = {
@@ -13,11 +14,13 @@ export const selectedCharactersSlice = createSlice({
   name: 'selectedCharacters',
   initialState,
   reducers: {
-    add: (state, action: PayloadAction<number>) => {
+    add: (state, action: PayloadAction<Character>) => {
       state.value = [...state.value, action.payload];
     },
     remove: (state, action: PayloadAction<number>) => {
-      const index = state.value.findIndex((val) => val === action.payload);
+      const index = state.value.findIndex(
+        (val) => val.index === action.payload
+      );
       if (index >= 0) {
         state.value.splice(index, 1);
       }
