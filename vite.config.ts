@@ -11,6 +11,7 @@ export default defineConfig({
       '@pages': path.resolve(__dirname, 'src/pages'),
       '@hooks': path.resolve(__dirname, 'src/hooks'),
       '@api': path.resolve(__dirname, 'src/api'),
+      '@custom-types': path.resolve(__dirname, 'src/types'),
     },
   },
   test: {

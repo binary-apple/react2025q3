@@ -2,18 +2,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import type { RootState } from '../../store/store';
 import { add, remove } from '../../store/slices/selectedCharactersSlice';
 import classes from './SearchItem.module.css';
+import type { Character } from '@custom-types/character';
 
-export type SearchItemProps = {
-  fullName: string;
-  nickname: string;
-  hogwartsHouse: string;
-  interpretedBy: string;
-  children?: string[];
-  image: string;
-  birthdate: string;
-  index: number;
-  onClick: () => void;
-};
+export type SearchItemProps = Character & { onClick: VoidFunction };
 
 function SearchItem(props: SearchItemProps) {
   const isSelected = useSelector((state: RootState) =>
