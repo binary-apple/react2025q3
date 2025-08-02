@@ -17,11 +17,9 @@ export const saveToCsv = (data: object[]) => {
   const blob = new Blob([arrayToString(data)], {
     type: 'text/csv',
   });
-
   const blobUrl = URL.createObjectURL(blob);
-  const link = document.createElement('a');
-  link.href = blobUrl;
-  link.download = `${data.length}_item${data.length > 1 ? 's' : ''}.csv`;
-
-  link.click();
+  return {
+    href: blobUrl,
+    download: `${data.length}_item${data.length > 1 ? 's' : ''}.csv`,
+  };
 };

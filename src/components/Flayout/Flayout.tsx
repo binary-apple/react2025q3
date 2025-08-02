@@ -19,13 +19,9 @@ function Flayout() {
         {`${selectedCount} item${selectedCount > 1 ? 's are' : ' is'} selected`}
       </div>
       <Button onClick={() => dispatch(removeAll())}>Unselect all</Button>
-      <Button
-        onClick={() => {
-          saveToCsv(selectedItems);
-        }}
-      >
-        Download
-      </Button>
+      <a {...saveToCsv(selectedItems)}>
+        <Button>Download</Button>
+      </a>
     </div>
   );
 }
