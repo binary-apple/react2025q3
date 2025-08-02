@@ -3,6 +3,7 @@ import type { RootState } from '../../store/store';
 import { removeAll } from '../../store/slices/selectedCharactersSlice';
 import classes from './Flayout.module.css';
 import { saveToCsv } from '../../utils/arrayToCsv';
+import Button from '@components/Button/Button';
 
 function Flayout() {
   const selectedItems = useSelector(
@@ -18,14 +19,14 @@ function Flayout() {
       <div>
         {`${selectedCount} item${selectedCount > 1 ? 's are' : ' is'} selected`}
       </div>
-      <button onClick={() => dispatch(removeAll())}>Unselect all</button>
-      <button
+      <Button onClick={() => dispatch(removeAll())}>Unselect all</Button>
+      <Button
         onClick={() => {
           saveToCsv(selectedItems);
         }}
       >
         Download
-      </button>
+      </Button>
     </div>
   );
 }

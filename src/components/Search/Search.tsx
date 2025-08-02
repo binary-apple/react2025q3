@@ -1,5 +1,6 @@
 import { type ChangeEvent } from 'react';
 import classes from './Search.module.css';
+import Button from '@components/Button';
 
 type SearchProps = {
   onSearch: () => void;
@@ -26,9 +27,9 @@ function Search(props: SearchProps) {
         placeholder="Search..."
         data-testid="search-input"
       ></input>
-      <button onClick={() => onClick()} data-testid="search-button">
+      <Button onClick={() => onClick()} data-testid="search-button">
         Search
-      </button>
+      </Button>
     </div>
   );
 }

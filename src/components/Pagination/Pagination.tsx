@@ -1,3 +1,4 @@
+import Button from '@components/Button';
 import classes from './Pagination.module.css';
 
 type PaginationProps = {
@@ -9,19 +10,19 @@ type PaginationProps = {
 function Pagination(props: PaginationProps) {
   return (
     <div className={classes.wrapper}>
-      <button
+      <Button
         disabled={props.currentPage === 1}
         onClick={() => props.onButtonClick(props.currentPage - 1)}
       >
         Prev
-      </button>
+      </Button>
       <div className={classes['current-page']}>Page {props.currentPage}</div>
-      <button
+      <Button
         disabled={!props.hasMorePages}
         onClick={() => props.onButtonClick(props.currentPage + 1)}
       >
         Next
-      </button>
+      </Button>
     </div>
   );
 }

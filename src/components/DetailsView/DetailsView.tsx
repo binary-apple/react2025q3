@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Loader from '@components/Loader';
 import type { SearchItemProps } from '@components/SearchItem';
 import classes from './DetailsView.module.css';
+import Button from '@components/Button';
 
 type ContextType = [
   expandedId: number | null,
@@ -62,14 +63,14 @@ function DetailsView() {
           // TODO: display character's children
         }
       </div>
-      <button
+      <Button
         onClick={() => {
           setExpandedId(null);
           setDetails(null);
         }}
       >
         Close
-      </button>
+      </Button>
     </div>
   );
 }
