@@ -32,7 +32,7 @@ function Layout() {
       <main className={classes.main}>
         <Outlet />
       </main>
-      <section>
+      <section className={classes.flayout}>
         <Flayout />
       </section>
     </div>

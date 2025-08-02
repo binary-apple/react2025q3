@@ -29,3 +29,8 @@ a {
   color: hsl(30, 68%, 41%);
   font-weight: 700;
 }
+
+.flayout {
+  position: sticky;
+  bottom: 0;
+}
