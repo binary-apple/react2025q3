@@ -1,7 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import type { RootState } from '../../store/store';
 import { add, remove } from '../../store/slices/selectedCharactersSlice';
-import classes from './SearchItem.module.css';
 import type { Character } from '@custom-types/character';
 
 export type SearchItemProps = Character & { onClick: VoidFunction };
@@ -13,23 +12,25 @@ function SearchItem({ onClick, ...props }: SearchItemProps) {
   const dispatch = useDispatch();
 
   return (
-    <div className={classes['search-item-wrapper']}>
+    <div className="flex gap-2.5">
       <input
         type="checkbox"
         checked={isSelected}
-        className={classes.checkbox}
+        className="h-fit self-center scale-150"
         onChange={() => {
           dispatch(isSelected ? remove(props.index) : add(props));
         }}
       ></input>
-      <div className={classes['details-wrapper']} onClick={onClick}>
+      <div className="flex gap-2.5" onClick={onClick}>
         <img
           src={props.image}
           alt={props.fullName}
-          className={classes.img}
+          className="block h-[150px] w-[105px] rounded-[10px]"
         ></img>
-        <div className={classes.details}>
-          <div className={classes.name}>{props.fullName}</div>
+        <div className="text-left flex flex-col items-start">
+          <div className="pr-1 font-black text-lg text-primary">
+            {props.fullName}
+          </div>
           <div>
             <b>Birthday:</b> {props.birthdate}
           </div>
