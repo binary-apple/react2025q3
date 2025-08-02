@@ -3,7 +3,6 @@ import { getCharacterById } from '../../api/api';
 import { useEffect, useState } from 'react';
 import Loader from '@components/Loader';
 import type { SearchItemProps } from '@components/SearchItem';
-import classes from './DetailsView.module.css';
 import Button from '@components/Button';
 
 type ContextType = [
@@ -49,10 +48,12 @@ function DetailsView() {
       <img
         src={details.image}
         alt={details.fullName}
-        className={classes.img}
+        className="block h-[500px] w-[350px] rounded-[10px]"
       ></img>
-      <div className={classes.details}>
-        <div className={classes.name}>{details.fullName}</div>
+      <div className="text-left flex flex-col items-center">
+        <div className="pr-1 font-black text-lg text-primary">
+          {details.fullName}
+        </div>
         <div>
           <b>Birthday:</b> {details.birthdate}
         </div>
