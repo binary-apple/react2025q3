@@ -1,14 +1,15 @@
 import { NavLink, Outlet } from 'react-router';
-import classes from './Layout.module.css';
 import Flayout from '@components/Flayout';
 
 function Layout() {
   return (
-    <div className={classes.wrapper}>
-      <header className={classes['header-wrapper']}>
+    <div className="flex flex-col gap-2.5 flex-grow items-center">
+      <header className="flex flex-row justify-between w-[320px] py-2.5">
         <NavLink
           to="/"
-          className={({ isActive }) => (isActive ? classes.active : '')}
+          className={({ isActive }) =>
+            isActive ? 'cursor-default text-primary font-bold' : ''
+          }
           onClick={(e) => {
             if (window.location.pathname === '/') {
               e.preventDefault();
@@ -19,7 +20,9 @@ function Layout() {
         </NavLink>
         <NavLink
           to="/about"
-          className={({ isActive }) => (isActive ? classes.active : '')}
+          className={({ isActive }) =>
+            isActive ? 'cursor-default text-primary font-bold' : ''
+          }
           onClick={(e) => {
             if (window.location.pathname === '/about') {
               e.preventDefault();
@@ -29,10 +32,10 @@ function Layout() {
           About
         </NavLink>
       </header>
-      <main className={classes.main}>
+      <main className="flex gap-2.5 flex-grow items-center">
         <Outlet />
       </main>
-      <section className={classes.flayout}>
+      <section className="sticky bottom-0">
         <Flayout />
       </section>
     </div>
