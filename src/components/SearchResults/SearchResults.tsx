@@ -1,7 +1,6 @@
 import { Outlet, useSearchParams } from 'react-router';
 import Loader from '@components/Loader';
 import SearchItem, { type SearchItemProps } from '@components/SearchItem';
-import classes from './SearchResults.module.css';
 import { useEffect, useState } from 'react';
 
 type SearchResultsProps = {
@@ -42,8 +41,8 @@ function SearchResults(props: SearchResultsProps) {
     return <div>Nothing was found</div>;
   }
   return (
-    <div className={classes.wrapper}>
-      <div className={classes['results-wrapper']} data-testid="search-results">
+    <div className="flex gap-2.5">
+      <div className="flex flex-col gap-2.5" data-testid="search-results">
         {props.searchResults.map((searchItem: unknown, id: number) => {
           const searchItemProps = searchItem as SearchItemProps;
           return (
