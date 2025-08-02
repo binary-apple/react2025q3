@@ -1,5 +1,5 @@
 import { type ChangeEvent } from 'react';
-import classes from './Search.module.css';
+// import classes from './Search.module.css';
 import Button from '@components/Button';
 
 type SearchProps = {
@@ -20,7 +20,7 @@ function Search(props: SearchProps) {
   }
 
   return (
-    <div className={classes.wrapper}>
+    <div className="flex gap-2.5">
       <input
         value={props.searchString}
         onChange={(e) => onInputChange(e)}
