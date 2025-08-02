@@ -1,7 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import type { RootState } from '../../store/store';
 import { removeAll } from '../../store/slices/selectedCharactersSlice';
-import classes from './Flayout.module.css';
 import { saveToCsv } from '../../utils/arrayToCsv';
 import Button from '@components/Button/Button';
 
@@ -15,7 +14,7 @@ function Flayout() {
     return null;
   }
   return (
-    <div className={classes.wrapper}>
+    <div className="flex gap-3 py-3">
       <div>
         {`${selectedCount} item${selectedCount > 1 ? 's are' : ' is'} selected`}
       </div>
