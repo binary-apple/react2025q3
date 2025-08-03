@@ -6,7 +6,7 @@ function Layout() {
   const { theme, toggleTheme } = useTheme();
   return (
     <div className="dark:bg-background dark:text-foreground bg-background-dark text-foreground-dark w-full h-full flex-grow">
-      <div className="flex flex-col gap-2.5 flex-grow items-center">
+      <div className="flex flex-col gap-2.5 flex-grow items-center min-h-screen">
         <header className="flex flex-row justify-between w-[320px] py-2.5">
           <nav className="flex gap-5">
             <NavLink
