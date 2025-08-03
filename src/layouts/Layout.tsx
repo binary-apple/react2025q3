@@ -4,7 +4,6 @@ import { useTheme } from '../contexts/ThemeContext';
 
 function Layout() {
   const { theme, toggleTheme } = useTheme();
-  console.log(theme);
   return (
     <div className="dark:bg-background dark:text-foreground bg-background-dark text-foreground-dark w-full h-full flex-grow">
       <div className="flex flex-col gap-2.5 flex-grow items-center">

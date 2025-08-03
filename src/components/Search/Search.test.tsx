@@ -29,15 +29,6 @@ describe('Rendering Search:', () => {
     expect(button).toHaveTextContent('Search');
   });
 
-  // TODO: test this in App component
-  // test('input has value from localStorage', () => {
-  //   const key = 'searchString';
-  //   const value = 'potter';
-  //   localStorage.setItem(key, value);
-  //   render(<SearchParent onSearch={vi.fn()} />);
-  //   expect(screen.getByRole('textbox')).toHaveValue(value);
-  // });
-
   test('shows empty input when no saved term exists', () => {
     localStorage.clear();
     render(<SearchParent onSearch={vi.fn()} />);
