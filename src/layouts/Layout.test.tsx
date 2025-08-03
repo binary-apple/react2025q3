@@ -1,12 +1,13 @@
 import '@testing-library/jest-dom/vitest';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import { describe, expect, test, vi } from 'vitest';
 import Layout from './Layout';
 import { MemoryRouter } from 'react-router';
+import { renderWithProviders } from '../utils/test-utils';
 
 describe('Layout', () => {
   test('renders header element', () => {
-    render(
+    renderWithProviders(
       <MemoryRouter>
         <Layout />
       </MemoryRouter>
@@ -15,7 +16,7 @@ describe('Layout', () => {
   });
 
   test('renders Main and About links', () => {
-    render(
+    renderWithProviders(
       <MemoryRouter>
         <Layout />
       </MemoryRouter>
@@ -29,7 +30,7 @@ describe('Layout', () => {
     const originalPreventDefault = Event.prototype.preventDefault;
     Event.prototype.preventDefault = preventDefault;
 
-    render(
+    renderWithProviders(
       <MemoryRouter>
         <Layout />
       </MemoryRouter>
@@ -50,7 +51,7 @@ describe('Layout', () => {
       value: { pathname: '/about' },
     });
 
-    render(
+    renderWithProviders(
       <MemoryRouter>
         <Layout />
       </MemoryRouter>

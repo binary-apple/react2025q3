@@ -1,7 +1,9 @@
 import '@testing-library/jest-dom/vitest';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { describe, expect, test, vi } from 'vitest';
 import SearchItem from './SearchItem';
+
+import { renderWithProviders } from '../../utils/test-utils';
 
 const mockSearchItemProps = {
   fullName: 'Sir Nicholas de Mimsy-Porpington',
@@ -16,7 +18,7 @@ const mockSearchItemProps = {
 
 describe('Search item', () => {
   const renderSearchItem = () =>
-    render(
+    renderWithProviders(
       <SearchItem
         fullName={mockSearchItemProps.fullName}
         nickname={mockSearchItemProps.nickname}

@@ -1,8 +1,9 @@
 import '@testing-library/jest-dom/vitest';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { describe, expect, test } from 'vitest';
 import SearchResults from './SearchResults';
 import { MemoryRouter } from 'react-router';
+import { renderWithProviders } from '../../utils/test-utils';
 
 describe('Search results: Loader ', () => {
   const mockSearchResultsProps = {
@@ -13,7 +14,7 @@ describe('Search results: Loader ', () => {
 
   test('does not render if isLoading === false', () => {
     mockSearchResultsProps.isLoading = false;
-    render(
+    renderWithProviders(
       <MemoryRouter>
         <SearchResults
           isLoading={mockSearchResultsProps.isLoading}
@@ -27,7 +28,7 @@ describe('Search results: Loader ', () => {
 
   test('renders if isLoading === true', () => {
     mockSearchResultsProps.isLoading = true;
-    render(
+    renderWithProviders(
       <MemoryRouter>
         <SearchResults
           isLoading={mockSearchResultsProps.isLoading}
@@ -48,7 +49,7 @@ describe('Search results: no data found ', () => {
   };
 
   test('Displays "no results" message when data array is empty', () => {
-    render(
+    renderWithProviders(
       <MemoryRouter>
         <SearchResults
           isLoading={mockSearchResultsProps.isLoading}
@@ -110,7 +111,7 @@ describe('Search results: renders all items ', () => {
   };
 
   test('Renders correct number of items when data is provided', () => {
-    render(
+    renderWithProviders(
       <MemoryRouter>
         <SearchResults
           isLoading={mockSearchResultsProps.isLoading}
@@ -131,7 +132,7 @@ describe('Search results: Error ', () => {
   };
 
   test('Displays "error" message if isError === true', () => {
-    render(
+    renderWithProviders(
       <MemoryRouter>
         <SearchResults
           isLoading={mockSearchResultsProps.isLoading}

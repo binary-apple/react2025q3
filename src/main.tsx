@@ -2,7 +2,7 @@ import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import './index.css';
 import App from './App.tsx';
-import { store } from './store/store.ts';
+import { setupStore } from './store/store.ts';
 
 const root = document.getElementById('root');
 
@@ -11,7 +11,7 @@ if (!root) {
 }
 
 createRoot(root).render(
-  <Provider store={store}>
+  <Provider store={setupStore()}>
     <App />
   </Provider>
 );
