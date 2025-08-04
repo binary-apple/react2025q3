@@ -1,14 +1,15 @@
 import '@testing-library/jest-dom/vitest';
 import { fireEvent } from '@testing-library/dom';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, test, expect, vi, afterEach } from 'vitest';
 import App from './App';
-import { getResponse } from './api/api';
+import { getSearchResultsByPage } from './api/api';
+import { renderWithProviders } from './utils/test-utils';
 
 const mocks = vi.hoisted(() => {
   return {
-    getResponse: vi.fn(() =>
+    getSearchResultsByPage: vi.fn(() =>
       Promise.resolve({
         json: async () => {
           await new Promise((resolve) => setTimeout(resolve, 100));
@@ -21,7 +22,7 @@ const mocks = vi.hoisted(() => {
 
 vi.mock('./api/api', () => {
   return {
-    getResponse: mocks.getResponse,
+    getSearchResultsByPage: mocks.getSearchResultsByPage,
   };
 });
 
@@ -31,20 +32,20 @@ describe('Integration Tests:', () => {
   });
 
   test('Makes initial API call on component mount', () => {
-    render(<App />);
-    expect(vi.mocked(getResponse)).toBeCalledWith('');
+    renderWithProviders(<App />);
+    expect(vi.mocked(getSearchResultsByPage)).toBeCalledWith('', 1);
   });
 
   test('Handles search term from localStorage on initial load', () => {
     const mockSavedValue = 'alohomora';
     localStorage.setItem('searchString', mockSavedValue);
-    render(<App />);
-    expect(vi.mocked(getResponse)).toBeCalledWith(mockSavedValue);
+    renderWithProviders(<App />);
+    expect(vi.mocked(getSearchResultsByPage)).toBeCalledWith(mockSavedValue, 1);
   });
 
   test('Manages loading states during API calls', async () => {
     vi.useFakeTimers();
-    render(<App />);
+    renderWithProviders(<App />);
     expect(screen.queryByTestId('loader')).toBeInTheDocument();
   });
 });
@@ -54,7 +55,7 @@ describe('User Interaction with Search component:', () => {
 
   test('Saves search term to localStorage when search button is clicked', async () => {
     const user = userEvent.setup();
-    render(<App />);
+    renderWithProviders(<App />);
     const input = screen.getByTestId('search-input');
     const button = screen.getByTestId('search-button');
     fireEvent.change(input, { target: { value: mockInputValue } });

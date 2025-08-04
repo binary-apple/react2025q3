@@ -1,46 +1,37 @@
-import { Component, type ChangeEvent } from 'react';
-import classes from './Search.module.css';
-
-type SearchState = {
-  searchString: string;
-};
+import { type ChangeEvent } from 'react';
+// import classes from './Search.module.css';
+import Button from '@components/Button';
 
 type SearchProps = {
-  onSearch: (searchString: string) => void;
+  onSearch: () => void;
+  searchString: string;
+  setSearchString: (searchString: string) => void;
 };
 
-class Search extends Component<SearchProps, SearchState> {
-  constructor(props: SearchProps) {
-    super(props);
-    const searchString = localStorage.getItem('searchString');
-    this.state = { searchString: searchString ?? '' };
-  }
-
-  onInputChange(e: ChangeEvent) {
+function Search(props: SearchProps) {
+  function onInputChange(e: ChangeEvent) {
     if (e.target instanceof HTMLInputElement) {
-      this.setState({ searchString: e.target.value });
+      props.setSearchString(e.target.value);
     }
   }
 
-  onClick() {
-    this.props.onSearch(this.state.searchString);
+  function onClick() {
+    props.onSearch();
   }
 
-  render() {
-    return (
-      <div className={classes.wrapper}>
-        <input
-          value={this.state.searchString}
-          onChange={(e) => this.onInputChange(e)}
-          placeholder="Search..."
-          data-testid="search-input"
-        ></input>
-        <button onClick={() => this.onClick()} data-testid="search-button">
-          Search
-        </button>
-      </div>
-    );
-  }
+  return (
+    <div className="flex gap-2.5">
+      <input
+        value={props.searchString}
+        onChange={(e) => onInputChange(e)}
+        placeholder="Search..."
+        data-testid="search-input"
+      ></input>
+      <Button onClick={() => onClick()} data-testid="search-button">
+        Search
+      </Button>
+    </div>
+  );
 }
 
 export default Search;

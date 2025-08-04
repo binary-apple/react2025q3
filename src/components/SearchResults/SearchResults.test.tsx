@@ -1,7 +1,9 @@
 import '@testing-library/jest-dom/vitest';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { describe, expect, test } from 'vitest';
 import SearchResults from './SearchResults';
+import { MemoryRouter } from 'react-router';
+import { renderWithProviders } from '../../utils/test-utils';
 
 describe('Search results: Loader ', () => {
   const mockSearchResultsProps = {
@@ -12,24 +14,28 @@ describe('Search results: Loader ', () => {
 
   test('does not render if isLoading === false', () => {
     mockSearchResultsProps.isLoading = false;
-    render(
-      <SearchResults
-        isLoading={mockSearchResultsProps.isLoading}
-        isError={mockSearchResultsProps.isError}
-        searchResults={mockSearchResultsProps.searchResults}
-      />
+    renderWithProviders(
+      <MemoryRouter>
+        <SearchResults
+          isLoading={mockSearchResultsProps.isLoading}
+          isError={mockSearchResultsProps.isError}
+          searchResults={mockSearchResultsProps.searchResults}
+        />
+      </MemoryRouter>
     );
     expect(screen.queryByTestId('loader')).not.toBeInTheDocument();
   });
 
   test('renders if isLoading === true', () => {
     mockSearchResultsProps.isLoading = true;
-    render(
-      <SearchResults
-        isLoading={mockSearchResultsProps.isLoading}
-        isError={mockSearchResultsProps.isError}
-        searchResults={mockSearchResultsProps.searchResults}
-      />
+    renderWithProviders(
+      <MemoryRouter>
+        <SearchResults
+          isLoading={mockSearchResultsProps.isLoading}
+          isError={mockSearchResultsProps.isError}
+          searchResults={mockSearchResultsProps.searchResults}
+        />
+      </MemoryRouter>
     );
     expect(screen.queryByTestId('loader')).toBeInTheDocument();
   });
@@ -43,12 +49,14 @@ describe('Search results: no data found ', () => {
   };
 
   test('Displays "no results" message when data array is empty', () => {
-    render(
-      <SearchResults
-        isLoading={mockSearchResultsProps.isLoading}
-        isError={mockSearchResultsProps.isError}
-        searchResults={mockSearchResultsProps.searchResults}
-      />
+    renderWithProviders(
+      <MemoryRouter>
+        <SearchResults
+          isLoading={mockSearchResultsProps.isLoading}
+          isError={mockSearchResultsProps.isError}
+          searchResults={mockSearchResultsProps.searchResults}
+        />
+      </MemoryRouter>
     );
     expect(screen.getByText(/nothing was found/i)).toBeInTheDocument();
   });
@@ -103,12 +111,14 @@ describe('Search results: renders all items ', () => {
   };
 
   test('Renders correct number of items when data is provided', () => {
-    render(
-      <SearchResults
-        isLoading={mockSearchResultsProps.isLoading}
-        isError={mockSearchResultsProps.isError}
-        searchResults={mockSearchResultsProps.searchResults}
-      />
+    renderWithProviders(
+      <MemoryRouter>
+        <SearchResults
+          isLoading={mockSearchResultsProps.isLoading}
+          isError={mockSearchResultsProps.isError}
+          searchResults={mockSearchResultsProps.searchResults}
+        />
+      </MemoryRouter>
     );
     expect(screen.getByTestId('search-results').children.length).toBe(4);
   });
@@ -122,12 +132,14 @@ describe('Search results: Error ', () => {
   };
 
   test('Displays "error" message if isError === true', () => {
-    render(
-      <SearchResults
-        isLoading={mockSearchResultsProps.isLoading}
-        isError={mockSearchResultsProps.isError}
-        searchResults={mockSearchResultsProps.searchResults}
-      />
+    renderWithProviders(
+      <MemoryRouter>
+        <SearchResults
+          isLoading={mockSearchResultsProps.isLoading}
+          isError={mockSearchResultsProps.isError}
+          searchResults={mockSearchResultsProps.searchResults}
+        />
+      </MemoryRouter>
     );
     expect(
       screen.getByText(/There was an error. Try again/i)

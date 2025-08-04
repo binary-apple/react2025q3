@@ -1,7 +1,7 @@
-import { Component } from 'react';
-import Loader from '../Loader/Loader';
-import SearchItem, { type SearchItemProps } from '../SearchItem/SearchItem';
-import classes from './SearchResults.module.css';
+import { Outlet, useSearchParams } from 'react-router';
+import Loader from '@components/Loader';
+import SearchItem, { type SearchItemProps } from '@components/SearchItem';
+import { useEffect, useState } from 'react';
 
 type SearchResultsProps = {
   isLoading: boolean;
@@ -9,35 +9,61 @@ type SearchResultsProps = {
   searchResults: unknown[];
 };
 
-class SearchResults extends Component<SearchResultsProps, object> {
-  render() {
-    return (
-      <div className={classes.wrapper} data-testid="search-results">
-        {this.props.isError && <div>There was an error. Try again</div>}
-        {!this.props.isError && this.props.isLoading && <Loader />}
-        {!this.props.isError &&
-          !this.props.isLoading &&
-          this.props.searchResults.length === 0 && <div>Nothing was found</div>}
-        {!this.props.isLoading &&
-          this.props.searchResults.map((searchItem: unknown, id: number) => {
-            const searchItemProps = searchItem as SearchItemProps;
-            return (
-              <SearchItem
-                key={id}
-                fullName={searchItemProps.fullName}
-                nickname={searchItemProps.nickname}
-                hogwartsHouse={searchItemProps.hogwartsHouse}
-                interpretedBy={searchItemProps.interpretedBy}
-                // TODO: pass character's children
-                image={searchItemProps.image}
-                birthdate={searchItemProps.birthdate}
-                index={searchItemProps.index}
-              />
-            );
-          })}
-      </div>
-    );
+function SearchResults(props: SearchResultsProps) {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const detailsParam = searchParams.get('details');
+  const [expandedId, setExpandedId] = useState<number | null>(
+    detailsParam ? +detailsParam : null
+  );
+  const onItemClick = (id: number) => {
+    setExpandedId(id);
+  };
+  useEffect(() => {
+    const detailParam = searchParams.get('details');
+    setExpandedId(detailParam ? +detailParam : null);
+  }, [searchParams]);
+  useEffect(() => {
+    const newParams = new URLSearchParams(searchParams);
+    if (expandedId === null) {
+      newParams.delete('details');
+    } else {
+      newParams.set('details', String(expandedId));
+    }
+    setSearchParams(newParams);
+  }, [expandedId]);
+  if (props.isError) {
+    return <div>There was an error. Try again</div>;
   }
+  if (props.isLoading) {
+    return <Loader />;
+  }
+  if (props.searchResults.length === 0) {
+    return <div>Nothing was found</div>;
+  }
+  return (
+    <div className="flex gap-2.5">
+      <div className="flex flex-col gap-2.5" data-testid="search-results">
+        {props.searchResults.map((searchItem: unknown, id: number) => {
+          const searchItemProps = searchItem as SearchItemProps;
+          return (
+            <SearchItem
+              key={id}
+              fullName={searchItemProps.fullName}
+              nickname={searchItemProps.nickname}
+              hogwartsHouse={searchItemProps.hogwartsHouse}
+              interpretedBy={searchItemProps.interpretedBy}
+              // TODO: pass character's children
+              image={searchItemProps.image}
+              birthdate={searchItemProps.birthdate}
+              index={searchItemProps.index}
+              onClick={() => onItemClick(searchItemProps.index)}
+            />
+          );
+        })}
+      </div>
+      <Outlet context={[expandedId, setExpandedId]} />
+    </div>
+  );
 }
 
 export default SearchResults;
