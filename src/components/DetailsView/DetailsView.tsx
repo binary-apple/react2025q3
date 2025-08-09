@@ -1,9 +1,7 @@
 import { useOutletContext } from 'react-router';
-import { getCharacterById } from '../../api/api';
-import { useEffect, useState } from 'react';
 import Loader from '@components/Loader';
-import type { SearchItemProps } from '@components/SearchItem';
 import Button from '@components/Button';
+import { useGetCharacterByIdQuery } from '@services/potterApi';
 
 type ContextType = [
   expandedId: number | null,
@@ -12,53 +10,38 @@ type ContextType = [
 
 function DetailsView() {
   const [expandedId, setExpandedId] = useOutletContext<ContextType>();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [details, setDetails] = useState<SearchItemProps | null>(null);
-  useEffect(() => {
-    const getDetails = async () => {
-      setIsLoading(true);
-      if (expandedId === null) return;
-      try {
-        const response = await getCharacterById(expandedId);
-        const result = await response.json();
-        setDetails(result);
-      } catch {
-        setDetails(null);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+  const { isFetching, isError, data } = useGetCharacterByIdQuery(expandedId, {
+    skip: expandedId === null,
+  });
 
-    getDetails();
-  }, [expandedId]);
-
-  if (expandedId === null) {
-    return null;
-  }
-
-  if (isLoading) {
+  if (isFetching) {
     return <Loader />;
   }
-  if (details === null) {
+
+  if (isError) {
+    return <div>Something went wrong...</div>;
+  }
+
+  if (expandedId === null || !data) {
     return null;
   }
 
   return (
     <div>
       <img
-        src={details.image}
-        alt={details.fullName}
+        src={data.image}
+        alt={data.fullName}
         className="block h-[500px] w-[350px] rounded-[10px]"
       ></img>
       <div className="text-left flex flex-col items-center">
         <div className="pr-1 font-black text-lg text-primary">
-          {details.fullName}
+          {data.fullName}
         </div>
         <div>
-          <b>Birthday:</b> {details.birthdate}
+          <b>Birthday:</b> {data.birthdate}
         </div>
         <div>
-          <b>Hogwarts house:</b> {details.hogwartsHouse}
+          <b>Hogwarts house:</b> {data.hogwartsHouse}
         </div>
         {
           // TODO: display character's children
@@ -67,7 +50,6 @@ function DetailsView() {
       <Button
         onClick={() => {
           setExpandedId(null);
-          setDetails(null);
         }}
       >
         Close
