@@ -6,6 +6,7 @@
       "@pages/*": ["pages/*"],
       "@hooks/*": ["hooks/*"],
       "@api/*": ["api/*"],
+      "@services/*": ["services/*"],
       "@custom-types/*": ["types/*"]
     },
 
