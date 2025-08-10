@@ -1,5 +1,10 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import {
+  createApi,
+  fetchBaseQuery,
+  type FetchBaseQueryError,
+} from '@reduxjs/toolkit/query/react';
 import type { Character } from '@custom-types/character';
+import { PAGE_LIMIT } from '@constants/index';
 
 export const potterApi = createApi({
   reducerPath: 'potterApi',
@@ -7,6 +12,45 @@ export const potterApi = createApi({
     baseUrl: 'https://potterapi-fedeperin.vercel.app/en/characters',
   }),
   endpoints: (builder) => ({
+    getCharacters: builder.query<
+      { searchResults: Character[]; hasMorePages: boolean },
+      { searchString: string; currentPage: number }
+    >({
+      async queryFn(
+        { searchString, currentPage },
+        _queryApi,
+        _extraOptions,
+        fetchWithBQ
+      ) {
+        const params = new URLSearchParams();
+        if (searchString) {
+          params.append('search', searchString);
+        }
+        params.append('page', String(currentPage));
+        params.append('max', String(PAGE_LIMIT));
+
+        const result = await fetchWithBQ(`?${params}`);
+        if (result.error) {
+          return { error: result.error as FetchBaseQueryError };
+        }
+
+        const data = (result.data ? result.data : []) as Character[];
+
+        let hasMorePages = false;
+
+        params.set('page', String(currentPage + 1));
+        const { data: nextPageData } = await fetchWithBQ(`?${params}`);
+        if (
+          nextPageData &&
+          Array.isArray(nextPageData) &&
+          nextPageData.length > 0
+        ) {
+          hasMorePages = true;
+        }
+        return { data: { searchResults: data, hasMorePages } };
+      },
+    }),
+
     getCharacterById: builder.query<Character, number | null>({
       query: (index: number | null) => {
         const params = new URLSearchParams();
@@ -17,4 +61,4 @@ export const potterApi = createApi({
   }),
 });
 
-export const { useGetCharacterByIdQuery } = potterApi;
+export const { useGetCharactersQuery, useGetCharacterByIdQuery } = potterApi;

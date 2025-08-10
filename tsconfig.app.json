@@ -5,9 +5,9 @@
       "@components/*": ["components/*"],
       "@pages/*": ["pages/*"],
       "@hooks/*": ["hooks/*"],
-      "@api/*": ["api/*"],
       "@services/*": ["services/*"],
-      "@custom-types/*": ["types/*"]
+      "@custom-types/*": ["types/*"],
+      "@constants/*": ["constants/*"]
     },
 
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
