@@ -11,6 +11,7 @@ type ContextType = [
 function DetailsView() {
   const [expandedId, setExpandedId] = useOutletContext<ContextType>();
   const { isFetching, isError, data } = useGetCharacterByIdQuery(expandedId, {
+    refetchOnMountOrArgChange: 20,
     skip: expandedId === null,
   });
 

@@ -4,7 +4,9 @@ import SearchResults from '@components/SearchResults';
 import useLocalStorage from '@hooks/useLocalStorage';
 import Pagination from '@components/Pagination';
 import { useSearchParams } from 'react-router';
-import { useGetCharactersQuery } from '@services/potterApi';
+import { potterApi, useGetCharactersQuery } from '@services/potterApi';
+import Button from '@components/Button';
+import { useDispatch } from 'react-redux';
 
 type AppState = {
   searchString: string;
@@ -25,9 +27,12 @@ function MainPage() {
       currentPage: appState.currentPage,
     },
     {
+      refetchOnMountOrArgChange: 20,
       skip: searchString !== appState.searchString,
     }
   );
+
+  const dispatch = useDispatch();
 
   const setSearchStringToState = (searchString: string): void => {
     setAppState({ ...appState, searchString });
@@ -61,6 +66,13 @@ function MainPage() {
         searchString={appState.searchString}
         setSearchString={setSearchStringToState}
       />
+      <Button
+        onClick={() => {
+          dispatch(potterApi.util.resetApiState());
+        }}
+      >
+        Refresh cache
+      </Button>
       <Pagination
         currentPage={appState.currentPage}
         hasMorePages={data ? data.hasMorePages : false}

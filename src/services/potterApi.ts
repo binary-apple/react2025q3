@@ -11,6 +11,7 @@ export const potterApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://potterapi-fedeperin.vercel.app/en/characters',
   }),
+  tagTypes: ['Characters', 'Character'],
   endpoints: (builder) => ({
     getCharacters: builder.query<
       { searchResults: Character[]; hasMorePages: boolean },
@@ -49,6 +50,8 @@ export const potterApi = createApi({
         }
         return { data: { searchResults: data, hasMorePages } };
       },
+      providesTags: ['Characters'],
+      keepUnusedDataFor: 20,
     }),
 
     getCharacterById: builder.query<Character, number | null>({
@@ -57,6 +60,8 @@ export const potterApi = createApi({
         params.append('index', String(index));
         return `?${params}`;
       },
+      providesTags: ['Character'],
+      keepUnusedDataFor: 20,
     }),
   }),
 });
