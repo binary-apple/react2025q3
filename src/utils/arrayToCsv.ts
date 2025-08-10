@@ -1,4 +1,4 @@
-const arrayToString = (data: object[]): string => {
+export const arrayToString = (data: object[]): string => {
   if (!data.length) {
     return '';
   }
