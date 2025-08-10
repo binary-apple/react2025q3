@@ -3,7 +3,7 @@ import { screen } from '@testing-library/react';
 import { describe, expect, test } from 'vitest';
 import SearchResults from './SearchResults';
 import { MemoryRouter } from 'react-router';
-import { renderWithProviders } from '../../utils/test-utils';
+import { renderWithProviders } from '@utils/test-utils';
 
 describe('Search results: Loader ', () => {
   const mockSearchResultsProps = {

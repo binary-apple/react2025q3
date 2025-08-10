@@ -1,6 +1,6 @@
 import { NavLink, Outlet } from 'react-router';
 import Flayout from '@components/Flayout';
-import { useTheme } from '../contexts/ThemeContext';
+import { useTheme } from '@contexts/ThemeContext';
 
 function Layout() {
   const { theme, toggleTheme } = useTheme();
