@@ -1,5 +1,4 @@
 import { type ChangeEvent } from 'react';
-// import classes from './Search.module.css';
 import Button from '@components/Button';
 
 type SearchProps = {
