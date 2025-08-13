@@ -5,14 +5,14 @@ import { NavLink, Outlet } from 'react-router';
 function Layout() {
   const { theme, toggleTheme } = useTheme();
   return (
-    <div className="dark:bg-background dark:text-foreground bg-background-dark text-foreground-dark w-full h-full flex-grow">
-      <div className="flex flex-col gap-2.5 flex-grow items-center min-h-screen">
-        <header className="flex flex-row justify-between w-[320px] py-2.5">
+    <div className="dark:bg-background dark:text-foreground bg-background-dark text-foreground-dark h-full w-full flex-grow">
+      <div className="flex min-h-screen flex-grow flex-col items-center gap-2.5">
+        <header className="flex w-[320px] flex-row justify-between py-2.5">
           <nav className="flex gap-5">
             <NavLink
               to="/"
               className={({ isActive }) =>
-                isActive ? 'cursor-default text-primary font-bold' : ''
+                isActive ? 'text-primary cursor-default font-bold' : ''
               }
               onClick={(e) => {
                 if (window.location.pathname === '/') {
@@ -25,7 +25,7 @@ function Layout() {
             <NavLink
               to="/about"
               className={({ isActive }) =>
-                isActive ? 'cursor-default text-primary font-bold' : ''
+                isActive ? 'text-primary cursor-default font-bold' : ''
               }
               onClick={(e) => {
                 if (window.location.pathname === '/about') {
@@ -45,7 +45,7 @@ function Layout() {
             Dark mode
           </label>
         </header>
-        <main className="flex gap-2.5 flex-grow items-center">
+        <main className="flex flex-grow items-center gap-2.5">
           <Outlet />
         </main>
         <section className="sticky bottom-0">

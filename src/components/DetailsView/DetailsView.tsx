@@ -35,8 +35,8 @@ function DetailsView() {
         alt={data.fullName}
         className="block rounded-lg object-none"
       ></img>
-      <div className="text-left flex flex-col items-center">
-        <div className="pr-1 font-black text-lg text-primary">
+      <div className="flex flex-col items-center text-left">
+        <div className="text-primary pr-1 text-lg font-black">
           {data.fullName}
         </div>
         <div>

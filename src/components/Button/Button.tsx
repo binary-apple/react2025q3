@@ -7,7 +7,7 @@ function Button({
 }: PropsWithChildren<ButtonHTMLAttributes<HTMLButtonElement>>) {
   return (
     <button
-      className={`cursor-pointer bg-primary hover:bg-primary-dark disabled:bg-disabled text-background font-bold py-1 px-3 rounded transition-all duration-500 ${className}`}
+      className={`bg-primary hover:bg-primary-dark disabled:bg-disabled text-background cursor-pointer rounded px-3 py-1 font-bold transition-all duration-500 ${className}`}
       {...props}
     >
       {children}

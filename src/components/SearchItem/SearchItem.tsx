@@ -17,7 +17,7 @@ function SearchItem({ onClick, ...props }: SearchItemProps) {
       <input
         type="checkbox"
         checked={isSelected}
-        className="h-fit self-center scale-150"
+        className="h-fit scale-150 self-center"
         onChange={() => {
           dispatch(isSelected ? remove(props.index) : add(props));
         }}
@@ -28,8 +28,8 @@ function SearchItem({ onClick, ...props }: SearchItemProps) {
           alt={props.fullName}
           className="block h-[150px] w-[105px] rounded-[10px]"
         ></img>
-        <div className="text-left flex flex-col items-start">
-          <div className="pr-1 font-black text-lg text-primary">
+        <div className="flex flex-col items-start text-left">
+          <div className="text-primary pr-1 text-lg font-black">
             {props.fullName}
           </div>
           <div>
