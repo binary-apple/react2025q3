@@ -7,6 +7,7 @@ import { useSearchParams } from 'react-router';
 import { potterApi, useGetCharactersQuery } from '@services/potterApi';
 import Button from '@components/Button';
 import { useDispatch } from 'react-redux';
+import { REFETCH_INTERVAL_SECONDS } from '@constants/index';
 
 type AppState = {
   searchString: string;
@@ -27,7 +28,7 @@ function MainPage() {
       currentPage: appState.currentPage,
     },
     {
-      refetchOnMountOrArgChange: 20,
+      refetchOnMountOrArgChange: REFETCH_INTERVAL_SECONDS,
       skip: searchString !== appState.searchString,
     }
   );
@@ -42,15 +43,11 @@ function MainPage() {
     try {
       if (appState.searchString !== searchString || appState.currentPage > 1) {
         setSearchParams({});
-        setAppState((a) => ({ ...a, currentPage: 1 }));
+        setAppState((prevState) => ({ ...prevState, currentPage: 1 }));
       }
       setSearchString(appState.searchString);
     } catch {
-      try {
-        setAppState((a) => ({ ...a, isLoading: false, isError: true }));
-      } catch {
-        //
-      }
+      //
     }
   }
 

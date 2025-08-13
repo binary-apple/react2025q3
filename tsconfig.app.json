@@ -6,6 +6,7 @@
       "@pages/*": ["pages/*"],
       "@hooks/*": ["hooks/*"],
       "@contexts/*": ["contexts/*"],
+      "@providers/*": ["providers/*"],
       "@services/*": ["services/*"],
       "@custom-types/*": ["types/*"],
       "@constants/*": ["constants/*"],

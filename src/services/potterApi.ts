@@ -4,12 +4,12 @@ import {
   type FetchBaseQueryError,
 } from '@reduxjs/toolkit/query/react';
 import type { Character } from '@custom-types/character';
-import { PAGE_LIMIT } from '@constants/index';
+import { API_BASE_URL, PAGE_LIMIT } from '@constants/index';
 
 export const potterApi = createApi({
   reducerPath: 'potterApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://potterapi-fedeperin.vercel.app/en/characters',
+    baseUrl: API_BASE_URL,
   }),
   tagTypes: ['Characters', 'Character'],
   endpoints: (builder) => ({
@@ -35,7 +35,7 @@ export const potterApi = createApi({
           return { error: result.error as FetchBaseQueryError };
         }
 
-        const data = (result.data ? result.data : []) as Character[];
+        const data = (result.data ?? []) as Character[];
 
         let hasMorePages = false;
 

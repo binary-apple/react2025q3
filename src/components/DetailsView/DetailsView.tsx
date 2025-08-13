@@ -2,6 +2,7 @@ import { useOutletContext } from 'react-router';
 import Loader from '@components/Loader';
 import Button from '@components/Button';
 import { useGetCharacterByIdQuery } from '@services/potterApi';
+import { REFETCH_INTERVAL_SECONDS } from '@constants/index';
 
 type ContextType = [
   expandedId: number | null,
@@ -11,7 +12,7 @@ type ContextType = [
 function DetailsView() {
   const [expandedId, setExpandedId] = useOutletContext<ContextType>();
   const { isFetching, isError, data } = useGetCharacterByIdQuery(expandedId, {
-    refetchOnMountOrArgChange: 20,
+    refetchOnMountOrArgChange: REFETCH_INTERVAL_SECONDS,
     skip: expandedId === null,
   });
 
@@ -32,7 +33,7 @@ function DetailsView() {
       <img
         src={data.image}
         alt={data.fullName}
-        className="block h-[500px] w-[350px] rounded-[10px]"
+        className="block rounded-lg object-none"
       ></img>
       <div className="text-left flex flex-col items-center">
         <div className="pr-1 font-black text-lg text-primary">

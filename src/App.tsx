@@ -2,7 +2,7 @@ import './App.css';
 import { BrowserRouter } from 'react-router';
 import ErrorBoundary from '@components/ErrorBoundary';
 import AppRouter from './AppRouter';
-import { ThemeProvider } from './providers/themeProvider';
+import { ThemeProvider } from '@providers/themeProvider';
 import { Provider } from 'react-redux';
 import { setupStore } from './store/store';
 
