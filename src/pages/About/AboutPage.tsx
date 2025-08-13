@@ -1,6 +1,6 @@
 function AboutPage() {
   return (
-    <div className="flex flex-col gap-5 max-w-[320px] text-lg">
+    <div className="flex max-w-[320px] flex-col gap-5 text-lg">
       <div>
         Hi, my name is Anna and I am currently learning magic of React in
         RSSchool (Hogwarts in programming world). <br />

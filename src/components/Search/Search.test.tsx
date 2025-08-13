@@ -1,9 +1,10 @@
 import '@testing-library/jest-dom/vitest';
 import { fireEvent, render, screen } from '@testing-library/react';
-import { describe, expect, test, vi } from 'vitest';
 import userEvent from '@testing-library/user-event';
-import Search from './Search';
 import { useState } from 'react';
+import { describe, expect, test, vi } from 'vitest';
+
+import Search from './Search';
 
 function SearchParent({ onSearch }: { onSearch: () => void }) {
   const [searchString, setSearchString] = useState<string>('');

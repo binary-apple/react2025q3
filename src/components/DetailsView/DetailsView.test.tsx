@@ -1,16 +1,17 @@
 import '@testing-library/jest-dom/vitest';
-import { afterEach, describe, expect, test, vi } from 'vitest';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import DetailsView from './DetailsView';
+import { useGetCharacterByIdQuery } from '@services/potterApi';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { useOutletContext } from 'react-router';
-import { getCharacterById } from '@api/api';
+import { afterEach, describe, expect, test, vi } from 'vitest';
+
+import DetailsView from './DetailsView';
 
 vi.mock('react-router', () => ({
   useOutletContext: vi.fn(),
 }));
 
-vi.mock('../../api/api', () => ({
-  getCharacterById: vi.fn(),
+vi.mock('@services/potterApi', () => ({
+  useGetCharacterByIdQuery: vi.fn(),
 }));
 
 const mockCharacterDetails = {
@@ -33,18 +34,22 @@ describe('Details view', () => {
 
   test('returns null if expandedId is null', () => {
     vi.mocked(useOutletContext).mockReturnValue([null, setExpandedId]);
+    vi.mocked(useGetCharacterByIdQuery).mockReturnValue({
+      data: undefined,
+      isFetching: false,
+      isError: false,
+    } as unknown as ReturnType<typeof useGetCharacterByIdQuery>);
     const { container } = render(<DetailsView />);
     expect(container.firstChild).toBeNull();
   });
 
   test('renders character details if expandedId is not null', async () => {
     vi.mocked(useOutletContext).mockReturnValue([1, setExpandedId]);
-    vi.mocked(getCharacterById).mockResolvedValue({
-      json: () => Promise.resolve(mockCharacterDetails),
-      ok: true,
-      status: 200,
-      statusText: 'OK',
-    } as Response);
+    vi.mocked(useGetCharacterByIdQuery).mockReturnValue({
+      data: mockCharacterDetails,
+      isFetching: false,
+      isError: false,
+    } as unknown as ReturnType<typeof useGetCharacterByIdQuery>);
 
     render(<DetailsView />);
 
@@ -63,22 +68,23 @@ describe('Details view', () => {
 
   test('handles fetch error', async () => {
     vi.mocked(useOutletContext).mockReturnValue([1, vi.fn()]);
-    vi.mocked(getCharacterById).mockRejectedValue(new Error());
+    vi.mocked(useGetCharacterByIdQuery).mockReturnValue({
+      data: undefined,
+      isFetching: false,
+      isError: true,
+    } as unknown as ReturnType<typeof useGetCharacterByIdQuery>);
 
-    const { container } = render(<DetailsView />);
-    await waitFor(() => {
-      expect(container.firstChild).toBeNull();
-    });
+    render(<DetailsView />);
+    expect(screen.getByText(/Something went wrong/i)).toBeInTheDocument();
   });
 
   test('handles close-button click', async () => {
     vi.mocked(useOutletContext).mockReturnValue([1, setExpandedId]);
-    vi.mocked(getCharacterById).mockResolvedValue({
-      json: () => Promise.resolve(mockCharacterDetails),
-      ok: true,
-      status: 200,
-      statusText: 'OK',
-    } as Response);
+    vi.mocked(useGetCharacterByIdQuery).mockReturnValue({
+      data: mockCharacterDetails,
+      isFetching: false,
+      isError: false,
+    } as unknown as ReturnType<typeof useGetCharacterByIdQuery>);
 
     render(<DetailsView />);
 

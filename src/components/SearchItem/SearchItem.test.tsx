@@ -1,9 +1,9 @@
 import '@testing-library/jest-dom/vitest';
 import { screen } from '@testing-library/react';
+import { renderWithProviders } from '@utils/test-utils';
 import { describe, expect, test, vi } from 'vitest';
-import SearchItem from './SearchItem';
 
-import { renderWithProviders } from '../../utils/test-utils';
+import SearchItem from './SearchItem';
 
 const mockSearchItemProps = {
   fullName: 'Sir Nicholas de Mimsy-Porpington',

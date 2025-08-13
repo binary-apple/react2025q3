@@ -1,8 +1,9 @@
 import '@testing-library/jest-dom/vitest';
 import { render, screen } from '@testing-library/react';
-import { describe, expect, test } from 'vitest';
-import AboutPage from './AboutPage';
 import { MemoryRouter } from 'react-router';
+import { describe, expect, test } from 'vitest';
+
+import AboutPage from './AboutPage';
 
 describe('About page', () => {
   test('should have link to the RS School React course', () => {

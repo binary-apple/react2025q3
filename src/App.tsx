@@ -1,18 +1,25 @@
 import './App.css';
-import { BrowserRouter } from 'react-router';
 import ErrorBoundary from '@components/ErrorBoundary';
+import { ThemeProvider } from '@providers/themeProvider';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router';
+
 import AppRouter from './AppRouter';
-import { ThemeProvider } from './providers/themeProvider';
+import { setupStore } from './store/store';
+
+const store = setupStore();
 
 function App() {
   return (
-    <BrowserRouter>
-      <ErrorBoundary>
-        <ThemeProvider>
-          <AppRouter />
-        </ThemeProvider>
-      </ErrorBoundary>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <ErrorBoundary>
+          <ThemeProvider>
+            <AppRouter />
+          </ThemeProvider>
+        </ErrorBoundary>
+      </BrowserRouter>
+    </Provider>
   );
 }
 

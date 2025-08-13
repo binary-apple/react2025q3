@@ -1,104 +1,84 @@
-import { useEffect, useState } from 'react';
+import Button from '@components/Button';
+import Pagination from '@components/Pagination';
 import Search from '@components/Search';
 import SearchResults from '@components/SearchResults';
-import { getSearchResultsByPage } from '@api/api';
+import { REFETCH_INTERVAL_SECONDS } from '@constants/index';
 import useLocalStorage from '@hooks/useLocalStorage';
-import Pagination from '@components/Pagination';
+import { potterApi, useGetCharactersQuery } from '@services/potterApi';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useSearchParams } from 'react-router';
 
 type AppState = {
-  isLoading: boolean;
-  isError: boolean;
   searchString: string;
-  searchResults: unknown[];
   currentPage: number;
-  hasMorePages: boolean;
 };
 
 function MainPage() {
   const [searchString, setSearchString] = useLocalStorage('searchString');
   const [searchParams, setSearchParams] = useSearchParams();
   const [appState, setAppState] = useState<AppState>({
-    isLoading: false,
-    isError: false,
     searchString: searchString,
-    searchResults: [],
     currentPage: Number(searchParams.get('page')) || 1,
-    hasMorePages: false,
   });
+
+  const { isFetching, isError, data } = useGetCharactersQuery(
+    {
+      searchString: appState.searchString,
+      currentPage: appState.currentPage,
+    },
+    {
+      refetchOnMountOrArgChange: REFETCH_INTERVAL_SECONDS,
+      skip: searchString !== appState.searchString,
+    }
+  );
+
+  const dispatch = useDispatch();
 
   const setSearchStringToState = (searchString: string): void => {
     setAppState({ ...appState, searchString });
   };
 
-  async function onSearch(ss: string, cp: number) {
+  async function onSearch() {
     try {
-      setAppState((a) => ({ ...a, isError: false }));
-      if (ss !== searchString) {
+      if (appState.searchString !== searchString || appState.currentPage > 1) {
         setSearchParams({});
-        setAppState((a) => ({ ...a, currentPage: 1 }));
-        cp = 1;
+        setAppState((prevState) => ({ ...prevState, currentPage: 1 }));
       }
-      setAppState((a) => ({ ...a, isLoading: true }));
       setSearchString(appState.searchString);
-      let response = await getSearchResultsByPage(ss, cp);
-      let results = await response.json();
-      if (response.status === 404) {
-        results = [];
-      }
-      if (!response.ok && response.status !== 404) {
-        throw new Error();
-      }
-      response = await getSearchResultsByPage(ss, cp + 1);
-
-      if (!response.ok && response.status !== 404) {
-        throw new Error();
-      }
-      setAppState((a) => ({
-        ...a,
-        searchResults: results,
-        isLoading: false,
-        hasMorePages: response.status !== 404,
-      }));
     } catch {
-      try {
-        setAppState((a) => ({ ...a, isLoading: false, isError: true }));
-      } catch {
-        //
-      }
+      //
     }
-  }
-
-  async function onSearchString() {
-    onSearch(appState.searchString, appState.currentPage);
   }
 
   async function onNewPage(newPage: number) {
     setAppState((a) => ({ ...a, currentPage: newPage }));
     setSearchParams({ page: String(newPage) });
-    onSearch(appState.searchString, newPage);
   }
-
-  useEffect(() => {
-    onSearch(appState.searchString, appState.currentPage);
-  }, []);
 
   return (
     <div className="wrapper">
       <Search
-        onSearch={() => onSearchString()}
+        onSearch={() => onSearch()}
         searchString={appState.searchString}
         setSearchString={setSearchStringToState}
       />
+      <Button
+        onClick={() => {
+          dispatch(potterApi.util.resetApiState());
+        }}
+      >
+        Refresh cache
+      </Button>
       <Pagination
         currentPage={appState.currentPage}
-        hasMorePages={appState.hasMorePages}
+        hasMorePages={data ? data.hasMorePages : false}
         onButtonClick={(newPage) => onNewPage(newPage)}
       />
       <SearchResults
-        isError={appState.isError}
-        isLoading={appState.isLoading}
-        searchResults={appState.searchResults}
+        isError={isError}
+        isLoading={isFetching}
+        searchResults={data ? data.searchResults : []}
       />
     </div>
   );

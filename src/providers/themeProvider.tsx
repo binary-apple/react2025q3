@@ -1,5 +1,5 @@
+import { ThemeContext } from '@contexts/ThemeContext';
 import { useState, type PropsWithChildren } from 'react';
-import { ThemeContext } from '../contexts/ThemeContext';
 
 export const ThemeProvider = ({ children }: PropsWithChildren) => {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');

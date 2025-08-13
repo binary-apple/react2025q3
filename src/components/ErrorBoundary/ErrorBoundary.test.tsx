@@ -8,6 +8,7 @@ import {
   vi,
   type MockInstance,
 } from 'vitest';
+
 import ErrorBoundary from './ErrorBoundary';
 
 describe('Error Boundary', () => {

@@ -1,8 +1,9 @@
+import type { RootState } from '@store/store';
+
+import Button from '@components/Button';
+import { removeAll } from '@store/slices/selectedCharactersSlice';
+import { saveToCsv } from '@utils/arrayToCsv';
 import { useSelector, useDispatch } from 'react-redux';
-import type { RootState } from '../../store/store';
-import { removeAll } from '../../store/slices/selectedCharactersSlice';
-import { saveToCsv } from '../../utils/arrayToCsv';
-import Button from '@components/Button/Button';
 
 function Flayout() {
   const selectedItems = useSelector(
