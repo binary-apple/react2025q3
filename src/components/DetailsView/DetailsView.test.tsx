@@ -1,9 +1,10 @@
 import '@testing-library/jest-dom/vitest';
-import { afterEach, describe, expect, test, vi } from 'vitest';
-import { fireEvent, render, screen } from '@testing-library/react';
-import DetailsView from './DetailsView';
-import { useOutletContext } from 'react-router';
 import { useGetCharacterByIdQuery } from '@services/potterApi';
+import { fireEvent, render, screen } from '@testing-library/react';
+import { useOutletContext } from 'react-router';
+import { afterEach, describe, expect, test, vi } from 'vitest';
+
+import DetailsView from './DetailsView';
 
 vi.mock('react-router', () => ({
   useOutletContext: vi.fn(),

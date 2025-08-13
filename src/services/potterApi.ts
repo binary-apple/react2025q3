@@ -1,10 +1,11 @@
+import type { Character } from '@custom-types/character';
+
+import { API_BASE_URL, PAGE_LIMIT } from '@constants/index';
 import {
   createApi,
   fetchBaseQuery,
   type FetchBaseQueryError,
 } from '@reduxjs/toolkit/query/react';
-import type { Character } from '@custom-types/character';
-import { API_BASE_URL, PAGE_LIMIT } from '@constants/index';
 
 export const potterApi = createApi({
   reducerPath: 'potterApi',

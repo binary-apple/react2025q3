@@ -1,8 +1,8 @@
-import { useOutletContext } from 'react-router';
-import Loader from '@components/Loader';
 import Button from '@components/Button';
-import { useGetCharacterByIdQuery } from '@services/potterApi';
+import Loader from '@components/Loader';
 import { REFETCH_INTERVAL_SECONDS } from '@constants/index';
+import { useGetCharacterByIdQuery } from '@services/potterApi';
+import { useOutletContext } from 'react-router';
 
 type ContextType = [
   expandedId: number | null,

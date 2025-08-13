@@ -2,8 +2,9 @@ import DetailsView from '@components/DetailsView';
 import AboutPage from '@pages/About';
 import MainPage from '@pages/main';
 import NotFoundPage from '@pages/NotFound';
-import Layout from './layouts/Layout';
 import { Routes, Route } from 'react-router';
+
+import Layout from './layouts/Layout';
 
 function AppRouter() {
   return (

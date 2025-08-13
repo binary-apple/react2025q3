@@ -1,7 +1,8 @@
-import { useSelector, useDispatch } from 'react-redux';
-import type { RootState } from '@store/store';
-import { add, remove } from '@store/slices/selectedCharactersSlice';
 import type { Character } from '@custom-types/character';
+import type { RootState } from '@store/store';
+
+import { add, remove } from '@store/slices/selectedCharactersSlice';
+import { useSelector, useDispatch } from 'react-redux';
 
 export type SearchItemProps = Character & { onClick: VoidFunction };
 

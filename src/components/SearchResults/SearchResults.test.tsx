@@ -1,9 +1,10 @@
 import '@testing-library/jest-dom/vitest';
 import { screen } from '@testing-library/react';
-import { describe, expect, test } from 'vitest';
-import SearchResults from './SearchResults';
-import { MemoryRouter } from 'react-router';
 import { renderWithProviders } from '@utils/test-utils';
+import { MemoryRouter } from 'react-router';
+import { describe, expect, test } from 'vitest';
+
+import SearchResults from './SearchResults';
 
 describe('Search results: Loader ', () => {
   const mockSearchResultsProps = {

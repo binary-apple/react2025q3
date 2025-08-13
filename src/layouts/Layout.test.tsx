@@ -1,9 +1,10 @@
 import '@testing-library/jest-dom/vitest';
 import { fireEvent, screen } from '@testing-library/react';
-import { describe, expect, test, vi } from 'vitest';
-import Layout from './Layout';
-import { MemoryRouter } from 'react-router';
 import { renderWithProviders } from '@utils/test-utils';
+import { MemoryRouter } from 'react-router';
+import { describe, expect, test, vi } from 'vitest';
+
+import Layout from './Layout';
 
 describe('Layout', () => {
   test('renders header element', () => {

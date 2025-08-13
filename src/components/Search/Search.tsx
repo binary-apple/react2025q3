@@ -1,5 +1,5 @@
-import { type ChangeEvent } from 'react';
 import Button from '@components/Button';
+import { type ChangeEvent } from 'react';
 
 type SearchProps = {
   onSearch: () => void;

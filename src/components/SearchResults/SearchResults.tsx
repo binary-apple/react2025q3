@@ -1,7 +1,7 @@
-import { Outlet, useSearchParams } from 'react-router';
 import Loader from '@components/Loader';
 import SearchItem, { type SearchItemProps } from '@components/SearchItem';
 import { useEffect, useState } from 'react';
+import { Outlet, useSearchParams } from 'react-router';
 
 type SearchResultsProps = {
   isLoading: boolean;

@@ -1,6 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import selectedCharactersReducer from './slices/selectedCharactersSlice';
 import { potterApi } from '@services/potterApi';
+
+import selectedCharactersReducer from './slices/selectedCharactersSlice';
 
 const rootReducer = combineReducers({
   selectedCharacters: selectedCharactersReducer,

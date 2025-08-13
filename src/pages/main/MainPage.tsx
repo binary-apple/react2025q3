@@ -1,13 +1,13 @@
-import { useState } from 'react';
+import Button from '@components/Button';
+import Pagination from '@components/Pagination';
 import Search from '@components/Search';
 import SearchResults from '@components/SearchResults';
-import useLocalStorage from '@hooks/useLocalStorage';
-import Pagination from '@components/Pagination';
-import { useSearchParams } from 'react-router';
-import { potterApi, useGetCharactersQuery } from '@services/potterApi';
-import Button from '@components/Button';
-import { useDispatch } from 'react-redux';
 import { REFETCH_INTERVAL_SECONDS } from '@constants/index';
+import useLocalStorage from '@hooks/useLocalStorage';
+import { potterApi, useGetCharactersQuery } from '@services/potterApi';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useSearchParams } from 'react-router';
 
 type AppState = {
   searchString: string;
