@@ -1,4 +1,6 @@
-function AboutPage() {
+import '../../index.css';
+
+function Page() {
   return (
     <div className="flex max-w-[320px] flex-col gap-5 text-lg">
       <div>
@@ -29,4 +31,4 @@ function AboutPage() {
   );
 }
 
-export default AboutPage;
+export default Page;

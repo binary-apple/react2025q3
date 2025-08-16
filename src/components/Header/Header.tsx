@@ -1,38 +1,32 @@
+'use client';
+
 import { useTheme } from '@contexts/ThemeContext';
-import { NavLink } from 'react-router';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 function Header() {
   const { theme, toggleTheme } = useTheme();
+  const pathname = usePathname();
 
   return (
     <header className="flex w-[320px] flex-row justify-between py-2.5">
       <nav className="flex gap-5">
-        <NavLink
-          to="/"
-          className={({ isActive }) =>
-            isActive ? 'text-primary cursor-default font-bold' : ''
+        <Link
+          href="/"
+          className={
+            pathname === '/' ? 'text-primary cursor-default font-bold' : ''
           }
-          onClick={(e) => {
-            if (window.location.pathname === '/') {
-              e.preventDefault();
-            }
-          }}
         >
           Main
-        </NavLink>
-        <NavLink
-          to="/about"
-          className={({ isActive }) =>
-            isActive ? 'text-primary cursor-default font-bold' : ''
+        </Link>
+        <Link
+          href="/about"
+          className={
+            pathname === '/about' ? 'text-primary cursor-default font-bold' : ''
           }
-          onClick={(e) => {
-            if (window.location.pathname === '/about') {
-              e.preventDefault();
-            }
-          }}
         >
           About
-        </NavLink>
+        </Link>
       </nav>
       <label>
         <input

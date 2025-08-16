@@ -1,7 +1,8 @@
-import type { RootState } from '@store/store';
+'use client';
 
 import Button from '@components/Button';
 import { removeAll } from '@store/slices/selectedCharactersSlice';
+import { type RootState } from '@store/store';
 import { saveToCsv } from '@utils/arrayToCsv';
 import { useSelector, useDispatch } from 'react-redux';
 
