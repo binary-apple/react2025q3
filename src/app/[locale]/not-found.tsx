@@ -1,8 +1,8 @@
-import { getTranslations } from 'next-intl/server';
+import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 
-export default async function NotFound() {
-  const t = await getTranslations('NotFoundPage');
+export default function NotFound() {
+  const t = useTranslations('NotFoundPage');
   return (
     <div>
       <h1>{t('title')}</h1>

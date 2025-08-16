@@ -1,5 +1,6 @@
 'use client';
 
+import LocaleSwitcher from '@components/LocaleSwitcher/LocaleSwitcher';
 import { useTheme } from '@contexts/ThemeContext';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -15,7 +16,7 @@ function Header({ mainLink, aboutLink, themeLabel }: HeaderProps) {
   const pathname = usePathname();
 
   return (
-    <header className="flex w-[320px] flex-row justify-between py-2.5">
+    <header className="flex w-lg flex-row justify-between py-2.5">
       <nav className="flex gap-5">
         <Link
           href="/"
@@ -34,14 +35,17 @@ function Header({ mainLink, aboutLink, themeLabel }: HeaderProps) {
           {aboutLink}
         </Link>
       </nav>
-      <label>
-        <input
-          type="checkbox"
-          checked={theme === 'dark'}
-          onChange={() => toggleTheme()}
-        ></input>{' '}
-        {themeLabel}
-      </label>
+      <div className="flex gap-2.5">
+        <label>
+          <input
+            type="checkbox"
+            checked={theme === 'dark'}
+            onChange={() => toggleTheme()}
+          ></input>{' '}
+          {themeLabel}
+        </label>
+        <LocaleSwitcher />
+      </div>
     </header>
   );
 }

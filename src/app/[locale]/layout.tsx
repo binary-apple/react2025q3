@@ -7,8 +7,7 @@ import type { ReactNode } from 'react';
 import Header from '@components/Header/Header';
 import { ThemeProvider } from '@providers/themeProvider';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
-import { getTranslations } from 'next-intl/server';
-// import { useTranslations } from 'next-intl';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
 import { routing } from '../../i18n/routing';
@@ -66,6 +65,8 @@ export default async function RootLayout({
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
+
+  setRequestLocale(locale);
 
   const t = await getTranslations('Layout');
 

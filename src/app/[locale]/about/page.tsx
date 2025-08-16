@@ -1,8 +1,9 @@
-import '../../index.css';
+import '../../../index.css';
 import { useTranslations } from 'next-intl';
 
 function Page() {
-  const t = useTranslations('MainPage');
+  const t = useTranslations('AboutPage');
+  console.log(t('schoolData'));
   return (
     <div className="flex max-w-[320px] flex-col gap-5 text-lg">
       <div>
