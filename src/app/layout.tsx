@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 
 // import Flayout from '@components/Flayout';
 import Header from '@components/Header/Header';
+import { ThemeProvider } from '@providers/themeProvider';
 
 export const metadata: Metadata = {
   icons: [
@@ -50,23 +51,25 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>
-        <div
-          id="root"
-          className="m-0 mx-auto flex h-full min-h-dvh w-full flex-col text-center"
-        >
-          <div className="dark:bg-background dark:text-foreground bg-background-dark text-foreground-dark h-full w-full flex-grow">
-            <div className="flex min-h-screen flex-grow flex-col items-center gap-2.5">
-              <Header />
-              <main className="flex flex-grow items-center gap-2.5">
-                {children}
-              </main>
-              <section className="sticky bottom-0">
-                {/* TODO: add Flyout */}
-                {/* <Flayout /> */}
-              </section>
+        <ThemeProvider>
+          <div
+            id="root"
+            className="m-0 mx-auto flex h-full min-h-dvh w-full flex-col text-center"
+          >
+            <div className="dark:bg-background dark:text-foreground bg-background-dark text-foreground-dark h-full w-full flex-grow">
+              <div className="flex min-h-screen flex-grow flex-col items-center gap-2.5">
+                <Header />
+                <main className="flex flex-grow items-center gap-2.5">
+                  {children}
+                </main>
+                <section className="sticky bottom-0">
+                  {/* TODO: add Flyout */}
+                  {/* <Flayout /> */}
+                </section>
+              </div>
             </div>
           </div>
-        </div>
+        </ThemeProvider>
       </body>
     </html>
   );
