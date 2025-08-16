@@ -4,7 +4,13 @@ import { useTheme } from '@contexts/ThemeContext';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-function Header() {
+type HeaderProps = {
+  mainLink: string;
+  aboutLink: string;
+  themeLabel: string;
+};
+
+function Header({ mainLink, aboutLink, themeLabel }: HeaderProps) {
   const { theme, toggleTheme } = useTheme();
   const pathname = usePathname();
 
@@ -17,7 +23,7 @@ function Header() {
             pathname === '/' ? 'text-primary cursor-default font-bold' : ''
           }
         >
-          Main
+          {mainLink}
         </Link>
         <Link
           href="/about"
@@ -25,7 +31,7 @@ function Header() {
             pathname === '/about' ? 'text-primary cursor-default font-bold' : ''
           }
         >
-          About
+          {aboutLink}
         </Link>
       </nav>
       <label>
@@ -34,7 +40,7 @@ function Header() {
           checked={theme === 'dark'}
           onChange={() => toggleTheme()}
         ></input>{' '}
-        Dark mode
+        {themeLabel}
       </label>
     </header>
   );

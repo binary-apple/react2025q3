@@ -1,30 +1,30 @@
 import '../../index.css';
+import { useTranslations } from 'next-intl';
 
 function Page() {
+  const t = useTranslations('MainPage');
   return (
     <div className="flex max-w-[320px] flex-col gap-5 text-lg">
       <div>
-        Hi, my name is Anna and I am currently learning magic of React in
-        RSSchool (Hogwarts in programming world). <br />
-        Take a look into my code spellbook:{' '}
+        {t('about')} <br />
+        {t('github')}{' '}
         <a
           href="https://github.com/binary-apple"
           target="blank"
           className="underline"
         >
-          github
+          {t('link1')}
         </a>
         .
       </div>
       <div>
-        If you also want to become a frontend-wizard, don&apos;t wait for an
-        owl, just visit the{' '}
+        {t('schoolData')}{' '}
         <a
           href="https://rs.school/courses/reactjs"
           target="blank"
           className="underline"
         >
-          website
+          {t('link2')}
         </a>
       </div>
     </div>

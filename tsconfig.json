@@ -33,7 +33,6 @@
       }
     ],
     "strictNullChecks": true,
-
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
@@ -42,6 +41,12 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["next-env.d.ts", "./dist/types/**/*.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "./dist/types/**/*.ts",
+    "next-env.d.ts",
+    ".next/types/**/*.ts"
+  ],
   "exclude": ["node_modules"]
 }
