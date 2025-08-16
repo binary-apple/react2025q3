@@ -21,7 +21,9 @@ function Header({ mainLink, aboutLink, themeLabel }: HeaderProps) {
         <Link
           href="/"
           className={
-            pathname === '/' ? 'text-primary cursor-default font-bold' : ''
+            pathname === '/en' || pathname === '/it'
+              ? 'text-primary cursor-default font-bold'
+              : ''
           }
         >
           {mainLink}
@@ -29,7 +31,9 @@ function Header({ mainLink, aboutLink, themeLabel }: HeaderProps) {
         <Link
           href="/about"
           className={
-            pathname === '/about' ? 'text-primary cursor-default font-bold' : ''
+            pathname === '/en/about' || pathname === '/it/about'
+              ? 'text-primary cursor-default font-bold'
+              : ''
           }
         >
           {aboutLink}
