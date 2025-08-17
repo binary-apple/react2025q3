@@ -3,7 +3,7 @@ import '../../index.css';
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 
-// import Flayout from '@components/Flayout';
+import Flyout from '@components/Flyout';
 import Header from '@components/Header/Header';
 import Providers from '@providers/Providers';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
@@ -90,8 +90,7 @@ export default async function RootLayout({
                     {children}
                   </main>
                   <section className="sticky bottom-0">
-                    {/* TODO: add Flyout */}
-                    {/* <Flayout /> */}
+                    <Flyout />
                   </section>
                 </div>
               </div>

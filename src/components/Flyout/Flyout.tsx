@@ -4,9 +4,11 @@ import Button from '@components/Button';
 import { removeAll } from '@store/slices/selectedCharactersSlice';
 import { type RootState } from '@store/store';
 import { saveToCsv } from '@utils/arrayToCsv';
+import { useTranslations } from 'next-intl';
 import { useSelector, useDispatch } from 'react-redux';
 
-function Flayout() {
+function Flyout() {
+  const t = useTranslations('Layout');
   const selectedItems = useSelector(
     (state: RootState) => state.selectedCharacters.value
   );
@@ -17,15 +19,15 @@ function Flayout() {
   }
   return (
     <div className="flex gap-3 py-3">
-      <div>
-        {`${selectedCount} item${selectedCount > 1 ? 's are' : ' is'} selected`}
-      </div>
-      <Button onClick={() => dispatch(removeAll())}>Unselect all</Button>
+      <div>{`${selectedCount} ${t('selectedItems')}`}</div>
+      <Button onClick={() => dispatch(removeAll())}>
+        {t('unselectAllButton')}
+      </Button>
       <a {...saveToCsv(selectedItems)}>
-        <Button>Download</Button>
+        <Button>{t('downloadButton')}</Button>
       </a>
     </div>
   );
 }
 
-export default Flayout;
+export default Flyout;

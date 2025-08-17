@@ -2,7 +2,10 @@
   "Layout": {
     "mainLink": "Principale",
     "aboutLink": "Informazioni",
-    "themeLabel": "Modalità scura"
+    "themeLabel": "Modalità scura",
+    "unselectAllButton": "Deseleziona tutto",
+    "downloadButton": "Scarica",
+    "selectedItems": "elementi selezionati"
   },
   "LocaleSwitcher": {
     "en": "Inglese",

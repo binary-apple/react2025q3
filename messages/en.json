@@ -2,7 +2,10 @@
   "Layout": {
     "mainLink": "Main",
     "aboutLink": "About",
-    "themeLabel": "Dark mode"
+    "themeLabel": "Dark mode",
+    "unselectAllButton": "Unselect all",
+    "downloadButton": "Download",
+    "selectedItems": "items selected"
   },
   "LocaleSwitcher": {
     "en": "English",
