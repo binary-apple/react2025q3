@@ -5,11 +5,11 @@ import Pagination from '@components/Pagination';
 import Search from '@components/Search';
 import SearchResults from '@components/SearchResults';
 import { REFETCH_INTERVAL_SECONDS } from '@constants/index';
+import useLocalStorage from '@hooks/useLocalStorage';
 import { potterApi, useGetCharactersQuery } from '@services/potterApi';
-// import useLocalStorage from '@hooks/useLocalStorage';
 import { useTranslations } from 'next-intl';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 type AppState = {
@@ -24,9 +24,9 @@ function MainPage() {
   const pathname = usePathname();
   const router = useRouter();
 
-  // const [searchString, setSearchString] = useLocalStorage('searchString');
+  const [searchString, setSearchString] = useLocalStorage('searchString');
   const [appState, setAppState] = useState<AppState>({
-    searchString: /* searchString || */ '',
+    searchString: searchString || '',
     currentPage: +(searchParams?.get('page') ?? 1),
   });
 
@@ -37,9 +37,13 @@ function MainPage() {
     },
     {
       refetchOnMountOrArgChange: REFETCH_INTERVAL_SECONDS,
-      // skip: searchString !== appState.searchString,
+      skip: searchString !== appState.searchString,
     }
   );
+
+  useEffect(() => {
+    onSearch();
+  }, []);
 
   const dispatch = useDispatch();
 
@@ -49,13 +53,11 @@ function MainPage() {
 
   async function onSearch() {
     try {
-      if (
-        /* appState.searchString !== searchString || */ appState.currentPage > 1
-      ) {
+      if (appState.searchString !== searchString || appState.currentPage > 1) {
         router.replace(pathname ?? '');
         setAppState((prevState) => ({ ...prevState, currentPage: 1 }));
       }
-      // setSearchString(appState.searchString);
+      setSearchString(appState.searchString);
     } catch {
       //
     }
