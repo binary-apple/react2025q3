@@ -1,4 +1,3 @@
-// import '../../../index.css';
 import { useTranslations } from 'next-intl';
 
 function Page() {
