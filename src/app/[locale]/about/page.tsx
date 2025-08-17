@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 function Page() {
   const t = useTranslations('AboutPage');
   return (
-    <div className="flex max-w-[320px] flex-col gap-5 text-lg">
+    <div className="flex w-full flex-col gap-5 text-lg">
       <div>
         {t('about')} <br />
         {t('github')}{' '}

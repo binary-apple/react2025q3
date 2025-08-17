@@ -59,7 +59,7 @@ function MainPage() {
   }
 
   return (
-    <div className="wrapper">
+    <div className="m-2.5 mx-auto flex flex-grow flex-col items-center gap-2.5 self-baseline">
       <Search
         onSearch={() => onSearch()}
         searchString={appState.searchString}

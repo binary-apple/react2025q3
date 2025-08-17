@@ -10,6 +10,10 @@ type ContextType = [
   setExpandedId: (id: number | null) => void,
 ];
 
+const imageStyle = {
+  borderRadius: '10px',
+};
+
 function DetailsView() {
   const [expandedId, setExpandedId] = useOutletContext<ContextType>();
   const { isFetching, isError, data } = useGetCharacterByIdQuery(expandedId, {
@@ -32,7 +36,13 @@ function DetailsView() {
   return (
     <div>
       <div className="rounded-lg">
-        <Image src={data.image} width={350} height={500} alt={data.fullName} />
+        <Image
+          src={data.image}
+          width={350}
+          height={500}
+          alt={data.fullName}
+          style={imageStyle}
+        />
       </div>
       <div className="flex flex-col items-center text-left">
         <div className="text-primary pr-1 text-lg font-black">

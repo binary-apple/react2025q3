@@ -7,6 +7,10 @@ import { useSelector, useDispatch } from 'react-redux';
 
 export type SearchItemProps = Character & { onClick: VoidFunction };
 
+const imageStyle = {
+  borderRadius: '10px',
+};
+
 function SearchItem({ onClick, ...props }: SearchItemProps) {
   const isSelected = useSelector((state: RootState) =>
     state.selectedCharacters.value.some((value) => value.index === props.index)
@@ -29,6 +33,7 @@ function SearchItem({ onClick, ...props }: SearchItemProps) {
           width={105}
           height={150}
           alt={props.fullName}
+          style={imageStyle}
         />
         <div className="flex flex-col items-start text-left">
           <div className="text-primary pr-1 text-lg font-black">

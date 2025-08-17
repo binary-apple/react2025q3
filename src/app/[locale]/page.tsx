@@ -7,7 +7,7 @@ function Page() {
   // const t = useTranslations('MainPage');
 
   return (
-    <div className="flex max-w-[320px] flex-col gap-5 text-lg">
+    <div className="flex w-full flex-col gap-5 self-baseline text-lg">
       <MainPage />
     </div>
   );
