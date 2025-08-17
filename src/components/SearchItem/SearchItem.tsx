@@ -2,6 +2,7 @@ import type { Character } from '@custom-types/character';
 import type { RootState } from '@store/store';
 
 import { add, remove } from '@store/slices/selectedCharactersSlice';
+import Image from 'next/image';
 import { useSelector, useDispatch } from 'react-redux';
 
 export type SearchItemProps = Character & { onClick: VoidFunction };
@@ -23,11 +24,12 @@ function SearchItem({ onClick, ...props }: SearchItemProps) {
         }}
       ></input>
       <div className="flex gap-2.5" onClick={onClick}>
-        <img
+        <Image
           src={props.image}
+          width={105}
+          height={150}
           alt={props.fullName}
-          className="block h-[150px] w-[105px] rounded-[10px]"
-        ></img>
+        />
         <div className="flex flex-col items-start text-left">
           <div className="text-primary pr-1 text-lg font-black">
             {props.fullName}

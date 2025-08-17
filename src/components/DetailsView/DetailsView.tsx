@@ -2,6 +2,7 @@ import Button from '@components/Button';
 import Loader from '@components/Loader';
 import { REFETCH_INTERVAL_SECONDS } from '@constants/index';
 import { useGetCharacterByIdQuery } from '@services/potterApi';
+import Image from 'next/image';
 import { useOutletContext } from 'react-router';
 
 type ContextType = [
@@ -30,11 +31,9 @@ function DetailsView() {
 
   return (
     <div>
-      <img
-        src={data.image}
-        alt={data.fullName}
-        className="block rounded-lg object-none"
-      ></img>
+      <div className="rounded-lg">
+        <Image src={data.image} width={350} height={500} alt={data.fullName} />
+      </div>
       <div className="flex flex-col items-center text-left">
         <div className="text-primary pr-1 text-lg font-black">
           {data.fullName}
