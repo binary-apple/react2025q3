@@ -1,8 +1,9 @@
+'use client';
+import DetailsView from '@components/DetailsView';
 import Loader from '@components/Loader';
 import SearchItem, { type SearchItemProps } from '@components/SearchItem';
 import { useTranslations } from 'next-intl';
-import { useEffect, useState } from 'react';
-import { Outlet /* , useSearchParams */ } from 'react-router';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 type SearchResultsProps = {
   isLoading: boolean;
@@ -12,27 +13,14 @@ type SearchResultsProps = {
 
 function SearchResults(props: SearchResultsProps) {
   const t = useTranslations('MainPage');
-  // const [searchParams, setSearchParams] = useSearchParams();
-  // const detailsParam = searchParams.get('details');
-  const [expandedId, setExpandedId] = useState<number | null>(
-    /* detailsParam ? +detailsParam : */ null
-  );
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const onItemClick = (id: number) => {
-    setExpandedId(id);
+    const params = new URLSearchParams(String(searchParams));
+    params.set('details', String(id));
+    router.replace(`${pathname}?${String(params)}`);
   };
-  // useEffect(() => {
-  //   // const detailParam = searchParams.get('details');
-  //   // setExpandedId(detailParam ? +detailParam : null);
-  // }, [searchParams]);
-  useEffect(() => {
-    // const newParams = new URLSearchParams(searchParams);
-    if (expandedId === null) {
-      // newParams.delete('details');
-    } else {
-      // newParams.set('details', String(expandedId));
-    }
-    // setSearchParams(newParams);
-  }, [expandedId]);
   if (props.isError) {
     return <div>{t('errorMessage')}</div>;
   }
@@ -63,7 +51,9 @@ function SearchResults(props: SearchResultsProps) {
           );
         })}
       </div>
-      <Outlet context={[expandedId, setExpandedId]} />
+      <div>
+        <DetailsView />
+      </div>
     </div>
   );
 }

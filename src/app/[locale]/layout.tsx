@@ -86,7 +86,7 @@ export default async function RootLayout({
                     aboutLink={t('aboutLink')}
                     themeLabel={t('themeLabel')}
                   />
-                  <main className="flex w-lg flex-grow items-center gap-2.5">
+                  <main className="flex flex-grow items-center gap-2.5">
                     {children}
                   </main>
                   <section className="sticky bottom-0">

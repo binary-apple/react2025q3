@@ -1,15 +1,12 @@
+'use client';
+
 import Button from '@components/Button';
 import Loader from '@components/Loader';
 import { REFETCH_INTERVAL_SECONDS } from '@constants/index';
 import { useGetCharacterByIdQuery } from '@services/potterApi';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import { useOutletContext } from 'react-router';
-
-type ContextType = [
-  expandedId: number | null,
-  setExpandedId: (id: number | null) => void,
-];
+import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 
 const imageStyle = {
   borderRadius: '10px',
@@ -18,7 +15,19 @@ const imageStyle = {
 function DetailsView() {
   const t = useTranslations('MainPage');
 
-  const [expandedId, setExpandedId] = useOutletContext<ContextType>();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const idParam = searchParams?.get('details');
+  const expandedId = idParam ? +idParam : null;
+
+  const onCloseClick = () => {
+    const params = new URLSearchParams(String(searchParams));
+    params.delete('details');
+    router.replace(String(params) ? `${pathname}?${params}` : (pathname ?? ''));
+  };
+
   const { isFetching, isError, data } = useGetCharacterByIdQuery(expandedId, {
     refetchOnMountOrArgChange: REFETCH_INTERVAL_SECONDS,
     skip: expandedId === null,
@@ -61,13 +70,7 @@ function DetailsView() {
           // TODO: display character's children
         }
       </div>
-      <Button
-        onClick={() => {
-          setExpandedId(null);
-        }}
-      >
-        {t('closeButton')};
-      </Button>
+      <Button onClick={() => onCloseClick()}>{t('closeButton')}</Button>
     </div>
   );
 }
