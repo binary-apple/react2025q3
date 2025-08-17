@@ -1,7 +1,7 @@
 import Loader from '@components/Loader';
 import SearchItem, { type SearchItemProps } from '@components/SearchItem';
 import { useEffect, useState } from 'react';
-import { Outlet, useSearchParams } from 'react-router';
+import { Outlet /* , useSearchParams */ } from 'react-router';
 
 type SearchResultsProps = {
   isLoading: boolean;
@@ -10,26 +10,26 @@ type SearchResultsProps = {
 };
 
 function SearchResults(props: SearchResultsProps) {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const detailsParam = searchParams.get('details');
+  // const [searchParams, setSearchParams] = useSearchParams();
+  // const detailsParam = searchParams.get('details');
   const [expandedId, setExpandedId] = useState<number | null>(
-    detailsParam ? +detailsParam : null
+    /* detailsParam ? +detailsParam : */ null
   );
   const onItemClick = (id: number) => {
     setExpandedId(id);
   };
+  // useEffect(() => {
+  //   // const detailParam = searchParams.get('details');
+  //   // setExpandedId(detailParam ? +detailParam : null);
+  // }, [searchParams]);
   useEffect(() => {
-    const detailParam = searchParams.get('details');
-    setExpandedId(detailParam ? +detailParam : null);
-  }, [searchParams]);
-  useEffect(() => {
-    const newParams = new URLSearchParams(searchParams);
+    // const newParams = new URLSearchParams(searchParams);
     if (expandedId === null) {
-      newParams.delete('details');
+      // newParams.delete('details');
     } else {
-      newParams.set('details', String(expandedId));
+      // newParams.set('details', String(expandedId));
     }
-    setSearchParams(newParams);
+    // setSearchParams(newParams);
   }, [expandedId]);
   if (props.isError) {
     return <div>There was an error. Try again</div>;

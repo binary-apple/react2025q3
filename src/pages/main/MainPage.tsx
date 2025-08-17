@@ -3,11 +3,11 @@ import Pagination from '@components/Pagination';
 import Search from '@components/Search';
 import SearchResults from '@components/SearchResults';
 import { REFETCH_INTERVAL_SECONDS } from '@constants/index';
-import useLocalStorage from '@hooks/useLocalStorage';
+// import useLocalStorage from '@hooks/useLocalStorage';
 import { potterApi, useGetCharactersQuery } from '@services/potterApi';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useSearchParams } from 'react-router';
+// import { useSearchParams } from 'react-router';
 
 type AppState = {
   searchString: string;
@@ -15,11 +15,11 @@ type AppState = {
 };
 
 function MainPage() {
-  const [searchString, setSearchString] = useLocalStorage('searchString');
-  const [searchParams, setSearchParams] = useSearchParams();
+  // const [searchString, setSearchString] = useLocalStorage('searchString');
+  // const [searchParams, setSearchParams] = useSearchParams();
   const [appState, setAppState] = useState<AppState>({
-    searchString: searchString,
-    currentPage: Number(searchParams.get('page')) || 1,
+    searchString: /* searchString */ '',
+    currentPage: /* Number(searchParams.get('page')) || */ 1,
   });
 
   const { isFetching, isError, data } = useGetCharactersQuery(
@@ -29,7 +29,7 @@ function MainPage() {
     },
     {
       refetchOnMountOrArgChange: REFETCH_INTERVAL_SECONDS,
-      skip: searchString !== appState.searchString,
+      // skip: searchString !== appState.searchString,
     }
   );
 
@@ -41,11 +41,13 @@ function MainPage() {
 
   async function onSearch() {
     try {
-      if (appState.searchString !== searchString || appState.currentPage > 1) {
-        setSearchParams({});
+      if (
+        /* appState.searchString !== searchString || */ appState.currentPage > 1
+      ) {
+        // setSearchParams({});
         setAppState((prevState) => ({ ...prevState, currentPage: 1 }));
       }
-      setSearchString(appState.searchString);
+      // setSearchString(appState.searchString);
     } catch {
       //
     }
@@ -53,7 +55,7 @@ function MainPage() {
 
   async function onNewPage(newPage: number) {
     setAppState((a) => ({ ...a, currentPage: newPage }));
-    setSearchParams({ page: String(newPage) });
+    // setSearchParams({ page: String(newPage) });
   }
 
   return (

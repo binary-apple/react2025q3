@@ -1,11 +1,14 @@
-import { useTranslations } from 'next-intl';
+'use client';
+
+import MainPage from '@pages/main';
+// import { useTranslations } from 'next-intl';
 
 function Page() {
-  const t = useTranslations('MainPage');
+  // const t = useTranslations('MainPage');
 
   return (
     <div className="flex max-w-[320px] flex-col gap-5 text-lg">
-      {t('title')}
+      <MainPage />
     </div>
   );
 }

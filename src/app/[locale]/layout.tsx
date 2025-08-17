@@ -5,7 +5,7 @@ import type { ReactNode } from 'react';
 
 // import Flayout from '@components/Flayout';
 import Header from '@components/Header/Header';
-import { ThemeProvider } from '@providers/themeProvider';
+import Providers from '@providers/Providers';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
@@ -74,7 +74,7 @@ export default async function RootLayout({
     <html lang={locale}>
       <body>
         <NextIntlClientProvider>
-          <ThemeProvider>
+          <Providers>
             <div
               id="root"
               className="m-0 mx-auto flex h-full min-h-dvh w-full flex-col text-center"
@@ -96,7 +96,7 @@ export default async function RootLayout({
                 </div>
               </div>
             </div>
-          </ThemeProvider>
+          </Providers>
         </NextIntlClientProvider>
       </body>
     </html>
