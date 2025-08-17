@@ -1,3 +1,5 @@
+'use client';
+
 import { ThemeContext } from '@contexts/ThemeContext';
 import { useState, type PropsWithChildren } from 'react';
 

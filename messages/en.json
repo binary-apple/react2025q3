@@ -1,0 +1,40 @@
+{
+  "Layout": {
+    "mainLink": "Main",
+    "aboutLink": "About",
+    "themeLabel": "Dark mode",
+    "unselectAllButton": "Unselect all",
+    "downloadButton": "Download",
+    "selectedItems": "items selected"
+  },
+  "LocaleSwitcher": {
+    "en": "English",
+    "it": "Italian",
+    "label": "Language"
+  },
+  "MainPage": {
+    "inputPlaceholder": "Search...",
+    "searchButton": "Search",
+    "refreshCacheButton": "Refresh cache",
+    "prevButton": "Prev",
+    "nextButton": "Next",
+    "pageLabel": "Page",
+    "birthday": "Birthday",
+    "house": "Hogwarts house",
+    "errorMessage": "Something went wrong...",
+    "emptyResult": "Nothing was found",
+    "closeButton": "Close"
+  },
+  "AboutPage": {
+    "about": "Hi, my name is Anna and I am currently learning magic of React in RSSchool (Hogwarts in programming world).",
+    "github": "Take a look into my code spellbook:",
+    "link1": "github",
+    "schoolData": "If you also want to become a frontend-wizard, don't wait for an owl, just visit the",
+    "link2": "website"
+  },
+  "NotFoundPage": {
+    "title": "404",
+    "subtitle": "This page magically disappeared",
+    "link": "Accio Homepage!"
+  }
+}

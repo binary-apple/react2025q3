@@ -25,3 +25,8 @@ dist-ssr
 
 #tests
 coverage
+
+# next
+.next
+next-env.d.ts
+dist

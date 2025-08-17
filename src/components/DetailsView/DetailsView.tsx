@@ -1,16 +1,33 @@
+'use client';
+
 import Button from '@components/Button';
 import Loader from '@components/Loader';
 import { REFETCH_INTERVAL_SECONDS } from '@constants/index';
 import { useGetCharacterByIdQuery } from '@services/potterApi';
-import { useOutletContext } from 'react-router';
+import { useTranslations } from 'next-intl';
+import Image from 'next/image';
+import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 
-type ContextType = [
-  expandedId: number | null,
-  setExpandedId: (id: number | null) => void,
-];
+const imageStyle = {
+  borderRadius: '10px',
+};
 
 function DetailsView() {
-  const [expandedId, setExpandedId] = useOutletContext<ContextType>();
+  const t = useTranslations('MainPage');
+
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const idParam = searchParams?.get('details');
+  const expandedId = idParam ? +idParam : null;
+
+  const onCloseClick = () => {
+    const params = new URLSearchParams(String(searchParams));
+    params.delete('details');
+    router.replace(String(params) ? `${pathname}?${params}` : (pathname ?? ''));
+  };
+
   const { isFetching, isError, data } = useGetCharacterByIdQuery(expandedId, {
     refetchOnMountOrArgChange: REFETCH_INTERVAL_SECONDS,
     skip: expandedId === null,
@@ -21,7 +38,7 @@ function DetailsView() {
   }
 
   if (isError) {
-    return <div>Something went wrong...</div>;
+    return <div>{t('errorMessage')}</div>;
   }
 
   if (expandedId === null || !data) {
@@ -30,32 +47,30 @@ function DetailsView() {
 
   return (
     <div>
-      <img
-        src={data.image}
-        alt={data.fullName}
-        className="block rounded-lg object-none"
-      ></img>
+      <div className="rounded-lg">
+        <Image
+          src={data.image}
+          width={350}
+          height={500}
+          alt={data.fullName}
+          style={imageStyle}
+        />
+      </div>
       <div className="flex flex-col items-center text-left">
         <div className="text-primary pr-1 text-lg font-black">
           {data.fullName}
         </div>
         <div>
-          <b>Birthday:</b> {data.birthdate}
+          <b>{t('birthday')}:</b> {data.birthdate}
         </div>
         <div>
-          <b>Hogwarts house:</b> {data.hogwartsHouse}
+          <b>{t('house')}:</b> {data.hogwartsHouse}
         </div>
         {
           // TODO: display character's children
         }
       </div>
-      <Button
-        onClick={() => {
-          setExpandedId(null);
-        }}
-      >
-        Close
-      </Button>
+      <Button onClick={() => onCloseClick()}>{t('closeButton')}</Button>
     </div>
   );
 }

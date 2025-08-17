@@ -1,3 +1,5 @@
+'use client';
+
 import Button from '@components/Button';
 import Pagination from '@components/Pagination';
 import Search from '@components/Search';
@@ -5,9 +7,10 @@ import SearchResults from '@components/SearchResults';
 import { REFETCH_INTERVAL_SECONDS } from '@constants/index';
 import useLocalStorage from '@hooks/useLocalStorage';
 import { potterApi, useGetCharactersQuery } from '@services/potterApi';
-import { useState } from 'react';
+import { useTranslations } from 'next-intl';
+import { useSearchParams, usePathname, useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useSearchParams } from 'react-router';
 
 type AppState = {
   searchString: string;
@@ -15,11 +18,16 @@ type AppState = {
 };
 
 function MainPage() {
+  const t = useTranslations('MainPage');
+
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
+
   const [searchString, setSearchString] = useLocalStorage('searchString');
-  const [searchParams, setSearchParams] = useSearchParams();
   const [appState, setAppState] = useState<AppState>({
-    searchString: searchString,
-    currentPage: Number(searchParams.get('page')) || 1,
+    searchString: searchString || '',
+    currentPage: +(searchParams?.get('page') ?? 1),
   });
 
   const { isFetching, isError, data } = useGetCharactersQuery(
@@ -33,6 +41,10 @@ function MainPage() {
     }
   );
 
+  useEffect(() => {
+    onSearch();
+  }, []);
+
   const dispatch = useDispatch();
 
   const setSearchStringToState = (searchString: string): void => {
@@ -42,7 +54,7 @@ function MainPage() {
   async function onSearch() {
     try {
       if (appState.searchString !== searchString || appState.currentPage > 1) {
-        setSearchParams({});
+        router.replace(pathname ?? '');
         setAppState((prevState) => ({ ...prevState, currentPage: 1 }));
       }
       setSearchString(appState.searchString);
@@ -53,11 +65,13 @@ function MainPage() {
 
   async function onNewPage(newPage: number) {
     setAppState((a) => ({ ...a, currentPage: newPage }));
-    setSearchParams({ page: String(newPage) });
+    const params = new URLSearchParams({});
+    params.set('page', String(newPage));
+    router.replace(`${pathname}?${params}`);
   }
 
   return (
-    <div className="wrapper">
+    <div className="m-2.5 mx-auto flex flex-grow flex-col items-center gap-2.5 self-baseline">
       <Search
         onSearch={() => onSearch()}
         searchString={appState.searchString}
@@ -68,7 +82,7 @@ function MainPage() {
           dispatch(potterApi.util.resetApiState());
         }}
       >
-        Refresh cache
+        {t('refreshCacheButton')}
       </Button>
       <Pagination
         currentPage={appState.currentPage}

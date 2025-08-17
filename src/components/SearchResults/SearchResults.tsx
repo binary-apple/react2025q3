@@ -1,7 +1,9 @@
+'use client';
+import DetailsView from '@components/DetailsView';
 import Loader from '@components/Loader';
 import SearchItem, { type SearchItemProps } from '@components/SearchItem';
-import { useEffect, useState } from 'react';
-import { Outlet, useSearchParams } from 'react-router';
+import { useTranslations } from 'next-intl';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 type SearchResultsProps = {
   isLoading: boolean;
@@ -10,35 +12,23 @@ type SearchResultsProps = {
 };
 
 function SearchResults(props: SearchResultsProps) {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const detailsParam = searchParams.get('details');
-  const [expandedId, setExpandedId] = useState<number | null>(
-    detailsParam ? +detailsParam : null
-  );
+  const t = useTranslations('MainPage');
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const onItemClick = (id: number) => {
-    setExpandedId(id);
+    const params = new URLSearchParams(String(searchParams));
+    params.set('details', String(id));
+    router.replace(`${pathname}?${String(params)}`);
   };
-  useEffect(() => {
-    const detailParam = searchParams.get('details');
-    setExpandedId(detailParam ? +detailParam : null);
-  }, [searchParams]);
-  useEffect(() => {
-    const newParams = new URLSearchParams(searchParams);
-    if (expandedId === null) {
-      newParams.delete('details');
-    } else {
-      newParams.set('details', String(expandedId));
-    }
-    setSearchParams(newParams);
-  }, [expandedId]);
   if (props.isError) {
-    return <div>There was an error. Try again</div>;
+    return <div>{t('errorMessage')}</div>;
   }
   if (props.isLoading) {
     return <Loader />;
   }
   if (props.searchResults.length === 0) {
-    return <div>Nothing was found</div>;
+    return <div>{t('emptyResult')}</div>;
   }
   return (
     <div className="flex gap-2.5">
@@ -61,7 +51,9 @@ function SearchResults(props: SearchResultsProps) {
           );
         })}
       </div>
-      <Outlet context={[expandedId, setExpandedId]} />
+      <div>
+        <DetailsView />
+      </div>
     </div>
   );
 }

@@ -1,0 +1,40 @@
+{
+  "Layout": {
+    "mainLink": "Principale",
+    "aboutLink": "Informazioni",
+    "themeLabel": "Modalità scura",
+    "unselectAllButton": "Deseleziona tutto",
+    "downloadButton": "Scarica",
+    "selectedItems": "elementi selezionati"
+  },
+  "LocaleSwitcher": {
+    "en": "Inglese",
+    "it": "Italiano",
+    "label": "Lingua"
+  },
+  "MainPage": {
+    "inputPlaceholder": "Cerca...",
+    "searchButton": "Cerca",
+    "refreshCacheButton": "Aggiorna cache",
+    "prevButton": "Precedente",
+    "nextButton": "Successivo",
+    "pageLabel": "Pagina",
+    "birthday": "Data di nascita",
+    "house": "Casa di Hogwarts",
+    "errorMessage": "Qualcosa è andato storto...",
+    "emptyResult": "Non è stato trovato nulla",
+    "closeButton": "Chiudi"
+  },
+  "AboutPage": {
+    "about": "Ciao, mi chiamo Anna e attualmente sto imparando la magia di React alla RSSchool (Hogwarts del mondo della programmazione).",
+    "github": "Dai un’occhiata al mio libro degli incantesimi di codice:",
+    "link1": "github",
+    "schoolData": "Se anche tu vuoi diventare un mago del frontend, non aspettare la civetta, visita semplicemente il",
+    "link2": "sito web"
+  },
+  "NotFoundPage": {
+    "title": "404",
+    "subtitle": "Questa pagina è magicamente scomparsa",
+    "link": "Accio Pagina principale!"
+  }
+}
