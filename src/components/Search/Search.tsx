@@ -1,4 +1,5 @@
 import Button from '@components/Button';
+import { useTranslations } from 'next-intl';
 import { type ChangeEvent } from 'react';
 
 type SearchProps = {
@@ -8,6 +9,8 @@ type SearchProps = {
 };
 
 function Search(props: SearchProps) {
+  const t = useTranslations('MainPage');
+
   function onInputChange(e: ChangeEvent) {
     if (e.target instanceof HTMLInputElement) {
       props.setSearchString(e.target.value);
@@ -23,11 +26,11 @@ function Search(props: SearchProps) {
       <input
         value={props.searchString}
         onChange={(e) => onInputChange(e)}
-        placeholder="Search..."
+        placeholder={t('inputPlaceholder')}
         data-testid="search-input"
       ></input>
       <Button onClick={() => onClick()} data-testid="search-button">
-        Search
+        {t('searchButton')}
       </Button>
     </div>
   );

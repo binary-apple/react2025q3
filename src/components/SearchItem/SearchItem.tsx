@@ -2,6 +2,7 @@ import type { Character } from '@custom-types/character';
 import type { RootState } from '@store/store';
 
 import { add, remove } from '@store/slices/selectedCharactersSlice';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -12,6 +13,7 @@ const imageStyle = {
 };
 
 function SearchItem({ onClick, ...props }: SearchItemProps) {
+  const t = useTranslations('MainPage');
   const isSelected = useSelector((state: RootState) =>
     state.selectedCharacters.value.some((value) => value.index === props.index)
   );
@@ -40,10 +42,10 @@ function SearchItem({ onClick, ...props }: SearchItemProps) {
             {props.fullName}
           </div>
           <div>
-            <b>Birthday:</b> {props.birthdate}
+            <b>{t('birthday')}:</b> {props.birthdate}
           </div>
           <div>
-            <b>Hogwarts house:</b> {props.hogwartsHouse}
+            <b>{t('house')}:</b> {props.hogwartsHouse}
           </div>
           {
             // TODO: display character's children

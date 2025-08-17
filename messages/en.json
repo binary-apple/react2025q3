@@ -10,13 +10,17 @@
     "label": "Language"
   },
   "MainPage": {
-    "title": "This will be the main page!",
     "inputPlaceholder": "Search...",
     "searchButton": "Search",
     "refreshCacheButton": "Refresh cache",
     "prevButton": "Prev",
     "nextButton": "Next",
-    "pageLabel": "Page"
+    "pageLabel": "Page",
+    "birthday": "Birthday",
+    "house": "Hogwarts house",
+    "errorMessage": "Something went wrong...",
+    "emptyResult": "Nothing was found",
+    "closeButton": "Close"
   },
   "AboutPage": {
     "about": "Hi, my name is Anna and I am currently learning magic of React in RSSchool (Hogwarts in programming world).",

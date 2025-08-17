@@ -10,13 +10,17 @@
     "label": "Lingua"
   },
   "MainPage": {
-    "title": "Questa sarà la pagina principale!",
     "inputPlaceholder": "Cerca...",
     "searchButton": "Cerca",
     "refreshCacheButton": "Aggiorna cache",
     "prevButton": "Precedente",
     "nextButton": "Successivo",
-    "pageLabel": "Pagina"
+    "pageLabel": "Pagina",
+    "birthday": "Data di nascita",
+    "house": "Casa di Hogwarts",
+    "errorMessage": "Qualcosa è andato storto...",
+    "emptyResult": "Non è stato trovato nulla",
+    "closeButton": "Chiudi"
   },
   "AboutPage": {
     "about": "Ciao, mi chiamo Anna e attualmente sto imparando la magia di React alla RSSchool (Hogwarts del mondo della programmazione).",

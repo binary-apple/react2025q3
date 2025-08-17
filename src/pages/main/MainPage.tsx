@@ -3,8 +3,9 @@ import Pagination from '@components/Pagination';
 import Search from '@components/Search';
 import SearchResults from '@components/SearchResults';
 import { REFETCH_INTERVAL_SECONDS } from '@constants/index';
-// import useLocalStorage from '@hooks/useLocalStorage';
 import { potterApi, useGetCharactersQuery } from '@services/potterApi';
+// import useLocalStorage from '@hooks/useLocalStorage';
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 // import { useSearchParams } from 'react-router';
@@ -15,6 +16,8 @@ type AppState = {
 };
 
 function MainPage() {
+  const t = useTranslations('MainPage');
+
   // const [searchString, setSearchString] = useLocalStorage('searchString');
   // const [searchParams, setSearchParams] = useSearchParams();
   const [appState, setAppState] = useState<AppState>({
@@ -70,7 +73,7 @@ function MainPage() {
           dispatch(potterApi.util.resetApiState());
         }}
       >
-        Refresh cache
+        {t('refreshCacheButton')}
       </Button>
       <Pagination
         currentPage={appState.currentPage}

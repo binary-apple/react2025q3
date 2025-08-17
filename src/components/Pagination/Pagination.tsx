@@ -1,4 +1,5 @@
 import Button from '@components/Button';
+import { useTranslations } from 'next-intl';
 
 type PaginationProps = {
   currentPage: number;
@@ -7,20 +8,23 @@ type PaginationProps = {
 };
 
 function Pagination(props: PaginationProps) {
+  const t = useTranslations('MainPage');
   return (
     <div className="flex gap-2.5">
       <Button
         disabled={props.currentPage === 1}
         onClick={() => props.onButtonClick(props.currentPage - 1)}
       >
-        Prev
+        {t('prevButton')}
       </Button>
-      <div className="min-w-14">Page {props.currentPage}</div>
+      <div className="min-w-14">
+        {t('pageLabel')} {props.currentPage}
+      </div>
       <Button
         disabled={!props.hasMorePages}
         onClick={() => props.onButtonClick(props.currentPage + 1)}
       >
-        Next
+        {t('nextButton')}
       </Button>
     </div>
   );

@@ -2,6 +2,7 @@ import Button from '@components/Button';
 import Loader from '@components/Loader';
 import { REFETCH_INTERVAL_SECONDS } from '@constants/index';
 import { useGetCharacterByIdQuery } from '@services/potterApi';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { useOutletContext } from 'react-router';
 
@@ -15,6 +16,8 @@ const imageStyle = {
 };
 
 function DetailsView() {
+  const t = useTranslations('MainPage');
+
   const [expandedId, setExpandedId] = useOutletContext<ContextType>();
   const { isFetching, isError, data } = useGetCharacterByIdQuery(expandedId, {
     refetchOnMountOrArgChange: REFETCH_INTERVAL_SECONDS,
@@ -26,7 +29,7 @@ function DetailsView() {
   }
 
   if (isError) {
-    return <div>Something went wrong...</div>;
+    return <div>{t('errorMessage')}</div>;
   }
 
   if (expandedId === null || !data) {
@@ -49,10 +52,10 @@ function DetailsView() {
           {data.fullName}
         </div>
         <div>
-          <b>Birthday:</b> {data.birthdate}
+          <b>{t('birthday')}:</b> {data.birthdate}
         </div>
         <div>
-          <b>Hogwarts house:</b> {data.hogwartsHouse}
+          <b>{t('house')}:</b> {data.hogwartsHouse}
         </div>
         {
           // TODO: display character's children
@@ -63,7 +66,7 @@ function DetailsView() {
           setExpandedId(null);
         }}
       >
-        Close
+        {t('closeButton')};
       </Button>
     </div>
   );

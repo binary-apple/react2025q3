@@ -1,5 +1,6 @@
 import Loader from '@components/Loader';
 import SearchItem, { type SearchItemProps } from '@components/SearchItem';
+import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { Outlet /* , useSearchParams */ } from 'react-router';
 
@@ -10,6 +11,7 @@ type SearchResultsProps = {
 };
 
 function SearchResults(props: SearchResultsProps) {
+  const t = useTranslations('MainPage');
   // const [searchParams, setSearchParams] = useSearchParams();
   // const detailsParam = searchParams.get('details');
   const [expandedId, setExpandedId] = useState<number | null>(
@@ -32,13 +34,13 @@ function SearchResults(props: SearchResultsProps) {
     // setSearchParams(newParams);
   }, [expandedId]);
   if (props.isError) {
-    return <div>There was an error. Try again</div>;
+    return <div>{t('errorMessage')}</div>;
   }
   if (props.isLoading) {
     return <Loader />;
   }
   if (props.searchResults.length === 0) {
-    return <div>Nothing was found</div>;
+    return <div>{t('emptyResult')}</div>;
   }
   return (
     <div className="flex gap-2.5">
