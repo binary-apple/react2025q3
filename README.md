@@ -1,69 +1,69 @@
-# React + TypeScript + Vite
+# 🧩 React Forms Playground
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to my application!  
+This project is part of a [RS School React course](https://rs.school/courses/reactjs) and focuses on building both controlled and uncontrolled forms in React.
 
-Currently, two official plugins are available:
+## Description
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Key project features:
 
-## Expanding the ESLint configuration
+- 🪟 Two forms in one modal (Portal)
+- 🗂️ Shared store (Redux)
+- 🛡️ Validation behavior
+- ✨ Post-submit UX
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Tech stack
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- 📘 TypeScript
+- ⚛️ React
+- ⚡ Vite
+- 🔍 ESLint
+- ✨ Prettier
+- 🐕 Husky
+- 🚀 Vitest
+- 💅 Tailwind
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## Setup instructions
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. Make sure [git](https://git-scm.com/) and [Node.js](https://nodejs.org/en) are installed.
+2. Clone project repository:
+
+```
+git clone https://github.com/binary-apple/react2025q3.git
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+3. Navigate to the project directory:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+cd react2025q3
+```
+
+4. Checkout corresponding branch:
+
+```
+git checkout forms
+```
+
+5. Install dependencies:
+
+```
+npm ci
+```
+
+6. Start the development server:
+
+```
+npm run dev
+```
+
+## NPM Scripts
+
+- `npm run dev`: Starts the Vite development server.
+- `npm run build`: Builds the project using Vite.
+- `npm run preview`: Serves the production build locally using Vite.
+- `npm run lint`: Checks the code for linting issues using ESLint.
+- `npm run lint:fix`: Fixes linting issues automatically using ESLint.
+- `npm run format:fix`: Formats the entire codebase using Prettier.
+- `npm run test`: Runs unit tests using Vitest.
+- `npm run test:coverage`: Runs tests and generates a coverage report using Vitest.
+- `npm run prepare`: Initializes Git hooks using Husky.
