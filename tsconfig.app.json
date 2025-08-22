@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
+    /* Alias support */
+    "baseUrl": "./",
     "paths": {
-      "@/*": ["/*"],
-      "@components/*": ["components/*"]
+      "@/*": ["src/*"],
+      "@/components/*": ["src/components/*"]
     },
 
     "types": ["vitest/globals", "@testing-library/jest-dom"],
