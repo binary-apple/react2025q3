@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState, type PropsWithChildren } from 'react';
 import { createPortal } from 'react-dom';
 import ModalContent from './modal-content';
 import Button from '../button';
 
-export default function Portal() {
+export default function Portal({ children }: PropsWithChildren) {
   const [showModal, setShowModal] = useState(false);
   return (
     <>
@@ -12,7 +12,9 @@ export default function Portal() {
       </Button>
       {showModal &&
         createPortal(
-          <ModalContent onClose={() => setShowModal(false)} />,
+          <ModalContent onClose={() => setShowModal(false)}>
+            {children}
+          </ModalContent>,
           document.body
         )}
     </>
