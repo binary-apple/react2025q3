@@ -1,4 +1,4 @@
-import { Input } from '@/components/inputs';
+import { Input, Checkbox } from '@/components/inputs';
 import Button from '@/components/button';
 
 function UncontrolledForm() {
@@ -9,6 +9,7 @@ function UncontrolledForm() {
         <Input placeholder="Name" label="Name" />
         <Input placeholder="Age" label="Age" type="number" />
         <Input placeholder="Email" label="Email" type="email" />
+        <Checkbox label="Accept T&C" />
         <div className="flex gap-2 justify-evenly">
           <Button type="submit">Submit</Button>
           <Button type="reset">Reset</Button>
