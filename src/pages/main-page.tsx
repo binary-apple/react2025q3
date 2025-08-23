@@ -1,4 +1,5 @@
 import Button from '@/components/button';
+import Portal from '@/components/modal/portal';
 
 function MainPage() {
   return (
@@ -10,7 +11,9 @@ function MainPage() {
           <Button>Uncontrolled form</Button>
         </div>
       </header>
-      <main></main>
+      <main>
+        <Portal />
+      </main>
     </div>
   );
 }
