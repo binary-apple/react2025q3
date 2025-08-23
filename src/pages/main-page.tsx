@@ -10,7 +10,7 @@ function MainPage() {
           <Button>Uncontrolled form</Button>
         </div>
       </header>
-      <p>Here will be forms</p>
+      <main></main>
     </div>
   );
 }
