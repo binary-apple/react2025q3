@@ -1,20 +1,17 @@
-import { useState, type PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
 import { createPortal } from 'react-dom';
 import ModalContent from './modal-content';
-import Button from '../button';
 
-export default function Portal({ children }: PropsWithChildren) {
-  const [showModal, setShowModal] = useState(false);
+export default function Portal({
+  isOpen,
+  onClose,
+  children,
+}: PropsWithChildren<{ isOpen: boolean; onClose: VoidFunction }>) {
   return (
     <>
-      <Button onClick={() => setShowModal(true)}>
-        Show modal using a portal
-      </Button>
-      {showModal &&
+      {isOpen &&
         createPortal(
-          <ModalContent onClose={() => setShowModal(false)}>
-            {children}
-          </ModalContent>,
+          <ModalContent onClose={() => onClose()}>{children}</ModalContent>,
           document.body
         )}
     </>
