@@ -1,4 +1,5 @@
 import Button from '@/components/button';
+import { ControlledForm, UncontrolledForm } from '@/components/forms';
 import Portal from '@/components/modal/portal';
 import { useState, type ReactNode } from 'react';
 
@@ -12,7 +13,7 @@ function MainPage() {
         <div className="flex gap-3">
           <Button
             onClick={() => {
-              setForm('CONTROLLED');
+              setForm(<ControlledForm />);
               setIsOpen(true);
             }}
           >
@@ -20,7 +21,7 @@ function MainPage() {
           </Button>
           <Button
             onClick={() => {
-              setForm('UNCONTROLLED');
+              setForm(<UncontrolledForm />);
               setIsOpen(true);
             }}
           >
