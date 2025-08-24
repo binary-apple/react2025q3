@@ -14,7 +14,7 @@ function MainPage() {
         <div className="flex gap-3">
           <Button
             onClick={() => {
-              setForm(<ControlledForm />);
+              setForm(<ControlledForm onClose={() => setIsOpen(false)} />);
               setIsOpen(true);
             }}
           >

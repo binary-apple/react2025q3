@@ -3,7 +3,7 @@ import Button from '@/components/button';
 import { useState, type FormEvent } from 'react';
 import useSubmit from '@/hooks/useSubmit';
 
-function ControlledForm() {
+function ControlledForm({ onClose }: { onClose: VoidFunction }) {
   const [formState, setFormState] = useState({
     name: '',
     age: '' as number | '',
@@ -16,6 +16,7 @@ function ControlledForm() {
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
     submit();
+    onClose();
   };
 
   const onReset = (e: FormEvent) => {
