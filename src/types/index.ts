@@ -1,12 +1,13 @@
 export type Gender = 'male' | 'female' | 'other';
+
 export type FormType = 'controlled' | 'uncontrolled';
 
-export type FormData = {
-  formType: FormType;
+export type FormValue = {
   name: string;
-  age: number | undefined;
+  age: number | '';
   email: string;
-  gender: Gender;
+  gender: Gender | '';
   terms: boolean;
-  createAt: number;
 };
+
+export type FormData = FormValue & { formType: FormType };

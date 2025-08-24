@@ -1,5 +1,6 @@
 import Button from '@/components/button';
 import { ControlledForm, UncontrolledForm } from '@/components/forms';
+import FormDataList from '@/components/forms-data';
 import Portal from '@/components/modal/portal';
 import { useState, type ReactNode } from 'react';
 
@@ -30,6 +31,7 @@ function MainPage() {
         </div>
       </header>
       <main>
+        <FormDataList />
         <Portal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           {form}
         </Portal>
