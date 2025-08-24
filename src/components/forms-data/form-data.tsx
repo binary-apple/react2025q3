@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 
 function FormDataList() {
   const items = useSelector((state: RootState) => state.form);
-  console.log(items);
 
   if (!items.length) {
     return (

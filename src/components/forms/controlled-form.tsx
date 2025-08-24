@@ -16,7 +16,6 @@ function ControlledForm() {
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
     submit();
-    console.log(formState);
   };
 
   const onReset = (e: FormEvent) => {
