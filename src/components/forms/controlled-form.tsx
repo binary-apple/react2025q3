@@ -13,8 +13,9 @@ function ControlledForm({ onClose }: { onClose: VoidFunction }) {
   });
   const submit = useSubmit('controlled');
 
-  const onReset = (e: FormEvent) => {
+  const onSubmit = (e: FormEvent) => {
     e.preventDefault();
+    submit(formState);
     setFormState({
       name: '',
       age: '',
@@ -22,12 +23,6 @@ function ControlledForm({ onClose }: { onClose: VoidFunction }) {
       gender: '',
       terms: false,
     });
-  };
-
-  const onSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    submit(formState);
-    onReset(e);
     onClose();
   };
 
@@ -75,9 +70,6 @@ function ControlledForm({ onClose }: { onClose: VoidFunction }) {
         <div className="flex gap-2 justify-evenly">
           <Button type="submit" onClick={onSubmit}>
             Submit
-          </Button>
-          <Button type="reset" onClick={onReset}>
-            Reset
           </Button>
         </div>
       </form>
