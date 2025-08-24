@@ -1,0 +1,43 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-display: 'Lato', 'sans-serif';
+  --color-background: hsl(0, 0%, 14%);
+  --color-foreground: hsl(0, 0%, 100%);
+
+  --color-primary: hsl(176, 100%, 33%);
+  --color-primary-light: hsl(176 100% 45%);
+  --color-primary-dark: hsl(176 100% 24%);
+
+  --color-disabled: hsl(172, 58%, 93%);
+  --color-on-disabled: hsl(174, 12%, 68%);
+
+  --color-error: hsl(349, 100%, 35%);
+
+  --color-grey: hsl(174, 8%, 47%);
+}
+
+:root {
+  font-family: system-ui, Lato, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  background-color: hsl(0, 0%, 14%);
+  color: hsl(0, 0%, 100%);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
