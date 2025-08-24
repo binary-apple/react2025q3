@@ -22,7 +22,7 @@ function MainPage() {
           </Button>
           <Button
             onClick={() => {
-              setForm(<UncontrolledForm />);
+              setForm(<UncontrolledForm onClose={() => setIsOpen(false)} />);
               setIsOpen(true);
             }}
           >

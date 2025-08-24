@@ -11,13 +11,7 @@ function ControlledForm({ onClose }: { onClose: VoidFunction }) {
     gender: '' as 'male' | 'female' | 'other' | '',
     terms: false,
   });
-  const submit = useSubmit(formState, 'controlled');
-
-  const onSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    submit();
-    onClose();
-  };
+  const submit = useSubmit('controlled');
 
   const onReset = (e: FormEvent) => {
     e.preventDefault();
@@ -28,6 +22,13 @@ function ControlledForm({ onClose }: { onClose: VoidFunction }) {
       gender: '',
       terms: false,
     });
+  };
+
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    submit(formState);
+    onReset(e);
+    onClose();
   };
 
   return (
