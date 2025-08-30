@@ -3,6 +3,9 @@ export type YearEmissionStats = {
   population?: number;
   co2?: number;
   co2_per_capita?: number;
+  methane?: number;
+  oil_co2?: number;
+  temperature_change_from_co2?: number;
   [key: string]: number | string | undefined;
 };
 
@@ -16,3 +19,8 @@ export type GlobalEmissionStats = Record<
   string,
   Omit<CountryEmissionStats, 'name'>
 >;
+
+export type OptionalColumns =
+  | 'methane'
+  | 'oil_co2'
+  | 'temperature_change_from_co2';

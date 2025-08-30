@@ -1,11 +1,13 @@
 import { useStats } from '@/contexts/stats-context';
 import format from '@/utils/format';
+import Controls from '@components/controls';
 
 function MainPage() {
   const { stats } = useStats();
 
   return (
     <main className="flex flex-col gap-2">
+      <Controls />
       {stats && (
         <table className="min-w-full divide-y-2 divide-primary-dark">
           <thead>
