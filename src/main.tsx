@@ -1,6 +1,7 @@
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './App';
+import { StatsProvider } from './providers/stats-provider';
 // import { StrictMode } from 'react';
 
 const root = document.getElementById('root');
@@ -11,6 +12,8 @@ if (!root) {
 
 createRoot(root).render(
   // <StrictMode>
-  <App />
+  <StatsProvider>
+    <App />
+  </StatsProvider>
   // </StrictMode>
 );
