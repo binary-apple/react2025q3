@@ -1,5 +1,6 @@
 import { getData } from '@/services/api';
 import type { CountryEmissionStats } from '@/types';
+import format from '@/utils/format';
 import { useEffect, useState } from 'react';
 
 function MainPage() {
@@ -16,7 +17,7 @@ function MainPage() {
         <thead>
           <tr>
             <th className="px-6 py-3 text-start text-lg font-medium">
-              Country
+              Country/Region
             </th>
             <th className="px-6 py-3 text-start text-lg font-medium">ISO</th>
             <th className="px-6 py-3 text-start text-lg font-medium">Year</th>
@@ -42,13 +43,13 @@ function MainPage() {
                 {v.data[v.data.length - 1].year}
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                {v.data[v.data.length - 1].population}
+                {format(v.data[v.data.length - 1].population)}
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                {v.data[v.data.length - 1].co2}
+                {format(v.data[v.data.length - 1].co2, 2)}
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                {v.data[v.data.length - 1].co2_per_capita}
+                {format(v.data[v.data.length - 1].co2_per_capita, 2)}
               </td>
             </tr>
           ))}
