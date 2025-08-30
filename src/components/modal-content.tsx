@@ -1,18 +1,16 @@
+import { OPTIONAL_COLUMNS } from '@/constants';
 import type { OptionalColumns } from '@/types';
 import Button from '@components/button';
-import { useState } from 'react';
 
-const OPTIONAL_COLUNMS: Record<OptionalColumns, string> = {
-  methane: 'Methane',
-  oil_co2: 'Oil CO2',
-  temperature_change_from_co2: 'T. change from CO2',
+type Props = {
+  onClose: VoidFunction;
+  selectedColumns: Set<OptionalColumns>;
+  setSelectedColumns: React.Dispatch<
+    React.SetStateAction<Set<OptionalColumns>>
+  >;
 };
 
-function ModalContent({ onClose }: { onClose: VoidFunction }) {
-  const [selectedColumns, setSelectedColumns] = useState<Set<OptionalColumns>>(
-    new Set()
-  );
-
+function ModalContent({ onClose, selectedColumns, setSelectedColumns }: Props) {
   const onCheck = (value: OptionalColumns) => {
     setSelectedColumns((prev) => {
       const s = new Set(prev);
@@ -42,7 +40,7 @@ function ModalContent({ onClose }: { onClose: VoidFunction }) {
           <h3>Select additional columns</h3>
           <ul className="flex flex-col gap-2">
             {(
-              Object.entries(OPTIONAL_COLUNMS) as [OptionalColumns, string][]
+              Object.entries(OPTIONAL_COLUMNS) as [OptionalColumns, string][]
             ).map(([key, label]) => {
               const checked = selectedColumns.has(key);
               return (
