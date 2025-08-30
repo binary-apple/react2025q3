@@ -1,18 +1,21 @@
+import type { ChangeEvent } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 type Props = {
   minYear: number;
   maxYear: number;
-  onChange: VoidFunction;
+  selectedYear: number;
+  onChange: (e: ChangeEvent<HTMLSelectElement>) => void;
 };
 
-function YearSelector({ minYear, maxYear, onChange }: Props) {
+function YearSelector({ minYear, maxYear, selectedYear, onChange }: Props) {
   const years = Array.from(
     { length: maxYear - minYear + 1 },
     (_, i) => i + minYear
   ).reverse();
   return (
     <select
+      value={selectedYear}
       onChange={onChange}
       className={twMerge(
         'cursor-pointer rounded-md border-2 font-bold',
@@ -22,7 +25,7 @@ function YearSelector({ minYear, maxYear, onChange }: Props) {
       )}
     >
       {years.map((year) => (
-        <option key={year} value={year}>
+        <option key={year} value={year} className="font-medium">
           {year}
         </option>
       ))}

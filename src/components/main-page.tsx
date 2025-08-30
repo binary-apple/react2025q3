@@ -1,17 +1,25 @@
 import { useStats } from '@/contexts/stats-context';
 import type { OptionalColumns } from '@/types';
 import format from '@/utils/format';
-import { useState } from 'react';
+import { useState, type ChangeEvent } from 'react';
 import Portal from './portal';
 import { OPTIONAL_COLUMNS } from '@/constants';
 import YearSelector from './year-selector';
+
+// TODO: get years range from fetching api
+const MIN_YEAR = 1750;
+const MAX_YEAR = 2023;
 
 function MainPage() {
   const { stats } = useStats();
   const [selectedColumns, setSelectedColumns] = useState<Set<OptionalColumns>>(
     new Set()
   );
-  // const [selectedYear, setSelectedYear] = useState(2023);
+  const [selectedYear, setSelectedYear] = useState(MAX_YEAR);
+
+  const onYearChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    setSelectedYear(+e.target.value);
+  };
 
   return (
     <main className="flex flex-col gap-2">
@@ -20,7 +28,14 @@ function MainPage() {
           selectedColumns={selectedColumns}
           setSelectedColumns={setSelectedColumns}
         />
-        <YearSelector minYear={1750} maxYear={2023} onChange={() => {}} />
+        <YearSelector
+          minYear={MIN_YEAR}
+          maxYear={MAX_YEAR}
+          selectedYear={selectedYear}
+          onChange={(e) => {
+            onYearChange(e);
+          }}
+        />
       </div>
       {stats && (
         <table className="min-w-full divide-y-2 divide-primary-dark">
@@ -50,7 +65,7 @@ function MainPage() {
           </thead>
           <tbody className="divide-y divide-grey">
             {stats.map((v, i) => {
-              const lastYearStats = v.data[v.data.length - 1];
+              const selectedYearStats = v.yearMap.get(selectedYear);
               return (
                 <tr key={i}>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
@@ -60,23 +75,23 @@ function MainPage() {
                     {v.iso_code ?? 'N/A'}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                    {lastYearStats.year}
+                    {selectedYear}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                    {format(lastYearStats.population)}
+                    {format(selectedYearStats?.population)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                    {format(lastYearStats.co2, 2)}
+                    {format(selectedYearStats?.co2, 2)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                    {format(lastYearStats.co2_per_capita, 2)}
+                    {format(selectedYearStats?.co2_per_capita, 2)}
                   </td>
                   {Array.from(selectedColumns).map((key) => (
                     <td
                       key={key}
                       className="px-6 py-4 whitespace-nowrap text-sm font-medium"
                     >
-                      {format(lastYearStats[key], 2)}
+                      {format(selectedYearStats?.key, 2)}
                     </td>
                   ))}
                 </tr>

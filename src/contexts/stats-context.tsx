@@ -1,8 +1,10 @@
-import type { CountryEmissionStats } from '@/types';
+import type { CountryEmissionStats, YearEmissionStats } from '@/types';
 import { createContext, useContext } from 'react';
 
 export const StatsContext = createContext<{
-  stats: CountryEmissionStats[] | null;
+  stats:
+    | (CountryEmissionStats & { yearMap: Map<number, YearEmissionStats> })[]
+    | null;
 }>({
   stats: null,
 });
