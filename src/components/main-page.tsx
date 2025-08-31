@@ -29,7 +29,6 @@ function MainPage() {
   const [sortOrder, setSortOrder] = useState<SortOrder>('');
 
   useEffect(() => {
-    console.log(searchTerm, sortColumn, sortOrder, selectedYear);
     const base = stats ?? [];
     const filteredStats = base.filter((stat) =>
       stat.countryName.toLowerCase().includes(searchTerm.trim().toLowerCase())
