@@ -1,7 +1,7 @@
 import { useStats } from '@/contexts/stats-context';
 import type { OptionalColumns } from '@/types';
 import format from '@/utils/format';
-import { useState, type ChangeEvent } from 'react';
+import { useEffect, useState, type ChangeEvent } from 'react';
 import Portal from '@components/portal';
 import { OPTIONAL_COLUMNS } from '@/constants';
 import YearSelector from '@components/year-selector';
@@ -14,6 +14,7 @@ const MAX_YEAR = 2023;
 
 function MainPage() {
   const { stats } = useStats();
+  const [filteredStats, setFilteredStats] = useState(stats);
   const [selectedColumns, setSelectedColumns] = useState<Set<OptionalColumns>>(
     new Set()
   );
@@ -22,6 +23,10 @@ function MainPage() {
 
   const [searchTerm, setSearchTerm] = useState('');
 
+  useEffect(() => {
+    onSearchClick();
+  }, [stats]);
+
   const onYearChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setPrevYear(selectedYear);
     setSelectedYear(+e.target.value);
@@ -29,6 +34,17 @@ function MainPage() {
 
   const onSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
+  };
+
+  const onSearchClick = () => {
+    if (stats === null) {
+      return;
+    }
+    setFilteredStats(
+      stats.filter((stat) =>
+        stat.countryName.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    );
   };
 
   return (
@@ -48,7 +64,7 @@ function MainPage() {
         />
         <SearchBar
           searchTerm={searchTerm}
-          onClick={() => console.log(searchTerm)}
+          onClick={onSearchClick}
           onChange={onSearchChange}
         />
       </div>
@@ -79,7 +95,7 @@ function MainPage() {
             </tr>
           </thead>
           <tbody className="divide-y divide-grey">
-            {stats.map((v, i) => {
+            {(filteredStats ?? []).map((v, i) => {
               const selectedYearStats = v.yearMap.get(selectedYear);
               const prevYearStats = v.yearMap.get(prevYear);
               return (
