@@ -112,23 +112,14 @@ function MainPage() {
         <table className="min-w-full divide-y-2 divide-primary-dark">
           <thead>
             <tr>
-              <th className="px-6 py-3 text-start text-lg font-medium">
-                Country/Region
-              </th>
-              <th className="px-6 py-3 text-start text-lg font-medium">ISO</th>
-              <th className="px-6 py-3 text-start text-lg font-medium">Year</th>
-              <th className="px-6 py-3 text-start text-lg font-medium">
-                Population
-              </th>
-              <th className="px-6 py-3 text-start text-lg font-medium">CO2</th>
-              <th className="px-6 py-3 text-start text-lg font-medium">
-                CO2 per capita
-              </th>
+              <th className="px-6 py-3 text-lg font-medium">Country/Region</th>
+              <th className="px-6 py-3 text-lg font-medium">ISO</th>
+              <th className="px-6 py-3 text-lg font-medium">Year</th>
+              <th className="px-6 py-3 text-lg font-medium">Population</th>
+              <th className="px-6 py-3 text-lg font-medium">CO2</th>
+              <th className="px-6 py-3 text-lg font-medium">CO2 per capita</th>
               {Array.from(selectedColumns).map((key) => (
-                <th
-                  key={key}
-                  className="px-6 py-3 text-start text-lg font-medium"
-                >
+                <th key={key} className="px-6 py-3 text-lg font-medium">
                   {OPTIONAL_COLUMNS[key]}
                 </th>
               ))}
@@ -140,7 +131,7 @@ function MainPage() {
               const prevYearStats = v.yearMap.get(prevYear);
               return (
                 <tr key={i}>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                  <td className="px-6 py-4 text-start whitespace-nowrap text-sm font-medium">
                     {v.countryName}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
