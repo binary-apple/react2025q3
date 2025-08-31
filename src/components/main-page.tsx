@@ -1,5 +1,5 @@
 import { useStats } from '@/contexts/stats-context';
-import type { OptionalColumns } from '@/types';
+import type { SortColumn, OptionalColumns, SortOrder } from '@/types';
 import format from '@/utils/format';
 import { useEffect, useState, type ChangeEvent } from 'react';
 import Portal from '@components/portal';
@@ -24,6 +24,9 @@ function MainPage() {
 
   const [searchTerm, setSearchTerm] = useState('');
 
+  const [sortColumn, setSortColumn] = useState<SortColumn>('');
+  const [sortOrder, setSortOrder] = useState<SortOrder>('');
+
   useEffect(() => {
     onSearchClick();
   }, [stats]);
@@ -35,6 +38,46 @@ function MainPage() {
 
   const onSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
+  };
+
+  const onSortChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const sortValue = e.target.value;
+    const [newSortColumn, newSortOrder] = sortValue.split('_');
+
+    const column = (newSortColumn as SortColumn) ?? '';
+    const order = (newSortOrder as SortOrder) ?? '';
+
+    setSortColumn(column);
+    setSortOrder(order);
+
+    if (column === '' || order === '') {
+      setFilteredStats(stats);
+      return;
+    }
+
+    const sortedStats = (filteredStats ?? []).sort((a, b) => {
+      if (column === 'name') {
+        return (
+          a.countryName.localeCompare(b.countryName) *
+          (order === 'asc' ? 1 : -1)
+        );
+      }
+
+      if (column === 'population') {
+        const aPopulation = a.yearMap.get(selectedYear)?.population;
+        const bPopulation = b.yearMap.get(selectedYear)?.population;
+
+        if (!aPopulation && !bPopulation) return 0;
+        if (!aPopulation) return 1;
+        if (!bPopulation) return -1;
+
+        return (aPopulation - bPopulation) * (order === 'asc' ? 1 : -1);
+      }
+
+      return 0;
+    });
+
+    setFilteredStats(sortedStats);
   };
 
   const onSearchClick = () => {
@@ -68,7 +111,11 @@ function MainPage() {
           onClick={onSearchClick}
           onChange={onSearchChange}
         />
-        <SortSelector />
+        <SortSelector
+          sortColumn={sortColumn}
+          sortOrder={sortOrder}
+          onChange={onSortChange}
+        />
       </div>
       {stats && (
         <table className="min-w-full divide-y-2 divide-primary-dark">

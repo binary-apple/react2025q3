@@ -28,4 +28,4 @@ export type OptionalColumns =
   | 'temperature_change_from_co2';
 
 export type SortOrder = (typeof SORT_OPTIONS)[number]['order'];
-export type SortColunm = (typeof SORT_OPTIONS)[number]['column'];
+export type SortColumn = (typeof SORT_OPTIONS)[number]['column'];
