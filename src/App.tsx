@@ -1,4 +1,6 @@
 import MainPage from '@components/main-page';
+import { Suspense } from 'react';
+import Loader from './components/loader';
 
 function App() {
   return (
@@ -7,7 +9,9 @@ function App() {
         <h1 className="text-5xl font-bold py-2">React performance</h1>
         <h2 className="text-5xl font-bold py-2">CO2 Emissions</h2>
       </header>
-      <MainPage />
+      <Suspense fallback={<Loader />}>
+        <MainPage />
+      </Suspense>
     </>
   );
 }

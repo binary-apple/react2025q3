@@ -32,3 +32,22 @@ export const getData: () => Promise<
 
   return result;
 };
+
+function createStatsReader() {
+  let data: (CountryEmissionStats & {
+    yearMap: Map<number, YearEmissionStats>;
+  })[];
+  const promise = getData().then((res) => {
+    data = res;
+  });
+
+  return {
+    read() {
+      if (!data) {
+        throw promise;
+      }
+      return data;
+    },
+  };
+}
+export const statsReader = createStatsReader();

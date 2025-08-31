@@ -1,4 +1,3 @@
-import { useStats } from '@/contexts/stats-context';
 import type { SortColumn, OptionalColumns, SortOrder } from '@/types';
 import format from '@/utils/format';
 import { useEffect, useState, type ChangeEvent } from 'react';
@@ -8,13 +7,14 @@ import YearSelector from '@components/year-selector';
 import { twMerge } from 'tailwind-merge';
 import SearchBar from '@components/search-bar';
 import SortSelector from './sort-selector';
+import { statsReader } from '@/services/api';
 
 // TODO: get years range from fetching api
 const MIN_YEAR = 1750;
 const MAX_YEAR = 2023;
 
 function MainPage() {
-  const { stats } = useStats();
+  const stats = statsReader.read();
   const [statsToDisplay, setStatsToDisplay] = useState(stats ?? []);
   const [selectedColumns, setSelectedColumns] = useState<Set<OptionalColumns>>(
     new Set()
