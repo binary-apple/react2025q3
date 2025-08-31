@@ -1,3 +1,5 @@
+import type { SORT_OPTIONS } from '@/constants';
+
 export type YearEmissionStats = {
   year: number;
   population?: number;
@@ -24,3 +26,6 @@ export type OptionalColumns =
   | 'methane'
   | 'oil_co2'
   | 'temperature_change_from_co2';
+
+export type SortOrder = (typeof SORT_OPTIONS)[number]['order'];
+export type SortColunm = (typeof SORT_OPTIONS)[number]['column'];

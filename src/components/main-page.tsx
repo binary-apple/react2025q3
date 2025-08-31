@@ -7,6 +7,7 @@ import { OPTIONAL_COLUMNS } from '@/constants';
 import YearSelector from '@components/year-selector';
 import { twMerge } from 'tailwind-merge';
 import SearchBar from '@components/search-bar';
+import SortSelector from './sort-selector';
 
 // TODO: get years range from fetching api
 const MIN_YEAR = 1750;
@@ -67,6 +68,7 @@ function MainPage() {
           onClick={onSearchClick}
           onChange={onSearchChange}
         />
+        <SortSelector />
       </div>
       {stats && (
         <table className="min-w-full divide-y-2 divide-primary-dark">
