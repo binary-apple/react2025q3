@@ -91,7 +91,7 @@ function MainPage() {
                       key={key}
                       className="px-6 py-4 whitespace-nowrap text-sm font-medium"
                     >
-                      {format(selectedYearStats?.key, 2)}
+                      {format(selectedYearStats?.[key], 2)}
                     </td>
                   ))}
                 </tr>
