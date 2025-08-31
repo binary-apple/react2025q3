@@ -1,6 +1,6 @@
 import type { SortColumn, OptionalColumns, SortOrder } from '@/types';
 import format from '@/utils/format';
-import { useCallback, useEffect, useState, type ChangeEvent } from 'react';
+import { useCallback, useMemo, useState, type ChangeEvent } from 'react';
 import Portal from '@components/portal';
 import { OPTIONAL_COLUMNS } from '@/constants';
 import YearSelector from '@components/year-selector';
@@ -15,7 +15,6 @@ const MAX_YEAR = 2023;
 
 function MainPage() {
   const stats = statsReader.read();
-  const [statsToDisplay, setStatsToDisplay] = useState(stats ?? []);
   const [selectedColumns, setSelectedColumns] = useState<Set<OptionalColumns>>(
     new Set()
   );
@@ -28,18 +27,17 @@ function MainPage() {
   const [sortColumn, setSortColumn] = useState<SortColumn>('');
   const [sortOrder, setSortOrder] = useState<SortOrder>('');
 
-  useEffect(() => {
+  const statsToDisplay = useMemo(() => {
     const base = stats ?? [];
     const filteredStats = base.filter((stat) =>
       stat.countryName.toLowerCase().includes(searchTerm.trim().toLowerCase())
     );
 
     if (sortOrder === '' || sortColumn === '') {
-      setStatsToDisplay(filteredStats);
-      return;
+      return filteredStats;
     }
 
-    const sortedStats = (filteredStats ?? []).sort((a, b) => {
+    return filteredStats.sort((a, b) => {
       if (sortColumn === 'name') {
         return (
           a.countryName.localeCompare(b.countryName) *
@@ -60,8 +58,6 @@ function MainPage() {
 
       return 0;
     });
-
-    setStatsToDisplay(sortedStats);
   }, [stats, searchTerm, sortColumn, sortOrder, selectedYear]);
 
   const onYearChange = useCallback(
