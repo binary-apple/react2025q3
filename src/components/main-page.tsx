@@ -5,6 +5,7 @@ import { useState, type ChangeEvent } from 'react';
 import Portal from './portal';
 import { OPTIONAL_COLUMNS } from '@/constants';
 import YearSelector from './year-selector';
+import { twMerge } from 'tailwind-merge';
 
 // TODO: get years range from fetching api
 const MIN_YEAR = 1750;
@@ -16,8 +17,10 @@ function MainPage() {
     new Set()
   );
   const [selectedYear, setSelectedYear] = useState(MAX_YEAR);
+  const [prevYear, setPrevYear] = useState(MAX_YEAR);
 
   const onYearChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    setPrevYear(selectedYear);
     setSelectedYear(+e.target.value);
   };
 
@@ -66,6 +69,7 @@ function MainPage() {
           <tbody className="divide-y divide-grey">
             {stats.map((v, i) => {
               const selectedYearStats = v.yearMap.get(selectedYear);
+              const prevYearStats = v.yearMap.get(prevYear);
               return (
                 <tr key={i}>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
@@ -77,19 +81,49 @@ function MainPage() {
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     {selectedYear}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                  <td
+                    className={twMerge(
+                      'px-6 py-4 whitespace-nowrap text-sm font-medium',
+                      selectedYearStats?.population !==
+                        prevYearStats?.population
+                        ? 'text-shadow-lg text-shadow-primary-dark'
+                        : ''
+                    )}
+                  >
                     {format(selectedYearStats?.population)}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                  <td
+                    className={twMerge(
+                      'px-6 py-4 whitespace-nowrap text-sm font-medium',
+                      format(selectedYearStats?.co2, 2) !==
+                        format(prevYearStats?.co2, 2)
+                        ? 'text-shadow-lg text-shadow-primary-dark'
+                        : ''
+                    )}
+                  >
                     {format(selectedYearStats?.co2, 2)}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                  <td
+                    className={twMerge(
+                      'px-6 py-4 whitespace-nowrap text-sm font-medium',
+                      format(selectedYearStats?.co2_per_capita, 2) !==
+                        format(prevYearStats?.co2_per_capita, 2)
+                        ? 'text-shadow-lg text-shadow-primary-dark'
+                        : ''
+                    )}
+                  >
                     {format(selectedYearStats?.co2_per_capita, 2)}
                   </td>
                   {Array.from(selectedColumns).map((key) => (
                     <td
                       key={key}
-                      className="px-6 py-4 whitespace-nowrap text-sm font-medium"
+                      className={twMerge(
+                        'px-6 py-4 whitespace-nowrap text-sm font-medium',
+                        format(selectedYearStats?.[key], 2) !==
+                          format(prevYearStats?.[key], 2)
+                          ? 'text-shadow-lg text-shadow-primary-dark'
+                          : ''
+                      )}
                     >
                       {format(selectedYearStats?.[key], 2)}
                     </td>
