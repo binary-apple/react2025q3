@@ -1,6 +1,6 @@
 import type { SortColumn, OptionalColumns, SortOrder } from '@/types';
 import format from '@/utils/format';
-import { useEffect, useState, type ChangeEvent } from 'react';
+import { useCallback, useEffect, useState, type ChangeEvent } from 'react';
 import Portal from '@components/portal';
 import { OPTIONAL_COLUMNS } from '@/constants';
 import YearSelector from '@components/year-selector';
@@ -64,26 +64,29 @@ function MainPage() {
     setStatsToDisplay(sortedStats);
   }, [stats, searchTerm, sortColumn, sortOrder, selectedYear]);
 
-  const onYearChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setPrevYear(selectedYear);
-    setSelectedYear(+e.target.value);
-  };
+  const onYearChange = useCallback(
+    (e: ChangeEvent<HTMLSelectElement>) => {
+      setPrevYear(selectedYear);
+      setSelectedYear(+e.target.value);
+    },
+    [selectedYear]
+  );
 
-  const onSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const onSearchChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value);
-  };
+  }, []);
 
-  const onSortChange = (e: ChangeEvent<HTMLSelectElement>) => {
+  const onSortChange = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
     const sortValue = e.target.value;
     const [newSortColumn, newSortOrder] = sortValue.split('_');
 
     setSortColumn((newSortColumn as SortColumn) ?? '');
     setSortOrder((newSortOrder as SortOrder) ?? '');
-  };
+  }, []);
 
-  const onSearchClick = () => {
+  const onSearchClick = useCallback(() => {
     setSearchTerm(searchInput);
-  };
+  }, [searchInput]);
 
   return (
     <main className="flex flex-col gap-2">
@@ -96,9 +99,7 @@ function MainPage() {
           minYear={MIN_YEAR}
           maxYear={MAX_YEAR}
           selectedYear={selectedYear}
-          onChange={(e) => {
-            onYearChange(e);
-          }}
+          onChange={onYearChange}
         />
         <SearchBar
           searchInput={searchInput}

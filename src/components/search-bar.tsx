@@ -12,7 +12,7 @@ function SearchBar({ searchInput, onChange, onClick }: Props) {
   return (
     <div className="flex gap-2">
       <input
-        onChange={(e) => onChange(e)}
+        onChange={onChange}
         value={searchInput}
         placeholder="Enter country name..."
         className={twMerge(
