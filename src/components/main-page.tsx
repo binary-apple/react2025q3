@@ -13,6 +13,9 @@ import { statsReader } from '@/services/api';
 const MIN_YEAR = 1750;
 const MAX_YEAR = 2023;
 
+const TH_CLASSES = 'px-6 py-3 text-lg font-medium';
+const TD_CLASSES = 'px-6 py-4 whitespace-nowrap text-sm font-medium';
+
 function MainPage() {
   const stats = statsReader.read();
   const [selectedColumns, setSelectedColumns] = useState<Set<OptionalColumns>>(
@@ -112,14 +115,14 @@ function MainPage() {
         <table className="min-w-full divide-y-2 divide-primary-dark">
           <thead>
             <tr>
-              <th className="px-6 py-3 text-lg font-medium">Country/Region</th>
-              <th className="px-6 py-3 text-lg font-medium">ISO</th>
-              <th className="px-6 py-3 text-lg font-medium">Year</th>
-              <th className="px-6 py-3 text-lg font-medium">Population</th>
-              <th className="px-6 py-3 text-lg font-medium">CO2</th>
-              <th className="px-6 py-3 text-lg font-medium">CO2 per capita</th>
+              <th className={TH_CLASSES}>Country/Region</th>
+              <th className={TH_CLASSES}>ISO</th>
+              <th className={TH_CLASSES}>Year</th>
+              <th className={TH_CLASSES}>Population</th>
+              <th className={TH_CLASSES}>CO2</th>
+              <th className={TH_CLASSES}>CO2 per capita</th>
               {Array.from(selectedColumns).map((key) => (
-                <th key={key} className="px-6 py-3 text-lg font-medium">
+                <th key={key} className={TH_CLASSES}>
                   {OPTIONAL_COLUMNS[key]}
                 </th>
               ))}
@@ -131,18 +134,12 @@ function MainPage() {
               const prevYearStats = v.yearMap.get(prevYear);
               return (
                 <tr key={i}>
-                  <td className="px-6 py-4 text-start whitespace-nowrap text-sm font-medium">
-                    {v.countryName}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                    {v.iso_code ?? 'N/A'}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                    {selectedYear}
-                  </td>
+                  <td className={TD_CLASSES}>{v.countryName}</td>
+                  <td className={TD_CLASSES}>{v.iso_code ?? 'N/A'}</td>
+                  <td className={TD_CLASSES}>{selectedYear}</td>
                   <td
                     className={twMerge(
-                      'px-6 py-4 whitespace-nowrap text-sm font-medium',
+                      TD_CLASSES,
                       selectedYearStats?.population !==
                         prevYearStats?.population
                         ? 'text-shadow-lg text-shadow-primary-dark'
@@ -153,7 +150,7 @@ function MainPage() {
                   </td>
                   <td
                     className={twMerge(
-                      'px-6 py-4 whitespace-nowrap text-sm font-medium',
+                      TD_CLASSES,
                       format(selectedYearStats?.co2, 2) !==
                         format(prevYearStats?.co2, 2)
                         ? 'text-shadow-lg text-shadow-primary-dark'
@@ -164,7 +161,7 @@ function MainPage() {
                   </td>
                   <td
                     className={twMerge(
-                      'px-6 py-4 whitespace-nowrap text-sm font-medium',
+                      TD_CLASSES,
                       format(selectedYearStats?.co2_per_capita, 2) !==
                         format(prevYearStats?.co2_per_capita, 2)
                         ? 'text-shadow-lg text-shadow-primary-dark'
@@ -177,7 +174,7 @@ function MainPage() {
                     <td
                       key={key}
                       className={twMerge(
-                        'px-6 py-4 whitespace-nowrap text-sm font-medium',
+                        TD_CLASSES,
                         format(selectedYearStats?.[key], 2) !==
                           format(prevYearStats?.[key], 2)
                           ? 'text-shadow-lg text-shadow-primary-dark'
