@@ -3,17 +3,17 @@ import Button from '@components/button';
 import { twMerge } from 'tailwind-merge';
 
 type Props = {
-  searchTerm: string;
+  searchInput: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   onClick: VoidFunction;
 };
 
-function SearchBar({ searchTerm, onChange, onClick }: Props) {
+function SearchBar({ searchInput, onChange, onClick }: Props) {
   return (
     <div className="flex gap-2">
       <input
         onChange={(e) => onChange(e)}
-        value={searchTerm}
+        value={searchInput}
         placeholder="Enter country name..."
         className={twMerge(
           'cursor-pointer rounded-md border-2 font-bold',

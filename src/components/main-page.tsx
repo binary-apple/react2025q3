@@ -15,7 +15,7 @@ const MAX_YEAR = 2023;
 
 function MainPage() {
   const { stats } = useStats();
-  const [filteredStats, setFilteredStats] = useState(stats);
+  const [statsToDisplay, setStatsToDisplay] = useState(stats ?? []);
   const [selectedColumns, setSelectedColumns] = useState<Set<OptionalColumns>>(
     new Set()
   );
@@ -23,47 +23,32 @@ function MainPage() {
   const [prevYear, setPrevYear] = useState(MAX_YEAR);
 
   const [searchTerm, setSearchTerm] = useState('');
+  const [searchInput, setSearchInput] = useState('');
 
   const [sortColumn, setSortColumn] = useState<SortColumn>('');
   const [sortOrder, setSortOrder] = useState<SortOrder>('');
 
   useEffect(() => {
-    onSearchClick();
-  }, [stats]);
+    console.log(searchTerm, sortColumn, sortOrder, selectedYear);
+    const base = stats ?? [];
+    const filteredStats = base.filter((stat) =>
+      stat.countryName.toLowerCase().includes(searchTerm.trim().toLowerCase())
+    );
 
-  const onYearChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setPrevYear(selectedYear);
-    setSelectedYear(+e.target.value);
-  };
-
-  const onSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value);
-  };
-
-  const onSortChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const sortValue = e.target.value;
-    const [newSortColumn, newSortOrder] = sortValue.split('_');
-
-    const column = (newSortColumn as SortColumn) ?? '';
-    const order = (newSortOrder as SortOrder) ?? '';
-
-    setSortColumn(column);
-    setSortOrder(order);
-
-    if (column === '' || order === '') {
-      setFilteredStats(stats);
+    if (sortOrder === '' || sortColumn === '') {
+      setStatsToDisplay(filteredStats);
       return;
     }
 
     const sortedStats = (filteredStats ?? []).sort((a, b) => {
-      if (column === 'name') {
+      if (sortColumn === 'name') {
         return (
           a.countryName.localeCompare(b.countryName) *
-          (order === 'asc' ? 1 : -1)
+          (sortOrder === 'asc' ? 1 : -1)
         );
       }
 
-      if (column === 'population') {
+      if (sortColumn === 'population') {
         const aPopulation = a.yearMap.get(selectedYear)?.population;
         const bPopulation = b.yearMap.get(selectedYear)?.population;
 
@@ -71,24 +56,34 @@ function MainPage() {
         if (!aPopulation) return 1;
         if (!bPopulation) return -1;
 
-        return (aPopulation - bPopulation) * (order === 'asc' ? 1 : -1);
+        return (aPopulation - bPopulation) * (sortOrder === 'asc' ? 1 : -1);
       }
 
       return 0;
     });
 
-    setFilteredStats(sortedStats);
+    setStatsToDisplay(sortedStats);
+  }, [stats, searchTerm, sortColumn, sortOrder, selectedYear]);
+
+  const onYearChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    setPrevYear(selectedYear);
+    setSelectedYear(+e.target.value);
+  };
+
+  const onSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchInput(e.target.value);
+  };
+
+  const onSortChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const sortValue = e.target.value;
+    const [newSortColumn, newSortOrder] = sortValue.split('_');
+
+    setSortColumn((newSortColumn as SortColumn) ?? '');
+    setSortOrder((newSortOrder as SortOrder) ?? '');
   };
 
   const onSearchClick = () => {
-    if (stats === null) {
-      return;
-    }
-    setFilteredStats(
-      stats.filter((stat) =>
-        stat.countryName.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    );
+    setSearchTerm(searchInput);
   };
 
   return (
@@ -107,7 +102,7 @@ function MainPage() {
           }}
         />
         <SearchBar
-          searchTerm={searchTerm}
+          searchInput={searchInput}
           onClick={onSearchClick}
           onChange={onSearchChange}
         />
@@ -144,7 +139,7 @@ function MainPage() {
             </tr>
           </thead>
           <tbody className="divide-y divide-grey">
-            {(filteredStats ?? []).map((v, i) => {
+            {statsToDisplay.map((v, i) => {
               const selectedYearStats = v.yearMap.get(selectedYear);
               const prevYearStats = v.yearMap.get(prevYear);
               return (
