@@ -1,7 +1,7 @@
 import Button from '@components/button';
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
-import ModalContent from './modal-content';
+import ModalContent from '@components/modal-content';
 import type { OptionalColumns } from '@/types';
 
 type Props = {

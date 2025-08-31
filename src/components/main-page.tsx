@@ -2,10 +2,11 @@ import { useStats } from '@/contexts/stats-context';
 import type { OptionalColumns } from '@/types';
 import format from '@/utils/format';
 import { useState, type ChangeEvent } from 'react';
-import Portal from './portal';
+import Portal from '@components/portal';
 import { OPTIONAL_COLUMNS } from '@/constants';
-import YearSelector from './year-selector';
+import YearSelector from '@components/year-selector';
 import { twMerge } from 'tailwind-merge';
+import SearchBar from '@components/search-bar';
 
 // TODO: get years range from fetching api
 const MIN_YEAR = 1750;
@@ -19,9 +20,15 @@ function MainPage() {
   const [selectedYear, setSelectedYear] = useState(MAX_YEAR);
   const [prevYear, setPrevYear] = useState(MAX_YEAR);
 
+  const [searchTerm, setSearchTerm] = useState('');
+
   const onYearChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setPrevYear(selectedYear);
     setSelectedYear(+e.target.value);
+  };
+
+  const onSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
   };
 
   return (
@@ -38,6 +45,11 @@ function MainPage() {
           onChange={(e) => {
             onYearChange(e);
           }}
+        />
+        <SearchBar
+          searchTerm={searchTerm}
+          onClick={() => console.log(searchTerm)}
+          onChange={onSearchChange}
         />
       </div>
       {stats && (
