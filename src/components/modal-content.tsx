@@ -1,6 +1,7 @@
 import { OPTIONAL_COLUMNS } from '@/constants';
 import type { OptionalColumns } from '@/types';
 import Button from '@components/button';
+import { useCallback, useMemo } from 'react';
 
 type Props = {
   onClose: VoidFunction;
@@ -11,17 +12,25 @@ type Props = {
 };
 
 function ModalContent({ onClose, selectedColumns, setSelectedColumns }: Props) {
-  const onCheck = (value: OptionalColumns) => {
-    setSelectedColumns((prev) => {
-      const s = new Set(prev);
-      if (s.has(value)) {
-        s.delete(value);
-      } else {
-        s.add(value);
-      }
-      return s;
-    });
-  };
+  const entries = useMemo(
+    () => Object.entries(OPTIONAL_COLUMNS) as [OptionalColumns, string][],
+    []
+  );
+
+  const onCheck = useCallback(
+    (value: OptionalColumns) => {
+      setSelectedColumns((prev) => {
+        const s = new Set(prev);
+        if (s.has(value)) {
+          s.delete(value);
+        } else {
+          s.add(value);
+        }
+        return s;
+      });
+    },
+    [setSelectedColumns]
+  );
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center select-none">
@@ -39,9 +48,7 @@ function ModalContent({ onClose, selectedColumns, setSelectedColumns }: Props) {
         <div className="flex flex-col gap-2 justify-evenly items-center w-full h-full p-5">
           <h3>Select additional columns</h3>
           <ul className="flex flex-col gap-2">
-            {(
-              Object.entries(OPTIONAL_COLUMNS) as [OptionalColumns, string][]
-            ).map(([key, label]) => {
+            {entries.map(([key, label]) => {
               const checked = selectedColumns.has(key);
               return (
                 <li key={key} className="flex gap-2">
